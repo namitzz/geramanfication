@@ -3,6 +3,7 @@ import Layout from './components/layout/Layout';
 import HomePage from './pages/HomePage';
 import LearnPage from './pages/LearnPage';
 import DeckPage from './pages/DeckPage';
+import ReviewPage from './pages/ReviewPage';
 import GrammarPage from './pages/GrammarPage';
 import ProgressPage from './pages/ProgressPage';
 import SettingsPage from './pages/SettingsPage';
@@ -26,6 +27,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/learn" element={<LearnPage />} />
           <Route path="/deck/:deckId" element={<DeckPage />} />
+          <Route path="/review" element={<ReviewPage />} />
           <Route path="/grammar" element={<GrammarPage />} />
           <Route path="/progress" element={<ProgressPage />} />
           <Route path="/settings" element={<SettingsPage />} />
