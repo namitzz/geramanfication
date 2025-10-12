@@ -1,0 +1,482 @@
+[
+  {
+    "id": "greet_guten_morgen",
+    "de": "Guten Morgen",
+    "en": "Good morning",
+    "topic": "greetings",
+    "notes": "Formal morning greeting.",
+    "type": "phrase"
+  },
+  {
+    "id": "greet_guten_tag",
+    "de": "Guten Tag",
+    "en": "Good day",
+    "topic": "greetings",
+    "notes": "Universal formal greeting.",
+    "type": "phrase"
+  },
+  {
+    "id": "greet_guten_abend",
+    "de": "Guten Abend",
+    "en": "Good evening",
+    "topic": "greetings",
+    "notes": "Formal evening greeting.",
+    "type": "phrase"
+  },
+  {
+    "id": "greet_hallo",
+    "de": "Hallo",
+    "en": "Hello",
+    "topic": "greetings",
+    "notes": "Casual greeting.",
+    "type": "phrase"
+  },
+  {
+    "id": "greet_tschuss",
+    "de": "Tschüss",
+    "en": "Bye",
+    "topic": "greetings",
+    "notes": "Casual goodbye. Note the ü pronunciation.",
+    "type": "phrase"
+  },
+  {
+    "id": "greet_auf_wiedersehen",
+    "de": "Auf Wiedersehen",
+    "en": "Goodbye",
+    "topic": "greetings",
+    "notes": "Formal goodbye.",
+    "type": "phrase"
+  },
+  {
+    "id": "intro_ich_bin",
+    "de": "Ich bin",
+    "en": "I am",
+    "topic": "introductions",
+    "notes": "Basic introduction phrase.",
+    "type": "grammar"
+  },
+  {
+    "id": "intro_ich_heisse",
+    "de": "Ich heiße",
+    "en": "My name is / I am called",
+    "topic": "introductions",
+    "notes": "Note the ß (eszett) pronunciation like 'ss'.",
+    "type": "phrase"
+  },
+  {
+    "id": "intro_ich_bin_englander",
+    "de": "Ich bin Engländer",
+    "en": "I am English (male)",
+    "topic": "introductions",
+    "notes": "Masculine form. Note ä pronunciation.",
+    "type": "phrase"
+  },
+  {
+    "id": "intro_ich_bin_englanderin",
+    "de": "Ich bin Engländerin",
+    "en": "I am English (female)",
+    "topic": "introductions",
+    "notes": "Feminine -in suffix.",
+    "type": "grammar"
+  },
+  {
+    "id": "where_woher_kommen_sie",
+    "de": "Woher kommen Sie?",
+    "en": "Where do you come from? (formal)",
+    "topic": "where_from",
+    "notes": "Formal question using 'Sie'.",
+    "type": "phrase"
+  },
+  {
+    "id": "where_woher_kommst_du",
+    "de": "Woher kommst du?",
+    "en": "Where do you come from? (informal)",
+    "topic": "where_from",
+    "notes": "Informal question using 'du'.",
+    "type": "phrase"
+  },
+  {
+    "id": "where_ich_komme_aus",
+    "de": "Ich komme aus",
+    "en": "I come from",
+    "topic": "where_from",
+    "notes": "Use with country names.",
+    "type": "phrase"
+  },
+  {
+    "id": "where_wo_wohnst_du",
+    "de": "Wo wohnst du?",
+    "en": "Where do you live?",
+    "topic": "where_from",
+    "notes": "Asking about residence.",
+    "type": "phrase"
+  },
+  {
+    "id": "where_ich_wohne_in",
+    "de": "Ich wohne in",
+    "en": "I live in",
+    "topic": "where_from",
+    "notes": "Use with city names.",
+    "type": "phrase"
+  },
+  {
+    "id": "talk_wie_geht_es_dir",
+    "de": "Wie geht es dir?",
+    "en": "How are you? (informal)",
+    "topic": "smalltalk",
+    "notes": "Informal form.",
+    "type": "phrase"
+  },
+  {
+    "id": "talk_wie_geht_es_ihnen",
+    "de": "Wie geht es Ihnen?",
+    "en": "How are you? (formal)",
+    "topic": "smalltalk",
+    "notes": "Formal form with capital 'Ihnen'.",
+    "type": "phrase"
+  },
+  {
+    "id": "talk_geht_es_dir_gut",
+    "de": "Geht es dir gut?",
+    "en": "Are you okay?",
+    "topic": "smalltalk",
+    "notes": "Showing concern.",
+    "type": "phrase"
+  },
+  {
+    "id": "talk_mir_geht_es_gut",
+    "de": "Mir geht es gut",
+    "en": "I'm fine",
+    "topic": "smalltalk",
+    "notes": "Standard response.",
+    "type": "phrase"
+  },
+  {
+    "id": "talk_danke",
+    "de": "Danke",
+    "en": "Thank you",
+    "topic": "smalltalk",
+    "notes": "Basic thanks.",
+    "type": "phrase"
+  },
+  {
+    "id": "talk_bitte",
+    "de": "Bitte",
+    "en": "Please / You're welcome",
+    "topic": "smalltalk",
+    "notes": "Multi-purpose polite word.",
+    "type": "phrase"
+  },
+  {
+    "id": "talk_entschuldigung",
+    "de": "Entschuldigung",
+    "en": "Excuse me / Sorry",
+    "topic": "smalltalk",
+    "notes": "For apologies or getting attention.",
+    "type": "phrase"
+  },
+  {
+    "id": "pron_eszett",
+    "de": "ß",
+    "en": "sharp s",
+    "topic": "pronunciation",
+    "notes": "Pronounced like 'ss'. Example: heiße, Straße.",
+    "type": "pronunciation"
+  },
+  {
+    "id": "pron_ch_soft",
+    "de": "ich",
+    "en": "I",
+    "topic": "pronunciation",
+    "notes": "Soft 'ch' sound (like whispered 'sh'). After e, i, ä, ö, ü.",
+    "type": "pronunciation"
+  },
+  {
+    "id": "pron_ch_hard",
+    "de": "ach",
+    "en": "oh",
+    "topic": "pronunciation",
+    "notes": "Hard 'ch' sound (guttural). After a, o, u.",
+    "type": "pronunciation"
+  },
+  {
+    "id": "pron_umlaut_a",
+    "de": "ä",
+    "en": "a-umlaut",
+    "topic": "pronunciation",
+    "notes": "Pronounced like 'eh' in 'bed'. Example: Mädchen.",
+    "type": "pronunciation"
+  },
+  {
+    "id": "pron_umlaut_o",
+    "de": "ö",
+    "en": "o-umlaut",
+    "topic": "pronunciation",
+    "notes": "Round lips and say 'eh'. Example: schön.",
+    "type": "pronunciation"
+  },
+  {
+    "id": "pron_umlaut_u",
+    "de": "ü",
+    "en": "u-umlaut",
+    "topic": "pronunciation",
+    "notes": "Round lips and say 'ee'. Example: Tür.",
+    "type": "pronunciation"
+  },
+  {
+    "id": "case_nominativ",
+    "de": "Nominativ",
+    "en": "Nominative case",
+    "topic": "cases",
+    "notes": "Subject case: der/die/das. Example: Der Mann ist groß.",
+    "type": "grammar"
+  },
+  {
+    "id": "case_akkusativ",
+    "de": "Akkusativ",
+    "en": "Accusative case",
+    "topic": "cases",
+    "notes": "Direct object: den/die/das. Example: Ich sehe den Mann.",
+    "type": "grammar"
+  },
+  {
+    "id": "case_dativ",
+    "de": "Dativ",
+    "en": "Dative case",
+    "topic": "cases",
+    "notes": "Indirect object: dem/der/dem. Example: Ich helfe dem Mann.",
+    "type": "grammar"
+  },
+  {
+    "id": "case_genitiv",
+    "de": "Genitiv",
+    "en": "Genitive case",
+    "topic": "cases",
+    "notes": "Possession: des/der/des. Example: Das Auto des Mannes.",
+    "type": "grammar"
+  },
+  {
+    "id": "verb_sein",
+    "de": "sein",
+    "en": "to be",
+    "topic": "verbs",
+    "notes": "Irregular verb: ich bin, du bist, er/sie/es ist.",
+    "type": "grammar"
+  },
+  {
+    "id": "verb_haben",
+    "de": "haben",
+    "en": "to have",
+    "topic": "verbs",
+    "notes": "Irregular verb: ich habe, du hast, er/sie/es hat.",
+    "type": "grammar"
+  },
+  {
+    "id": "verb_werden",
+    "de": "werden",
+    "en": "to become",
+    "topic": "verbs",
+    "notes": "Irregular verb: ich werde, du wirst, er/sie/es wird.",
+    "type": "grammar"
+  },
+  {
+    "id": "num_eins",
+    "de": "eins",
+    "en": "one",
+    "topic": "numbers",
+    "notes": "Number 1.",
+    "type": "phrase"
+  },
+  {
+    "id": "num_zwei",
+    "de": "zwei",
+    "en": "two",
+    "topic": "numbers",
+    "notes": "Number 2.",
+    "type": "phrase"
+  },
+  {
+    "id": "num_drei",
+    "de": "drei",
+    "en": "three",
+    "topic": "numbers",
+    "notes": "Number 3.",
+    "type": "phrase"
+  },
+  {
+    "id": "num_vier",
+    "de": "vier",
+    "en": "four",
+    "topic": "numbers",
+    "notes": "Number 4.",
+    "type": "phrase"
+  },
+  {
+    "id": "num_funf",
+    "de": "fünf",
+    "en": "five",
+    "topic": "numbers",
+    "notes": "Number 5. Note the ü.",
+    "type": "phrase"
+  },
+  {
+    "id": "time_heute",
+    "de": "heute",
+    "en": "today",
+    "topic": "time",
+    "notes": "Current day.",
+    "type": "phrase"
+  },
+  {
+    "id": "time_morgen",
+    "de": "morgen",
+    "en": "tomorrow",
+    "topic": "time",
+    "notes": "Next day.",
+    "type": "phrase"
+  },
+  {
+    "id": "time_gestern",
+    "de": "gestern",
+    "en": "yesterday",
+    "topic": "time",
+    "notes": "Previous day.",
+    "type": "phrase"
+  },
+  {
+    "id": "question_was",
+    "de": "Was?",
+    "en": "What?",
+    "topic": "questions",
+    "notes": "Question word for 'what'.",
+    "type": "phrase"
+  },
+  {
+    "id": "question_wer",
+    "de": "Wer?",
+    "en": "Who?",
+    "topic": "questions",
+    "notes": "Question word for 'who'.",
+    "type": "phrase"
+  },
+  {
+    "id": "question_wo",
+    "de": "Wo?",
+    "en": "Where?",
+    "topic": "questions",
+    "notes": "Question word for 'where' (location).",
+    "type": "phrase"
+  },
+  {
+    "id": "question_wann",
+    "de": "Wann?",
+    "en": "When?",
+    "topic": "questions",
+    "notes": "Question word for 'when'.",
+    "type": "phrase"
+  },
+  {
+    "id": "question_warum",
+    "de": "Warum?",
+    "en": "Why?",
+    "topic": "questions",
+    "notes": "Question word for 'why'.",
+    "type": "phrase"
+  },
+  {
+    "id": "question_wie",
+    "de": "Wie?",
+    "en": "How?",
+    "topic": "questions",
+    "notes": "Question word for 'how'.",
+    "type": "phrase"
+  },
+  {
+    "id": "adj_gross",
+    "de": "groß",
+    "en": "big / tall",
+    "topic": "adjectives",
+    "notes": "Common adjective. Note ß.",
+    "type": "phrase"
+  },
+  {
+    "id": "adj_klein",
+    "de": "klein",
+    "en": "small",
+    "topic": "adjectives",
+    "notes": "Common adjective.",
+    "type": "phrase"
+  },
+  {
+    "id": "adj_gut",
+    "de": "gut",
+    "en": "good",
+    "topic": "adjectives",
+    "notes": "Common adjective.",
+    "type": "phrase"
+  },
+  {
+    "id": "adj_schlecht",
+    "de": "schlecht",
+    "en": "bad",
+    "topic": "adjectives",
+    "notes": "Common adjective. Note 'ch' sound.",
+    "type": "phrase"
+  },
+  {
+    "id": "adj_schon",
+    "de": "schön",
+    "en": "beautiful / nice",
+    "topic": "adjectives",
+    "notes": "Common adjective. Note ö pronunciation.",
+    "type": "phrase"
+  },
+  {
+    "id": "family_mutter",
+    "de": "Mutter",
+    "en": "mother",
+    "topic": "family",
+    "notes": "Die Mutter (feminine).",
+    "type": "phrase"
+  },
+  {
+    "id": "family_vater",
+    "de": "Vater",
+    "en": "father",
+    "topic": "family",
+    "notes": "Der Vater (masculine).",
+    "type": "phrase"
+  },
+  {
+    "id": "family_kind",
+    "de": "Kind",
+    "en": "child",
+    "topic": "family",
+    "notes": "Das Kind (neuter).",
+    "type": "phrase"
+  },
+  {
+    "id": "dir_links",
+    "de": "links",
+    "en": "left",
+    "topic": "directions",
+    "notes": "Direction: to the left.",
+    "type": "phrase"
+  },
+  {
+    "id": "dir_rechts",
+    "de": "rechts",
+    "en": "right",
+    "topic": "directions",
+    "notes": "Direction: to the right.",
+    "type": "phrase"
+  },
+  {
+    "id": "dir_geradeaus",
+    "de": "geradeaus",
+    "en": "straight ahead",
+    "topic": "directions",
+    "notes": "Direction: continue straight.",
+    "type": "phrase"
+  }
+]

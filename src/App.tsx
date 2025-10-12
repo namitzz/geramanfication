@@ -7,6 +7,7 @@ import ReviewPage from './pages/ReviewPage';
 import GrammarPage from './pages/GrammarPage';
 import ProgressPage from './pages/ProgressPage';
 import SettingsPage from './pages/SettingsPage';
+import ClassesPage from './pages/ClassesPage';
 import { useAppStore } from './stores/appStore';
 import { useEffect } from 'react';
 
@@ -26,6 +27,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/learn" element={<LearnPage />} />
+          <Route path="/classes" element={<ClassesPage />} />
           <Route path="/deck/:deckId" element={<DeckPage />} />
           <Route path="/review" element={<ReviewPage />} />
           <Route path="/grammar" element={<GrammarPage />} />
