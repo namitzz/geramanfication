@@ -1,33 +1,9 @@
 [
   {
-    "id": "greet_guten_morgen",
-    "de": "Guten Morgen",
-    "en": "Good morning",
-    "topic": "greetings",
-    "notes": "Formal morning greeting.",
-    "type": "phrase"
-  },
-  {
-    "id": "greet_guten_tag",
-    "de": "Guten Tag",
-    "en": "Good day",
-    "topic": "greetings",
-    "notes": "Universal formal greeting.",
-    "type": "phrase"
-  },
-  {
-    "id": "greet_guten_abend",
-    "de": "Guten Abend",
-    "en": "Good evening",
-    "topic": "greetings",
-    "notes": "Formal evening greeting.",
-    "type": "phrase"
-  },
-  {
     "id": "greet_hallo",
     "de": "Hallo",
-    "en": "Hello",
-    "topic": "greetings",
+    "en": "Hi",
+    "topic": "week1_greetings",
     "notes": "Casual greeting.",
     "type": "phrase"
   },
@@ -35,448 +11,512 @@
     "id": "greet_tschuss",
     "de": "Tschüss",
     "en": "Bye",
-    "topic": "greetings",
-    "notes": "Casual goodbye. Note the ü pronunciation.",
+    "topic": "week1_greetings",
+    "notes": "Casual goodbye. 'ü' is pronounced like French 'u' in 'tu'.",
+    "type": "phrase"
+  },
+  {
+    "id": "greet_guten_morgen",
+    "de": "Guten Morgen",
+    "en": "Good morning",
+    "topic": "week1_greetings",
+    "notes": "Formal morning greeting.",
+    "type": "phrase"
+  },
+  {
+    "id": "greet_guten_tag",
+    "de": "Guten Tag",
+    "en": "Good day",
+    "topic": "week1_greetings",
+    "notes": "Universal formal greeting.",
+    "type": "phrase"
+  },
+  {
+    "id": "greet_guten_abend",
+    "de": "Guten Abend",
+    "en": "Good evening",
+    "topic": "week1_greetings",
+    "notes": "Formal evening greeting.",
+    "type": "phrase"
+  },
+  {
+    "id": "greet_servus",
+    "de": "Servus",
+    "en": "Hi / Bye (regional)",
+    "topic": "week1_greetings",
+    "notes": "Informal greeting used in southern Germany and Austria.",
+    "type": "phrase"
+  },
+  {
+    "id": "greet_gruss_dich",
+    "de": "Grüß dich",
+    "en": "Hello (regional)",
+    "topic": "week1_greetings",
+    "notes": "Informal regional greeting.",
+    "type": "phrase"
+  },
+  {
+    "id": "greet_moin_moin",
+    "de": "Moin Moin",
+    "en": "Hello (northern)",
+    "topic": "week1_greetings",
+    "notes": "Informal greeting used in northern Germany.",
+    "type": "phrase"
+  },
+  {
+    "id": "greet_schonen_tag",
+    "de": "Einen schönen Tag noch",
+    "en": "Have a nice day",
+    "topic": "week1_greetings",
+    "notes": "Polite way to wish someone well.",
     "type": "phrase"
   },
   {
     "id": "greet_auf_wiedersehen",
     "de": "Auf Wiedersehen",
     "en": "Goodbye",
-    "topic": "greetings",
-    "notes": "Formal goodbye.",
+    "topic": "week1_greetings",
+    "notes": "Formal goodbye. 'Au' is pronounced like 'ow' in 'cow'.",
     "type": "phrase"
+  },
+  {
+    "id": "asking_geht_es_dir_gut",
+    "de": "Geht es dir gut?",
+    "en": "Are you ok?",
+    "topic": "week1_asking",
+    "notes": "Informal way to ask if someone is okay.",
+    "type": "phrase"
+  },
+  {
+    "id": "asking_es_geht_mir_gut",
+    "de": "Es geht mir gut",
+    "en": "I'm ok",
+    "topic": "week1_asking",
+    "notes": "Standard response. Flexible word order: 'Mir geht es gut' means the same.",
+    "type": "phrase"
+  },
+  {
+    "id": "asking_es_geht_mir_sehr_gut",
+    "de": "Es geht mir sehr gut, danke",
+    "en": "I'm really good, thanks",
+    "topic": "week1_asking",
+    "notes": "Enthusiastic positive response.",
+    "type": "phrase"
+  },
+  {
+    "id": "asking_es_geht_so",
+    "de": "Es geht so",
+    "en": "So-so / Could be better",
+    "topic": "week1_asking",
+    "notes": "Neutral or slightly negative response.",
+    "type": "phrase"
+  },
+  {
+    "id": "vocab_noch",
+    "de": "Noch",
+    "en": "still",
+    "topic": "week1_vocab",
+    "notes": "Common adverb meaning 'still'.",
+    "type": "word"
+  },
+  {
+    "id": "vocab_wieder",
+    "de": "Wieder",
+    "en": "again",
+    "topic": "week1_vocab",
+    "notes": "Common adverb meaning 'again'.",
+    "type": "word"
+  },
+  {
+    "id": "vocab_also",
+    "de": "Also",
+    "en": "therefore",
+    "topic": "week1_vocab",
+    "notes": "Conjunction meaning 'therefore' or 'so'.",
+    "type": "word"
+  },
+  {
+    "id": "vocab_sowieso",
+    "de": "Sowieso",
+    "en": "anyway",
+    "topic": "week1_vocab",
+    "notes": "Common word meaning 'anyway' or 'in any case'.",
+    "type": "word"
   },
   {
     "id": "intro_ich_bin",
     "de": "Ich bin",
     "en": "I am",
-    "topic": "introductions",
-    "notes": "Basic introduction phrase.",
-    "type": "grammar"
+    "topic": "week1_introductions",
+    "notes": "Basic introduction phrase using the verb 'sein'.",
+    "type": "phrase"
   },
   {
     "id": "intro_ich_heisse",
     "de": "Ich heiße",
-    "en": "My name is / I am called",
-    "topic": "introductions",
-    "notes": "Note the ß (eszett) pronunciation like 'ss'.",
+    "en": "My name is",
+    "topic": "week1_introductions",
+    "notes": "Note the ß (eszett) sounds like 'ss'. Literally means 'I am called'.",
+    "type": "phrase"
+  },
+  {
+    "id": "intro_mein_name_ist",
+    "de": "Mein Name ist",
+    "en": "My name is",
+    "topic": "week1_introductions",
+    "notes": "More formal way to introduce yourself.",
     "type": "phrase"
   },
   {
     "id": "intro_ich_bin_englander",
     "de": "Ich bin Engländer",
-    "en": "I am English (male)",
-    "topic": "introductions",
-    "notes": "Masculine form. Note ä pronunciation.",
+    "en": "I'm English (male)",
+    "topic": "week1_introductions",
+    "notes": "Masculine form. Note ä is pronounced like 'e' in 'bed'.",
     "type": "phrase"
   },
   {
     "id": "intro_ich_bin_englanderin",
     "de": "Ich bin Engländerin",
-    "en": "I am English (female)",
-    "topic": "introductions",
-    "notes": "Feminine -in suffix.",
-    "type": "grammar"
-  },
-  {
-    "id": "where_woher_kommen_sie",
-    "de": "Woher kommen Sie?",
-    "en": "Where do you come from? (formal)",
-    "topic": "where_from",
-    "notes": "Formal question using 'Sie'.",
+    "en": "I'm English (female)",
+    "topic": "week1_introductions",
+    "notes": "Feminine form with -in suffix.",
     "type": "phrase"
   },
   {
-    "id": "where_woher_kommst_du",
-    "de": "Woher kommst du?",
-    "en": "Where do you come from? (informal)",
-    "topic": "where_from",
-    "notes": "Informal question using 'du'.",
+    "id": "intro_ich_bin_deutscher",
+    "de": "Ich bin Deutscher",
+    "en": "I'm German (male)",
+    "topic": "week1_introductions",
+    "notes": "Masculine form of German nationality.",
     "type": "phrase"
   },
   {
-    "id": "where_ich_komme_aus",
-    "de": "Ich komme aus",
-    "en": "I come from",
-    "topic": "where_from",
-    "notes": "Use with country names.",
+    "id": "intro_ich_bin_deutsche",
+    "de": "Ich bin Deutsche",
+    "en": "I'm German (female)",
+    "topic": "week1_introductions",
+    "notes": "Feminine form of German nationality.",
     "type": "phrase"
   },
   {
-    "id": "where_wo_wohnst_du",
-    "de": "Wo wohnst du?",
-    "en": "Where do you live?",
-    "topic": "where_from",
-    "notes": "Asking about residence.",
-    "type": "phrase"
-  },
-  {
-    "id": "where_ich_wohne_in",
+    "id": "intro_ich_wohne_in",
     "de": "Ich wohne in",
     "en": "I live in",
-    "topic": "where_from",
-    "notes": "Use with city names.",
+    "topic": "week1_introductions",
+    "notes": "Use with city names. Example: Ich wohne in England.",
     "type": "phrase"
   },
   {
-    "id": "talk_wie_geht_es_dir",
-    "de": "Wie geht es dir?",
-    "en": "How are you? (informal)",
-    "topic": "smalltalk",
-    "notes": "Informal form.",
+    "id": "intro_ich_komme_aus",
+    "de": "Ich komme aus",
+    "en": "I come from",
+    "topic": "week1_introductions",
+    "notes": "Use with country/city names. Example: Ich komme aus München.",
     "type": "phrase"
   },
   {
-    "id": "talk_wie_geht_es_ihnen",
-    "de": "Wie geht es Ihnen?",
-    "en": "How are you? (formal)",
-    "topic": "smalltalk",
-    "notes": "Formal form with capital 'Ihnen'.",
+    "id": "intro_ich_spreche_bisschen",
+    "de": "Ich spreche ein bisschen Deutsch",
+    "en": "I speak a little German",
+    "topic": "week1_introductions",
+    "notes": "Useful phrase for beginners!",
     "type": "phrase"
   },
   {
-    "id": "talk_geht_es_dir_gut",
-    "de": "Geht es dir gut?",
-    "en": "Are you okay?",
-    "topic": "smalltalk",
-    "notes": "Showing concern.",
+    "id": "culture_darf_ich_duzen",
+    "de": "Darf ich duzen?",
+    "en": "May I use 'du'?",
+    "topic": "week1_introductions",
+    "notes": "Asking permission to speak informally (switch from 'Sie' to 'du').",
     "type": "phrase"
   },
   {
-    "id": "talk_mir_geht_es_gut",
-    "de": "Mir geht es gut",
-    "en": "I'm fine",
-    "topic": "smalltalk",
-    "notes": "Standard response.",
-    "type": "phrase"
+    "id": "pron_au",
+    "de": "Au (Auf Wiedersehen)",
+    "en": "pronounced 'ow' as in cow",
+    "topic": "week1_pronunciation",
+    "notes": "Example: Auf Wiedersehen, Auto.",
+    "type": "pronunciation"
   },
   {
-    "id": "talk_danke",
-    "de": "Danke",
-    "en": "Thank you",
-    "topic": "smalltalk",
-    "notes": "Basic thanks.",
-    "type": "phrase"
+    "id": "pron_w",
+    "de": "W (Wiedersehen)",
+    "en": "pronounced like English 'v'",
+    "topic": "week1_pronunciation",
+    "notes": "German W sounds like English V. Example: Wasser, Wein.",
+    "type": "pronunciation"
   },
   {
-    "id": "talk_bitte",
-    "de": "Bitte",
-    "en": "Please / You're welcome",
-    "topic": "smalltalk",
-    "notes": "Multi-purpose polite word.",
-    "type": "phrase"
+    "id": "pron_ie",
+    "de": "ie (wie)",
+    "en": "pronounced 'ee' sound",
+    "topic": "week1_pronunciation",
+    "notes": "When 'ie' go walking, the second letter does the talking. Example: sie, Bier.",
+    "type": "pronunciation"
   },
   {
-    "id": "talk_entschuldigung",
-    "de": "Entschuldigung",
-    "en": "Excuse me / Sorry",
-    "topic": "smalltalk",
-    "notes": "For apologies or getting attention.",
-    "type": "phrase"
+    "id": "pron_ei",
+    "de": "ei (mein)",
+    "en": "pronounced 'eye' sound",
+    "topic": "week1_pronunciation",
+    "notes": "Sounds like 'eye'. Example: ein, mein, kein.",
+    "type": "pronunciation"
+  },
+  {
+    "id": "pron_s_start",
+    "de": "s at start (sehen)",
+    "en": "pronounced like 'z'",
+    "topic": "week1_pronunciation",
+    "notes": "At word start, 's' sounds like 'z'. Example: sehen, sind.",
+    "type": "pronunciation"
   },
   {
     "id": "pron_eszett",
-    "de": "ß",
-    "en": "sharp s",
-    "topic": "pronunciation",
-    "notes": "Pronounced like 'ss'. Example: heiße, Straße.",
-    "type": "pronunciation"
-  },
-  {
-    "id": "pron_ch_soft",
-    "de": "ich",
-    "en": "I",
-    "topic": "pronunciation",
-    "notes": "Soft 'ch' sound (like whispered 'sh'). After e, i, ä, ö, ü.",
-    "type": "pronunciation"
-  },
-  {
-    "id": "pron_ch_hard",
-    "de": "ach",
-    "en": "oh",
-    "topic": "pronunciation",
-    "notes": "Hard 'ch' sound (guttural). After a, o, u.",
-    "type": "pronunciation"
-  },
-  {
-    "id": "pron_umlaut_a",
-    "de": "ä",
-    "en": "a-umlaut",
-    "topic": "pronunciation",
-    "notes": "Pronounced like 'eh' in 'bed'. Example: Mädchen.",
-    "type": "pronunciation"
-  },
-  {
-    "id": "pron_umlaut_o",
-    "de": "ö",
-    "en": "o-umlaut",
-    "topic": "pronunciation",
-    "notes": "Round lips and say 'eh'. Example: schön.",
+    "de": "ß (heiße)",
+    "en": "sharp s / double-s sound",
+    "topic": "week1_pronunciation",
+    "notes": "Pronounced like 'ss'. Follows long vowels. Example: heiße, Straße.",
     "type": "pronunciation"
   },
   {
     "id": "pron_umlaut_u",
-    "de": "ü",
-    "en": "u-umlaut",
-    "topic": "pronunciation",
-    "notes": "Round lips and say 'ee'. Example: Tür.",
+    "de": "ü (Tschüss)",
+    "en": "like French 'u' in 'tu'",
+    "topic": "week1_pronunciation",
+    "notes": "Round lips and say 'ee'. Example: Tür, über.",
     "type": "pronunciation"
   },
   {
-    "id": "case_nominativ",
+    "id": "pron_umlaut_a",
+    "de": "ä (Mädchen)",
+    "en": "like 'e' in bed",
+    "topic": "week1_pronunciation",
+    "notes": "Pronounced like 'eh'. Example: Mädchen, Bär.",
+    "type": "pronunciation"
+  },
+  {
+    "id": "pron_umlaut_o",
+    "de": "ö (schön)",
+    "en": "like 'i' in bird (rounded lips)",
+    "topic": "week1_pronunciation",
+    "notes": "Round lips and say 'eh'. Example: schön, Öl.",
+    "type": "pronunciation"
+  },
+  {
+    "id": "pron_eu_au",
+    "de": "eu/äu (Euro)",
+    "en": "pronounced 'oy'",
+    "topic": "week1_pronunciation",
+    "notes": "Sounds like 'oy' in 'boy'. Example: Euro, neu, Häuser.",
+    "type": "pronunciation"
+  },
+  {
+    "id": "pron_ch",
+    "de": "ch (ich)",
+    "en": "soft gargled sound",
+    "topic": "week1_pronunciation",
+    "notes": "Soft sound after e,i. Example: ich, nicht, Mädchen.",
+    "type": "pronunciation"
+  },
+  {
+    "id": "pron_r",
+    "de": "r (rot)",
+    "en": "guttural / rolled",
+    "topic": "week1_pronunciation",
+    "notes": "Guttural sound from back of throat. Example: rot, fahren.",
+    "type": "pronunciation"
+  },
+  {
+    "id": "vocab_dort",
+    "de": "Dort",
+    "en": "there",
+    "topic": "week1_vocab",
+    "notes": "Indicates location: over there.",
+    "type": "word"
+  },
+  {
+    "id": "vocab_da_druben",
+    "de": "Da drüben",
+    "en": "over there",
+    "topic": "week1_vocab",
+    "notes": "Pointing to something in the distance.",
+    "type": "phrase"
+  },
+  {
+    "id": "vocab_krass",
+    "de": "Krass",
+    "en": "cool / extreme",
+    "topic": "week1_vocab",
+    "notes": "Slang word meaning cool or extreme.",
+    "type": "word"
+  },
+  {
+    "id": "vocab_auf",
+    "de": "Auf",
+    "en": "on",
+    "topic": "week1_vocab",
+    "notes": "Preposition meaning 'on'. Example: auf dem Tisch.",
+    "type": "word"
+  },
+  {
+    "id": "vocab_so",
+    "de": "So",
+    "en": "like that / thus",
+    "topic": "week1_vocab",
+    "notes": "Common word meaning 'so' or 'like that'.",
+    "type": "word"
+  },
+  {
+    "id": "vocab_schmuddelwetter",
+    "de": "Schmuddelwetter",
+    "en": "lousy weather",
+    "topic": "week1_vocab",
+    "notes": "Compound word: Schmuddel (mucky) + Wetter (weather).",
+    "type": "word"
+  },
+  {
+    "id": "case_nominative",
     "de": "Nominativ",
-    "en": "Nominative case",
-    "topic": "cases",
-    "notes": "Subject case: der/die/das. Example: Der Mann ist groß.",
+    "en": "Nominative case (subject)",
+    "topic": "week1_grammar",
+    "notes": "The subject - the doer. Example: Das Mädchen spielt.",
     "type": "grammar"
   },
   {
-    "id": "case_akkusativ",
+    "id": "case_accusative",
     "de": "Akkusativ",
-    "en": "Accusative case",
-    "topic": "cases",
-    "notes": "Direct object: den/die/das. Example: Ich sehe den Mann.",
+    "en": "Accusative case (direct object)",
+    "topic": "week1_grammar",
+    "notes": "The direct object. Example: Der Mann sieht den Hund.",
     "type": "grammar"
   },
   {
-    "id": "case_dativ",
+    "id": "case_dative",
     "de": "Dativ",
-    "en": "Dative case",
-    "topic": "cases",
-    "notes": "Indirect object: dem/der/dem. Example: Ich helfe dem Mann.",
+    "en": "Dative case (indirect object)",
+    "topic": "week1_grammar",
+    "notes": "The indirect object. Example: Das Mädchen gibt dem Mann den Hund.",
     "type": "grammar"
   },
   {
-    "id": "case_genitiv",
+    "id": "case_genitive",
     "de": "Genitiv",
-    "en": "Genitive case",
-    "topic": "cases",
-    "notes": "Possession: des/der/des. Example: Das Auto des Mannes.",
+    "en": "Genitive case (possession)",
+    "topic": "week1_grammar",
+    "notes": "Shows possession. Example: Das Futter des Hundes.",
     "type": "grammar"
   },
   {
-    "id": "verb_sein",
-    "de": "sein",
-    "en": "to be",
-    "topic": "verbs",
-    "notes": "Irregular verb: ich bin, du bist, er/sie/es ist.",
+    "id": "verb_sprechen_ich",
+    "de": "ich spreche",
+    "en": "I speak",
+    "topic": "week1_verbs",
+    "notes": "Verb 'sprechen' conjugated for 'ich'. Note e→i vowel change in other forms.",
     "type": "grammar"
   },
   {
-    "id": "verb_haben",
-    "de": "haben",
-    "en": "to have",
-    "topic": "verbs",
-    "notes": "Irregular verb: ich habe, du hast, er/sie/es hat.",
+    "id": "verb_sprechen_du",
+    "de": "du sprichst",
+    "en": "you speak (informal)",
+    "topic": "week1_verbs",
+    "notes": "Note the vowel change e→i. Informal singular.",
     "type": "grammar"
   },
   {
-    "id": "verb_werden",
-    "de": "werden",
-    "en": "to become",
-    "topic": "verbs",
-    "notes": "Irregular verb: ich werde, du wirst, er/sie/es wird.",
+    "id": "verb_sprechen_er",
+    "de": "er/sie/es spricht",
+    "en": "he/she/it speaks",
+    "topic": "week1_verbs",
+    "notes": "Note the vowel change e→i.",
     "type": "grammar"
   },
   {
-    "id": "num_eins",
-    "de": "eins",
-    "en": "one",
-    "topic": "numbers",
-    "notes": "Number 1.",
-    "type": "phrase"
+    "id": "verb_sprechen_wir",
+    "de": "wir sprechen",
+    "en": "we speak",
+    "topic": "week1_verbs",
+    "notes": "Plural form, same as infinitive.",
+    "type": "grammar"
   },
   {
-    "id": "num_zwei",
-    "de": "zwei",
-    "en": "two",
-    "topic": "numbers",
-    "notes": "Number 2.",
-    "type": "phrase"
+    "id": "verb_sprechen_ihr",
+    "de": "ihr sprecht",
+    "en": "you speak (informal plural)",
+    "topic": "week1_verbs",
+    "notes": "Informal plural - 'you guys speak'.",
+    "type": "grammar"
   },
   {
-    "id": "num_drei",
-    "de": "drei",
-    "en": "three",
-    "topic": "numbers",
-    "notes": "Number 3.",
-    "type": "phrase"
+    "id": "verb_sprechen_sie",
+    "de": "Sie sprechen",
+    "en": "you speak (formal)",
+    "topic": "week1_verbs",
+    "notes": "Formal singular/plural. Capital 'S'.",
+    "type": "grammar"
   },
   {
-    "id": "num_vier",
-    "de": "vier",
-    "en": "four",
-    "topic": "numbers",
-    "notes": "Number 4.",
-    "type": "phrase"
+    "id": "verb_sprechen_sie_pl",
+    "de": "sie sprechen",
+    "en": "they speak",
+    "topic": "week1_verbs",
+    "notes": "Third person plural. Lowercase 's'.",
+    "type": "grammar"
   },
   {
-    "id": "num_funf",
-    "de": "fünf",
-    "en": "five",
-    "topic": "numbers",
-    "notes": "Number 5. Note the ü.",
-    "type": "phrase"
+    "id": "verb_sein_ich",
+    "de": "ich bin",
+    "en": "I am",
+    "topic": "week1_verbs",
+    "notes": "Highly irregular verb 'sein' (to be). Memorize early!",
+    "type": "grammar"
   },
   {
-    "id": "time_heute",
-    "de": "heute",
-    "en": "today",
-    "topic": "time",
-    "notes": "Current day.",
-    "type": "phrase"
+    "id": "verb_sein_du",
+    "de": "du bist",
+    "en": "you are (informal)",
+    "topic": "week1_verbs",
+    "notes": "Irregular form of 'sein'.",
+    "type": "grammar"
   },
   {
-    "id": "time_morgen",
-    "de": "morgen",
-    "en": "tomorrow",
-    "topic": "time",
-    "notes": "Next day.",
-    "type": "phrase"
+    "id": "verb_sein_er",
+    "de": "er/sie/es ist",
+    "en": "he/she/it is",
+    "topic": "week1_verbs",
+    "notes": "Irregular form of 'sein'.",
+    "type": "grammar"
   },
   {
-    "id": "time_gestern",
-    "de": "gestern",
-    "en": "yesterday",
-    "topic": "time",
-    "notes": "Previous day.",
-    "type": "phrase"
+    "id": "verb_sein_wir",
+    "de": "wir sind",
+    "en": "we are",
+    "topic": "week1_verbs",
+    "notes": "Irregular form of 'sein'.",
+    "type": "grammar"
   },
   {
-    "id": "question_was",
-    "de": "Was?",
-    "en": "What?",
-    "topic": "questions",
-    "notes": "Question word for 'what'.",
-    "type": "phrase"
+    "id": "verb_sein_ihr",
+    "de": "ihr seid",
+    "en": "you are (informal plural)",
+    "topic": "week1_verbs",
+    "notes": "Irregular form of 'sein'.",
+    "type": "grammar"
   },
   {
-    "id": "question_wer",
-    "de": "Wer?",
-    "en": "Who?",
-    "topic": "questions",
-    "notes": "Question word for 'who'.",
-    "type": "phrase"
+    "id": "verb_sein_sie",
+    "de": "Sie sind",
+    "en": "you are (formal)",
+    "topic": "week1_verbs",
+    "notes": "Irregular form of 'sein'. Formal.",
+    "type": "grammar"
   },
   {
-    "id": "question_wo",
-    "de": "Wo?",
-    "en": "Where?",
-    "topic": "questions",
-    "notes": "Question word for 'where' (location).",
-    "type": "phrase"
-  },
-  {
-    "id": "question_wann",
-    "de": "Wann?",
-    "en": "When?",
-    "topic": "questions",
-    "notes": "Question word for 'when'.",
-    "type": "phrase"
-  },
-  {
-    "id": "question_warum",
-    "de": "Warum?",
-    "en": "Why?",
-    "topic": "questions",
-    "notes": "Question word for 'why'.",
-    "type": "phrase"
-  },
-  {
-    "id": "question_wie",
-    "de": "Wie?",
-    "en": "How?",
-    "topic": "questions",
-    "notes": "Question word for 'how'.",
-    "type": "phrase"
-  },
-  {
-    "id": "adj_gross",
-    "de": "groß",
-    "en": "big / tall",
-    "topic": "adjectives",
-    "notes": "Common adjective. Note ß.",
-    "type": "phrase"
-  },
-  {
-    "id": "adj_klein",
-    "de": "klein",
-    "en": "small",
-    "topic": "adjectives",
-    "notes": "Common adjective.",
-    "type": "phrase"
-  },
-  {
-    "id": "adj_gut",
-    "de": "gut",
-    "en": "good",
-    "topic": "adjectives",
-    "notes": "Common adjective.",
-    "type": "phrase"
-  },
-  {
-    "id": "adj_schlecht",
-    "de": "schlecht",
-    "en": "bad",
-    "topic": "adjectives",
-    "notes": "Common adjective. Note 'ch' sound.",
-    "type": "phrase"
-  },
-  {
-    "id": "adj_schon",
-    "de": "schön",
-    "en": "beautiful / nice",
-    "topic": "adjectives",
-    "notes": "Common adjective. Note ö pronunciation.",
-    "type": "phrase"
-  },
-  {
-    "id": "family_mutter",
-    "de": "Mutter",
-    "en": "mother",
-    "topic": "family",
-    "notes": "Die Mutter (feminine).",
-    "type": "phrase"
-  },
-  {
-    "id": "family_vater",
-    "de": "Vater",
-    "en": "father",
-    "topic": "family",
-    "notes": "Der Vater (masculine).",
-    "type": "phrase"
-  },
-  {
-    "id": "family_kind",
-    "de": "Kind",
-    "en": "child",
-    "topic": "family",
-    "notes": "Das Kind (neuter).",
-    "type": "phrase"
-  },
-  {
-    "id": "dir_links",
-    "de": "links",
-    "en": "left",
-    "topic": "directions",
-    "notes": "Direction: to the left.",
-    "type": "phrase"
-  },
-  {
-    "id": "dir_rechts",
-    "de": "rechts",
-    "en": "right",
-    "topic": "directions",
-    "notes": "Direction: to the right.",
-    "type": "phrase"
-  },
-  {
-    "id": "dir_geradeaus",
-    "de": "geradeaus",
-    "en": "straight ahead",
-    "topic": "directions",
-    "notes": "Direction: continue straight.",
-    "type": "phrase"
+    "id": "verb_sein_sie_pl",
+    "de": "sie sind",
+    "en": "they are",
+    "topic": "week1_verbs",
+    "notes": "Irregular form of 'sein'.",
+    "type": "grammar"
   }
 ]
