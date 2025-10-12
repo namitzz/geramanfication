@@ -14,6 +14,7 @@ interface Lesson {
 }
 
 type QuizMode = 'multiple-choice' | 'type-in';
+type ViewMode = 'flashcards' | 'quiz';
 
 const ClassesPage = () => {
   // Lessons and filtering
@@ -23,6 +24,9 @@ const ClassesPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [starredIds, setStarredIds] = useState<Set<string>>(new Set());
   const [showOnlyStarred, setShowOnlyStarred] = useState(false);
+
+  // View mode state
+  const [viewMode, setViewMode] = useState<ViewMode>('flashcards');
 
   // Flashcard state
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -276,11 +280,14 @@ const ClassesPage = () => {
       <div className="max-w-2xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <button
-            onClick={() => setShowQuiz(false)}
+            onClick={() => {
+              setShowQuiz(false);
+              setViewMode('quiz');
+            }}
             className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
           >
             <ArrowLeft size={20} />
-            <span>Back to Flashcards</span>
+            <span>Back to Quiz Options</span>
           </button>
           <div className="text-sm text-gray-600 dark:text-gray-400">
             Score: {quizScore}/{quizTotal}
@@ -308,11 +315,6 @@ const ClassesPage = () => {
                 <Volume2 size={20} />
               </button>
             </div>
-            {currentQuestion.notes && (
-              <p className="text-sm text-gray-600 dark:text-gray-400 italic">
-                💡 {currentQuestion.notes}
-              </p>
-            )}
           </div>
 
           {quizMode === 'multiple-choice' ? (
@@ -413,10 +415,13 @@ const ClassesPage = () => {
               Retake Quiz
             </button>
             <button
-              onClick={() => setShowQuiz(false)}
+              onClick={() => {
+                setShowQuiz(false);
+                setViewMode('quiz');
+              }}
               className="px-6 py-3 bg-gray-500 hover:bg-gray-600 text-white rounded-lg font-semibold transition-colors"
             >
-              Back to Flashcards
+              Back to Quiz Options
             </button>
           </div>
         </div>
@@ -446,77 +451,108 @@ const ClassesPage = () => {
         </div>
       )}
 
-      {/* How to Use */}
-      <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-        <h3 className="font-semibold mb-2 text-blue-900 dark:text-blue-100">How to Use:</h3>
-        <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
-          <li>• Press <kbd className="px-2 py-1 bg-white dark:bg-gray-700 rounded">Space</kbd> to flip cards</li>
-          <li>• Use <kbd className="px-2 py-1 bg-white dark:bg-gray-700 rounded">←</kbd> <kbd className="px-2 py-1 bg-white dark:bg-gray-700 rounded">→</kbd> to navigate</li>
-          <li>• Press <kbd className="px-2 py-1 bg-white dark:bg-gray-700 rounded">A</kbd> to play audio</li>
-          <li>• Star difficult items to review later</li>
-        </ul>
-      </div>
-
-      {/* Filters */}
-      <div className="mb-6 flex flex-wrap gap-3">
-        <div className="relative flex-1 min-w-[200px]">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search lessons..."
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:border-blue-500 focus:outline-none"
-          />
-        </div>
-
-        <div className="relative">
-          <select
-            value={selectedTopic}
-            onChange={(e) => setSelectedTopic(e.target.value)}
-            className="appearance-none pl-4 pr-10 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:border-blue-500 focus:outline-none cursor-pointer"
-          >
-            {topics.map(topic => (
-              <option key={topic} value={topic}>
-                {topic === 'all' ? 'All Topics' : topic.replace('_', ' ')}
-              </option>
-            ))}
-          </select>
-          <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={20} />
-        </div>
-
+      {/* Mode Selection */}
+      <div className="mb-6 flex gap-4">
         <button
-          onClick={() => setShuffled(!shuffled)}
-          className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-            shuffled
-              ? 'bg-blue-500 text-white'
-              : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
+          onClick={() => {
+            setViewMode('flashcards');
+            setShowQuiz(false);
+          }}
+          className={`flex-1 py-4 px-6 rounded-lg font-semibold transition-all ${
+            viewMode === 'flashcards'
+              ? 'bg-blue-500 text-white shadow-lg scale-105'
+              : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
           }`}
         >
-          🔀 Shuffle
-        </button>
-
-        <button
-          onClick={() => setShowOnlyStarred(!showOnlyStarred)}
-          className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-            showOnlyStarred
-              ? 'bg-yellow-500 text-white'
-              : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
-          }`}
-        >
-          ⭐ Starred
-        </button>
-      </div>
-
-      {/* Main Content */}
-      <div className="grid md:grid-cols-2 gap-6">
-        {/* Flashcard Section */}
-        <div>
-          <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+          <div className="flex items-center justify-center gap-2">
             <BookOpen size={24} />
-            Flashcards ({filteredLessons.length})
-          </h2>
+            <span>Flashcards</span>
+          </div>
+        </button>
+        <button
+          onClick={() => {
+            setViewMode('quiz');
+            setShowQuiz(false);
+          }}
+          className={`flex-1 py-4 px-6 rounded-lg font-semibold transition-all ${
+            viewMode === 'quiz'
+              ? 'bg-green-500 text-white shadow-lg scale-105'
+              : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
+          }`}
+        >
+          <div className="flex items-center justify-center gap-2">
+            <GraduationCap size={24} />
+            <span>Quiz Yourself</span>
+          </div>
+        </button>
+      </div>
 
+      {/* Flashcards View */}
+      {viewMode === 'flashcards' && !showQuiz && (
+        <div>
+          {/* How to Use */}
+          <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+            <h3 className="font-semibold mb-2 text-blue-900 dark:text-blue-100">How to Use:</h3>
+            <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
+              <li>• Press <kbd className="px-2 py-1 bg-white dark:bg-gray-700 rounded">Space</kbd> to flip cards</li>
+              <li>• Use <kbd className="px-2 py-1 bg-white dark:bg-gray-700 rounded">←</kbd> <kbd className="px-2 py-1 bg-white dark:bg-gray-700 rounded">→</kbd> to navigate</li>
+              <li>• Press <kbd className="px-2 py-1 bg-white dark:bg-gray-700 rounded">A</kbd> to play audio</li>
+              <li>• Star difficult items to review later</li>
+            </ul>
+          </div>
+
+          {/* Filters */}
+          <div className="mb-6 flex flex-wrap gap-3">
+            <div className="relative flex-1 min-w-[200px]">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search lessons..."
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:border-blue-500 focus:outline-none"
+              />
+            </div>
+
+            <div className="relative">
+              <select
+                value={selectedTopic}
+                onChange={(e) => setSelectedTopic(e.target.value)}
+                className="appearance-none pl-4 pr-10 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:border-blue-500 focus:outline-none cursor-pointer"
+              >
+                {topics.map(topic => (
+                  <option key={topic} value={topic}>
+                    {topic === 'all' ? 'All Topics' : topic.replace('_', ' ').replace('week1 ', 'Week 1: ')}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={20} />
+            </div>
+
+            <button
+              onClick={() => setShuffled(!shuffled)}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                shuffled
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
+              }`}
+            >
+              🔀 Shuffle
+            </button>
+
+            <button
+              onClick={() => setShowOnlyStarred(!showOnlyStarred)}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                showOnlyStarred
+                  ? 'bg-yellow-500 text-white'
+                  : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
+              }`}
+            >
+              ⭐ Starred
+            </button>
+          </div>
+
+          {/* Flashcard Display */}
           {filteredLessons.length === 0 ? (
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 text-center">
               <p className="text-gray-500 dark:text-gray-400">No lessons found. Try adjusting your filters.</p>
@@ -533,7 +569,7 @@ const ClassesPage = () => {
                       <div className="mb-4 w-full">
                         <h2 className="text-3xl font-bold mb-2">{currentLesson.de}</h2>
                         <p className="text-sm text-gray-500 dark:text-gray-400 italic">
-                          {currentLesson.topic.replace('_', ' ')} • {currentLesson.type}
+                          {currentLesson.topic.replace('_', ' ').replace('week1 ', 'Week 1: ')} • {currentLesson.type}
                         </p>
                       </div>
                       <button
@@ -604,20 +640,79 @@ const ClassesPage = () => {
                   <ArrowRight size={20} />
                 </button>
               </div>
+
+              {/* Progress Info */}
+              <div className="mt-6 bg-gray-50 dark:bg-gray-800 rounded-xl p-6">
+                <h3 className="font-semibold mb-2">Progress</h3>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Total Lessons:</span>
+                    <span className="font-semibold">{lessons.length}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Starred:</span>
+                    <span className="font-semibold">{starredIds.size}</span>
+                  </div>
+                </div>
+              </div>
             </>
           )}
         </div>
+      )}
 
-        {/* Quiz Section */}
+      {/* Quiz View */}
+      {viewMode === 'quiz' && !showQuiz && (
         <div>
-          <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-            <GraduationCap size={24} />
-            Quiz Yourself
-          </h2>
+          <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+            <h3 className="font-semibold mb-2 text-green-900 dark:text-green-100">Quiz Mode</h3>
+            <p className="text-sm text-green-800 dark:text-green-200">
+              Test your knowledge with interactive quizzes. Choose between multiple choice or type-in format.
+            </p>
+          </div>
 
-          <div className="space-y-4">
+          {/* Filters */}
+          <div className="mb-6 flex flex-wrap gap-3">
+            <div className="relative flex-1 min-w-[200px]">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search lessons..."
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:border-blue-500 focus:outline-none"
+              />
+            </div>
+
+            <div className="relative">
+              <select
+                value={selectedTopic}
+                onChange={(e) => setSelectedTopic(e.target.value)}
+                className="appearance-none pl-4 pr-10 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:border-blue-500 focus:outline-none cursor-pointer"
+              >
+                {topics.map(topic => (
+                  <option key={topic} value={topic}>
+                    {topic === 'all' ? 'All Topics' : topic.replace('_', ' ').replace('week1 ', 'Week 1: ')}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={20} />
+            </div>
+
+            <button
+              onClick={() => setShowOnlyStarred(!showOnlyStarred)}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                showOnlyStarred
+                  ? 'bg-yellow-500 text-white'
+                  : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
+              }`}
+            >
+              ⭐ Starred
+            </button>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-              <h3 className="font-semibold mb-2">Multiple Choice</h3>
+              <h3 className="font-semibold mb-2 text-lg">Multiple Choice</h3>
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                 Choose the correct English translation from 4 options
               </p>
@@ -631,7 +726,7 @@ const ClassesPage = () => {
             </div>
 
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-              <h3 className="font-semibold mb-2">Type-In</h3>
+              <h3 className="font-semibold mb-2 text-lg">Type-In</h3>
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                 Type the English translation (fuzzy matching enabled)
               </p>
@@ -643,51 +738,52 @@ const ClassesPage = () => {
                 Start Type-In Quiz
               </button>
             </div>
+          </div>
 
-            {reviewingMistakes && mistakes.length > 0 && (
-              <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl p-6">
-                <h3 className="font-semibold mb-2 text-yellow-900 dark:text-yellow-100">
-                  Reviewing Mistakes
-                </h3>
-                <p className="text-sm text-yellow-800 dark:text-yellow-200 mb-4">
-                  You're now reviewing {mistakes.length} items you got wrong. Star them for later!
-                </p>
-                <button
-                  onClick={() => {
-                    setReviewingMistakes(false);
-                    setFilteredLessons(lessons);
-                  }}
-                  className="w-full py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg font-semibold transition-colors"
-                >
-                  Back to All Lessons
-                </button>
-              </div>
-            )}
+          {reviewingMistakes && mistakes.length > 0 && (
+            <div className="mt-6 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl p-6">
+              <h3 className="font-semibold mb-2 text-yellow-900 dark:text-yellow-100">
+                Reviewing Mistakes
+              </h3>
+              <p className="text-sm text-yellow-800 dark:text-yellow-200 mb-4">
+                You're now reviewing {mistakes.length} items you got wrong. Star them for later!
+              </p>
+              <button
+                onClick={() => {
+                  setReviewingMistakes(false);
+                  setFilteredLessons(lessons);
+                }}
+                className="w-full py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg font-semibold transition-colors"
+              >
+                Back to All Lessons
+              </button>
+            </div>
+          )}
 
-            <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6">
-              <h3 className="font-semibold mb-2">Progress</h3>
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-400">Total Lessons:</span>
-                  <span className="font-semibold">{lessons.length}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-400">Starred:</span>
-                  <span className="font-semibold">{starredIds.size}</span>
-                </div>
-                {quizTotal > 0 && (
-                  <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-400">Last Score:</span>
-                    <span className="font-semibold">
-                      {quizScore}/{quizTotal} ({Math.round((quizScore / quizTotal) * 100)}%)
-                    </span>
-                  </div>
-                )}
+          {/* Progress Info */}
+          <div className="mt-6 bg-gray-50 dark:bg-gray-800 rounded-xl p-6">
+            <h3 className="font-semibold mb-2">Progress</h3>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span className="text-gray-600 dark:text-gray-400">Total Lessons:</span>
+                <span className="font-semibold">{lessons.length}</span>
               </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600 dark:text-gray-400">Starred:</span>
+                <span className="font-semibold">{starredIds.size}</span>
+              </div>
+              {quizTotal > 0 && (
+                <div className="flex justify-between">
+                  <span className="text-gray-600 dark:text-gray-400">Last Score:</span>
+                  <span className="font-semibold">
+                    {quizScore}/{quizTotal} ({Math.round((quizScore / quizTotal) * 100)}%)
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
