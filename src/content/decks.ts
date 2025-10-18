@@ -130,6 +130,75 @@ export const travelPhrasebookDeck: Deck = {
   ],
 };
 
+export const sentencesDeck: Deck = {
+  id: 'german-sentences',
+  name: 'German Sentences',
+  description: 'Complete sentences for real-world conversations',
+  cards: [
+    // Greetings & Introductions
+    { id: 's1', de: 'Hallo!', en: 'Hello!', partOfSpeech: 'phrase' },
+    { id: 's2', de: 'Guten Morgen!', en: 'Good morning!', partOfSpeech: 'phrase' },
+    { id: 's3', de: 'Guten Tag!', en: 'Good day!', partOfSpeech: 'phrase' },
+    { id: 's4', de: 'Guten Abend!', en: 'Good evening!', partOfSpeech: 'phrase' },
+    { id: 's5', de: 'Tschüss!', en: 'Bye!', partOfSpeech: 'phrase' },
+    { id: 's6', de: 'Auf Wiedersehen!', en: 'Goodbye (formal)', partOfSpeech: 'phrase' },
+    { id: 's7', de: 'Ich heiße Namit.', en: 'I\'m called Namit.', partOfSpeech: 'phrase' },
+    { id: 's8', de: 'Mein Name ist Namit.', en: 'My name is Namit.', partOfSpeech: 'phrase' },
+    { id: 's9', de: 'Ich bin Namit.', en: 'I am Namit.', partOfSpeech: 'phrase' },
+    { id: 's10', de: 'Freut mich!', en: 'Pleased to meet you!', partOfSpeech: 'phrase' },
+    
+    // Where You're From / Live
+    { id: 's11', de: 'Ich komme aus England.', en: 'I come from England.', partOfSpeech: 'phrase' },
+    { id: 's12', de: 'Ich wohne in Leicester.', en: 'I live in Leicester.', partOfSpeech: 'phrase' },
+    { id: 's13', de: 'Wohnst du in Deutschland?', en: 'Do you live in Germany?', partOfSpeech: 'phrase' },
+    { id: 's14', de: 'Nein, ich wohne nicht in Deutschland.', en: 'No, I don\'t live in Germany.', partOfSpeech: 'phrase' },
+    { id: 's15', de: 'Wo wohnst du?', en: 'Where do you live?', partOfSpeech: 'phrase' },
+    { id: 's16', de: 'Woher kommst du?', en: 'Where do you come from?', partOfSpeech: 'phrase' },
+    { id: 's17', de: 'Woher sind Sie?', en: 'Where are you from? (formal)', partOfSpeech: 'phrase' },
+    { id: 's18', de: 'Ich bin Engländer. / Ich bin Engländerin.', en: 'I\'m English (m/f).', partOfSpeech: 'phrase' },
+    { id: 's19', de: 'Bist du Deutscher? / Bist du Deutsche?', en: 'Are you German? (m/f)', partOfSpeech: 'phrase' },
+    { id: 's20', de: 'Ja, ich bin Deutscher.', en: 'Yes, I\'m German.', partOfSpeech: 'phrase' },
+    { id: 's21', de: 'Nein, ich bin kein Deutscher.', en: 'No, I\'m not German.', partOfSpeech: 'phrase' },
+    
+    // Talking About Language & Skills
+    { id: 's22', de: 'Sprichst du Deutsch?', en: 'Do you speak German?', partOfSpeech: 'phrase' },
+    { id: 's23', de: 'Ich spreche ein bisschen Deutsch.', en: 'I speak a little German.', partOfSpeech: 'phrase' },
+    { id: 's24', de: 'Sprechen Sie Deutsch?', en: 'Do you speak German? (formal)', partOfSpeech: 'phrase' },
+    { id: 's25', de: 'Ja, ich spreche Deutsch.', en: 'Yes, I speak German.', partOfSpeech: 'phrase' },
+    { id: 's26', de: 'Nein, ich spreche kein Deutsch.', en: 'No, I don\'t speak German.', partOfSpeech: 'phrase' },
+    { id: 's27', de: 'Welche Sprachen sprichst du?', en: 'What languages do you speak?', partOfSpeech: 'phrase' },
+    { id: 's28', de: 'Ich spreche Englisch und ein bisschen Deutsch.', en: 'I speak English and a little German.', partOfSpeech: 'phrase' },
+    
+    // Feelings / Well-being
+    { id: 's29', de: 'Wie geht es dir?', en: 'How are you?', partOfSpeech: 'phrase' },
+    { id: 's30', de: 'Es geht mir gut.', en: 'I\'m good.', partOfSpeech: 'phrase' },
+    { id: 's31', de: 'Es geht mir sehr gut, danke!', en: 'I\'m very good, thanks!', partOfSpeech: 'phrase' },
+    { id: 's32', de: 'Und dir?', en: 'And you?', partOfSpeech: 'phrase' },
+    { id: 's33', de: 'Wie geht es Ihnen?', en: 'How are you? (formal)', partOfSpeech: 'phrase' },
+    { id: 's34', de: 'Geht es Ihnen gut?', en: 'Are you well? (formal)', partOfSpeech: 'phrase' },
+    { id: 's35', de: 'Es geht mir so lala.', en: 'I\'m so-so.', partOfSpeech: 'phrase' },
+    { id: 's36', de: 'Es geht so.', en: 'It\'s okay / could be better.', partOfSpeech: 'phrase' },
+    
+    // Polite and Formal Forms
+    { id: 's37', de: 'Wie heißen Sie?', en: 'What\'s your name? (formal)', partOfSpeech: 'phrase' },
+    { id: 's38', de: 'Ich bin Ed. Und Sie?', en: 'I\'m Ed. And you?', partOfSpeech: 'phrase' },
+    { id: 's39', de: 'Wo wohnen Sie?', en: 'Where do you live? (formal)', partOfSpeech: 'phrase' },
+    { id: 's40', de: 'Wo kommen Sie her?', en: 'Where do you come from? (formal)', partOfSpeech: 'phrase' },
+    { id: 's41', de: 'Es geht mir gut. Und Ihnen?', en: 'I\'m fine. And you? (formal)', partOfSpeech: 'phrase' },
+    { id: 's42', de: 'Guten Tag, Herr Müller.', en: 'Good day, Mr. Müller.', partOfSpeech: 'phrase' },
+    { id: 's43', de: 'Guten Tag, Frau Schmidt.', en: 'Good day, Mrs. Schmidt.', partOfSpeech: 'phrase' },
+    
+    // Miscellaneous Useful Phrases
+    { id: 's44', de: 'Einen schönen Tag noch!', en: 'Have a nice day!', partOfSpeech: 'phrase' },
+    { id: 's45', de: 'Danke schön!', en: 'Thank you very much!', partOfSpeech: 'phrase' },
+    { id: 's46', de: 'Bitte schön!', en: 'You\'re very welcome!', partOfSpeech: 'phrase' },
+    { id: 's47', de: 'Ich arbeite an der Universität.', en: 'I work at the university.', partOfSpeech: 'phrase' },
+    { id: 's48', de: 'Ich esse gern Hähnchen.', en: 'I like eating chicken.', partOfSpeech: 'phrase' },
+    { id: 's49', de: 'Ich mag Musik.', en: 'I like music.', partOfSpeech: 'phrase' },
+    { id: 's50', de: 'Ich habe einen Bruder.', en: 'I have a brother.', partOfSpeech: 'phrase' },
+  ],
+};
+
 export const allDecks: Deck[] = [
   greetingsDeck,
   numbersDeck,
@@ -137,4 +206,5 @@ export const allDecks: Deck[] = [
   verbsDeck,
   a1BasicsDeck,
   travelPhrasebookDeck,
+  sentencesDeck,
 ];
