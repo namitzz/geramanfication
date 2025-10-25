@@ -8,6 +8,7 @@ import GrammarPage from './pages/GrammarPage';
 import ProgressPage from './pages/ProgressPage';
 import SettingsPage from './pages/SettingsPage';
 import ClassesPage from './pages/ClassesPage';
+import MCQTestingPage from './pages/MCQTestingPage';
 import { useAppStore } from './stores/appStore';
 import { useEffect } from 'react';
 
@@ -31,6 +32,7 @@ function App() {
           <Route path="/deck/:deckId" element={<DeckPage />} />
           <Route path="/review" element={<ReviewPage />} />
           <Route path="/grammar" element={<GrammarPage />} />
+          <Route path="/mcq-testing" element={<MCQTestingPage />} />
           <Route path="/progress" element={<ProgressPage />} />
           <Route path="/settings" element={<SettingsPage />} />
         </Routes>

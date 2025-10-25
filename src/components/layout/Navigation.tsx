@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, BookOpen, BarChart3, Settings, GraduationCap } from 'lucide-react';
+import { Home, BookOpen, BarChart3, Settings, GraduationCap, Brain } from 'lucide-react';
 
 const Navigation = () => {
   const location = useLocation();
@@ -8,6 +8,7 @@ const Navigation = () => {
     { path: '/', icon: Home, label: 'Home' },
     { path: '/learn', icon: BookOpen, label: 'Learn' },
     { path: '/classes', icon: GraduationCap, label: 'Classes' },
+    { path: '/mcq-testing', icon: Brain, label: 'MCQ' },
     { path: '/progress', icon: BarChart3, label: 'Progress' },
     { path: '/settings', icon: Settings, label: 'Settings' },
   ];

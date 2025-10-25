@@ -1,0 +1,772 @@
+[
+  {
+    "id": "mcq1",
+    "question": "Was ist die korrekte Pluralform von 'das Buch'?",
+    "options": ["die Büche", "die Buchen", "die Bücher", "die Books"],
+    "correct": 2,
+    "category": "Grammar - Plural Forms"
+  },
+  {
+    "id": "mcq2",
+    "question": "Welcher Artikel gehört zu 'Sonne'?",
+    "options": ["der", "die", "das", "dem"],
+    "correct": 1,
+    "category": "Grammar - Articles"
+  },
+  {
+    "id": "mcq3",
+    "question": "Was bedeutet 'trotzdem' auf Englisch?",
+    "options": ["therefore", "nevertheless", "however", "although"],
+    "correct": 1,
+    "category": "Vocabulary - Conjunctions"
+  },
+  {
+    "id": "mcq4",
+    "question": "Welche Präposition ist richtig: 'Ich warte ___ dich'?",
+    "options": ["für", "auf", "an", "über"],
+    "correct": 1,
+    "category": "Grammar - Prepositions"
+  },
+  {
+    "id": "mcq5",
+    "question": "Was ist das Gegenteil von 'teuer'?",
+    "options": ["billig", "groß", "klein", "alt"],
+    "correct": 0,
+    "category": "Vocabulary - Adjectives"
+  },
+  {
+    "id": "mcq6",
+    "question": "Welches Verb passt: 'Ich ___ Deutsch lernen.'?",
+    "options": ["muss", "kann", "möchte", "alle richtig"],
+    "correct": 3,
+    "category": "Grammar - Modal Verbs"
+  },
+  {
+    "id": "mcq7",
+    "question": "Was ist die richtige Perfektform von 'gehen'?",
+    "options": ["ist gegehen", "hat gegangen", "ist gegangen", "hat gegehen"],
+    "correct": 2,
+    "category": "Grammar - Past Tense"
+  },
+  {
+    "id": "mcq8",
+    "question": "Welcher Satz ist korrekt?",
+    "options": ["Ich habe gestern Kino gegangen", "Ich bin gestern ins Kino gegangen", "Ich habe gestern ins Kino gehen", "Ich war gestern Kino gegangen"],
+    "correct": 1,
+    "category": "Grammar - Sentence Structure"
+  },
+  {
+    "id": "mcq9",
+    "question": "Was bedeutet 'obwohl'?",
+    "options": ["because", "although", "therefore", "when"],
+    "correct": 1,
+    "category": "Vocabulary - Conjunctions"
+  },
+  {
+    "id": "mcq10",
+    "question": "Welche Form ist richtig: 'Der Mann, ___ ich kenne'?",
+    "options": ["der", "den", "dem", "des"],
+    "correct": 1,
+    "category": "Grammar - Relative Pronouns"
+  },
+  {
+    "id": "mcq11",
+    "question": "Was ist die Steigerung von 'gut'?",
+    "options": ["guter, am gutesten", "besser, am besten", "guter, am besten", "mehr gut, am meisten gut"],
+    "correct": 1,
+    "category": "Grammar - Comparison"
+  },
+  {
+    "id": "mcq12",
+    "question": "Welcher Artikel: '___ Mädchen ist nett'?",
+    "options": ["der", "die", "das", "dem"],
+    "correct": 2,
+    "category": "Grammar - Articles"
+  },
+  {
+    "id": "mcq13",
+    "question": "Was bedeutet 'nachdem'?",
+    "options": ["before", "after", "during", "while"],
+    "correct": 1,
+    "category": "Vocabulary - Time Conjunctions"
+  },
+  {
+    "id": "mcq14",
+    "question": "Welche Präposition: 'Ich fahre ___ Berlin'?",
+    "options": ["nach", "zu", "in", "an"],
+    "correct": 0,
+    "category": "Grammar - Prepositions"
+  },
+  {
+    "id": "mcq15",
+    "question": "Was ist richtig: 'Ich interessiere mich ___ Musik'?",
+    "options": ["für", "über", "an", "auf"],
+    "correct": 0,
+    "category": "Grammar - Reflexive Verbs"
+  },
+  {
+    "id": "mcq16",
+    "question": "Welches Wort passt nicht: Apfel, Birne, Kartoffel, Kirsche?",
+    "options": ["Apfel", "Birne", "Kartoffel", "Kirsche"],
+    "correct": 2,
+    "category": "Vocabulary - Food"
+  },
+  {
+    "id": "mcq17",
+    "question": "Was ist der Genitiv von 'der Vater'?",
+    "options": ["des Vaters", "dem Vater", "den Vater", "der Vater"],
+    "correct": 0,
+    "category": "Grammar - Cases"
+  },
+  {
+    "id": "mcq18",
+    "question": "Welcher Satz ist richtig?",
+    "options": ["Ich habe kein Auto", "Ich habe nicht Auto", "Ich habe keine Auto", "Ich nicht habe Auto"],
+    "correct": 0,
+    "category": "Grammar - Negation"
+  },
+  {
+    "id": "mcq19",
+    "question": "Was bedeutet 'aufhören'?",
+    "options": ["to start", "to stop", "to listen", "to hear"],
+    "correct": 1,
+    "category": "Vocabulary - Separable Verbs"
+  },
+  {
+    "id": "mcq20",
+    "question": "Welche Endung: 'Er arbeit___ fleißig'?",
+    "options": ["e", "st", "t", "en"],
+    "correct": 2,
+    "category": "Grammar - Verb Conjugation"
+  },
+  {
+    "id": "mcq21",
+    "question": "Was ist die Pluralform von 'der Mann'?",
+    "options": ["die Mannen", "die Männer", "die Mannes", "die Mans"],
+    "correct": 1,
+    "category": "Grammar - Plural Forms"
+  },
+  {
+    "id": "mcq22",
+    "question": "Welcher Artikel: '___ Auto ist schnell'?",
+    "options": ["der", "die", "das", "dem"],
+    "correct": 2,
+    "category": "Grammar - Articles"
+  },
+  {
+    "id": "mcq23",
+    "question": "Was bedeutet 'eigentlich'?",
+    "options": ["actually", "always", "especially", "exactly"],
+    "correct": 0,
+    "category": "Vocabulary - Adverbs"
+  },
+  {
+    "id": "mcq24",
+    "question": "Welche Form: 'Wenn ich reich ___, würde ich ein Haus kaufen'?",
+    "options": ["bin", "wäre", "war", "sein"],
+    "correct": 1,
+    "category": "Grammar - Subjunctive"
+  },
+  {
+    "id": "mcq25",
+    "question": "Was ist richtig: 'Ich freue mich ___ meinen Urlaub'?",
+    "options": ["über", "auf", "für", "an"],
+    "correct": 1,
+    "category": "Grammar - Reflexive Verbs"
+  },
+  {
+    "id": "mcq26",
+    "question": "Welches Verb ist trennbar?",
+    "options": ["verstehen", "aufstehen", "bezahlen", "erklären"],
+    "correct": 1,
+    "category": "Grammar - Separable Verbs"
+  },
+  {
+    "id": "mcq27",
+    "question": "Was bedeutet 'trotz'?",
+    "options": ["because of", "in spite of", "instead of", "without"],
+    "correct": 1,
+    "category": "Vocabulary - Prepositions"
+  },
+  {
+    "id": "mcq28",
+    "question": "Welcher Satz verwendet das Passiv?",
+    "options": ["Er öffnet die Tür", "Die Tür wird geöffnet", "Er hat die Tür geöffnet", "Er wird die Tür öffnen"],
+    "correct": 1,
+    "category": "Grammar - Passive Voice"
+  },
+  {
+    "id": "mcq29",
+    "question": "Was ist die Pluralform von 'das Kind'?",
+    "options": ["die Kinder", "die Kindern", "die Kinds", "die Kinde"],
+    "correct": 0,
+    "category": "Grammar - Plural Forms"
+  },
+  {
+    "id": "mcq30",
+    "question": "Welche Präposition: 'Ich denke ___ dich'?",
+    "options": ["über", "an", "auf", "für"],
+    "correct": 1,
+    "category": "Grammar - Prepositions"
+  },
+  {
+    "id": "mcq31",
+    "question": "Was ist der Dativ von 'die Frau'?",
+    "options": ["die Frau", "der Frau", "den Frau", "des Frau"],
+    "correct": 1,
+    "category": "Grammar - Cases"
+  },
+  {
+    "id": "mcq32",
+    "question": "Welches Wort bedeutet 'jedoch'?",
+    "options": ["therefore", "however", "because", "although"],
+    "correct": 1,
+    "category": "Vocabulary - Conjunctions"
+  },
+  {
+    "id": "mcq33",
+    "question": "Was ist richtig: '___ Stuhl ist bequem'?",
+    "options": ["Der", "Die", "Das", "Den"],
+    "correct": 0,
+    "category": "Grammar - Articles"
+  },
+  {
+    "id": "mcq34",
+    "question": "Welche Form: 'Ich hätte gerne ___ Kaffee'?",
+    "options": ["ein", "eine", "einen", "einer"],
+    "correct": 2,
+    "category": "Grammar - Articles"
+  },
+  {
+    "id": "mcq35",
+    "question": "Was bedeutet 'unbedingt'?",
+    "options": ["sometimes", "definitely", "maybe", "never"],
+    "correct": 1,
+    "category": "Vocabulary - Adverbs"
+  },
+  {
+    "id": "mcq36",
+    "question": "Welcher Satz ist korrekt?",
+    "options": ["Ich kann nicht kommen heute", "Ich kann heute nicht kommen", "Ich nicht kann heute kommen", "Heute ich kann nicht kommen"],
+    "correct": 1,
+    "category": "Grammar - Word Order"
+  },
+  {
+    "id": "mcq37",
+    "question": "Was ist die Steigerung von 'viel'?",
+    "options": ["vieler, am vielsten", "mehr, am meisten", "mehr, am mehrsten", "viel, am meisten"],
+    "correct": 1,
+    "category": "Grammar - Comparison"
+  },
+  {
+    "id": "mcq38",
+    "question": "Welche Präposition: 'Ich komme ___ Österreich'?",
+    "options": ["von", "aus", "von dem", "vom"],
+    "correct": 1,
+    "category": "Grammar - Prepositions"
+  },
+  {
+    "id": "mcq39",
+    "question": "Was ist der Akkusativ von 'ein Hund'?",
+    "options": ["ein Hund", "einen Hund", "einem Hund", "eines Hundes"],
+    "correct": 1,
+    "category": "Grammar - Cases"
+  },
+  {
+    "id": "mcq40",
+    "question": "Welches Verb passt: 'Du ___ nach Hause gehen'?",
+    "options": ["musst", "müssen", "muss", "müsst"],
+    "correct": 0,
+    "category": "Grammar - Modal Verbs"
+  },
+  {
+    "id": "mcq41",
+    "question": "Was bedeutet 'allerdings'?",
+    "options": ["always", "however", "therefore", "because"],
+    "correct": 1,
+    "category": "Vocabulary - Adverbs"
+  },
+  {
+    "id": "mcq42",
+    "question": "Welcher Satz ist richtig?",
+    "options": ["Ich weiß nicht, wo ist er", "Ich weiß nicht, wo er ist", "Ich weiß nicht, ist er wo", "Ich nicht weiß, wo er ist"],
+    "correct": 1,
+    "category": "Grammar - Subordinate Clauses"
+  },
+  {
+    "id": "mcq43",
+    "question": "Was ist die Pluralform von 'die Frau'?",
+    "options": ["die Fraus", "die Frauen", "die Fraue", "die Fraun"],
+    "correct": 1,
+    "category": "Grammar - Plural Forms"
+  },
+  {
+    "id": "mcq44",
+    "question": "Welche Präposition: 'Ich gehe ___ Schule'?",
+    "options": ["zu", "zur", "nach", "in die"],
+    "correct": 1,
+    "category": "Grammar - Prepositions"
+  },
+  {
+    "id": "mcq45",
+    "question": "Was bedeutet 'überhaupt'?",
+    "options": ["over there", "at all", "everywhere", "above all"],
+    "correct": 1,
+    "category": "Vocabulary - Adverbs"
+  },
+  {
+    "id": "mcq46",
+    "question": "Welcher Artikel: '___ Wasser ist kalt'?",
+    "options": ["der", "die", "das", "dem"],
+    "correct": 2,
+    "category": "Grammar - Articles"
+  },
+  {
+    "id": "mcq47",
+    "question": "Was ist richtig: 'Ich erinnere mich ___ ihn'?",
+    "options": ["an", "auf", "über", "für"],
+    "correct": 0,
+    "category": "Grammar - Reflexive Verbs"
+  },
+  {
+    "id": "mcq48",
+    "question": "Welche Form ist das Präteritum von 'sein' (ich)?",
+    "options": ["ich bin", "ich war", "ich gewesen", "ich wäre"],
+    "correct": 1,
+    "category": "Grammar - Past Tense"
+  },
+  {
+    "id": "mcq49",
+    "question": "Was bedeutet 'außerdem'?",
+    "options": ["outside", "besides", "instead", "except"],
+    "correct": 1,
+    "category": "Vocabulary - Conjunctions"
+  },
+  {
+    "id": "mcq50",
+    "question": "Welcher Satz ist korrekt?",
+    "options": ["Ich habe gestern gearbeitet", "Ich bin gestern gearbeitet", "Ich habe gestern arbeiten", "Ich war gestern gearbeitet"],
+    "correct": 0,
+    "category": "Grammar - Past Tense"
+  },
+  {
+    "id": "mcq51",
+    "question": "Was ist der Genitiv von 'das Kind'?",
+    "options": ["des Kindes", "dem Kind", "das Kind", "den Kind"],
+    "correct": 0,
+    "category": "Grammar - Cases"
+  },
+  {
+    "id": "mcq52",
+    "question": "Welche Präposition: 'Ich wohne ___ München'?",
+    "options": ["in", "bei", "an", "auf"],
+    "correct": 0,
+    "category": "Grammar - Prepositions"
+  },
+  {
+    "id": "mcq53",
+    "question": "Was bedeutet 'bereits'?",
+    "options": ["ready", "already", "barely", "nearly"],
+    "correct": 1,
+    "category": "Vocabulary - Adverbs"
+  },
+  {
+    "id": "mcq54",
+    "question": "Welcher Satz verwendet den Konjunktiv II?",
+    "options": ["Ich habe Hunger", "Ich hätte gerne ein Bier", "Ich hatte Hunger", "Ich werde Hunger haben"],
+    "correct": 1,
+    "category": "Grammar - Subjunctive"
+  },
+  {
+    "id": "mcq55",
+    "question": "Was ist die Pluralform von 'der Tag'?",
+    "options": ["die Tage", "die Tagen", "die Tags", "die Täge"],
+    "correct": 0,
+    "category": "Grammar - Plural Forms"
+  },
+  {
+    "id": "mcq56",
+    "question": "Welche Form: 'Wenn ich Zeit ___, würde ich kommen'?",
+    "options": ["habe", "hätte", "hatte", "haben"],
+    "correct": 1,
+    "category": "Grammar - Subjunctive"
+  },
+  {
+    "id": "mcq57",
+    "question": "Was bedeutet 'inzwischen'?",
+    "options": ["meanwhile", "between", "inside", "within"],
+    "correct": 0,
+    "category": "Vocabulary - Adverbs"
+  },
+  {
+    "id": "mcq58",
+    "question": "Welcher Artikel: '___ Tisch ist groß'?",
+    "options": ["der", "die", "das", "dem"],
+    "correct": 0,
+    "category": "Grammar - Articles"
+  },
+  {
+    "id": "mcq59",
+    "question": "Was ist richtig: 'Ich kümmere mich ___ meine Kinder'?",
+    "options": ["um", "für", "über", "an"],
+    "correct": 0,
+    "category": "Grammar - Reflexive Verbs"
+  },
+  {
+    "id": "mcq60",
+    "question": "Welche Präposition: 'Das Bild hängt ___ der Wand'?",
+    "options": ["auf", "an", "in", "über"],
+    "correct": 1,
+    "category": "Grammar - Prepositions"
+  },
+  {
+    "id": "mcq61",
+    "question": "Was ist der Dativ Plural von 'das Kind'?",
+    "options": ["die Kinder", "der Kinder", "den Kindern", "dem Kindern"],
+    "correct": 2,
+    "category": "Grammar - Cases"
+  },
+  {
+    "id": "mcq62",
+    "question": "Welches Wort bedeutet 'deshalb'?",
+    "options": ["therefore", "despite", "although", "however"],
+    "correct": 0,
+    "category": "Vocabulary - Conjunctions"
+  },
+  {
+    "id": "mcq63",
+    "question": "Was ist die Steigerung von 'gern'?",
+    "options": ["lieber, am liebsten", "gerner, am gernsten", "mehr gern, am meisten gern", "gern, am gernsten"],
+    "correct": 0,
+    "category": "Grammar - Comparison"
+  },
+  {
+    "id": "mcq64",
+    "question": "Welcher Satz ist korrekt?",
+    "options": ["Er sagt, dass er krank ist", "Er sagt, dass ist er krank", "Er sagt, er dass krank ist", "Er sagt, krank ist er dass"],
+    "correct": 0,
+    "category": "Grammar - Subordinate Clauses"
+  },
+  {
+    "id": "mcq65",
+    "question": "Was bedeutet 'sowie'?",
+    "options": ["as well as", "as if", "as soon as", "as much as"],
+    "correct": 0,
+    "category": "Vocabulary - Conjunctions"
+  },
+  {
+    "id": "mcq66",
+    "question": "Welche Präposition: 'Ich fahre ___ dem Auto'?",
+    "options": ["mit", "durch", "von", "aus"],
+    "correct": 0,
+    "category": "Grammar - Prepositions"
+  },
+  {
+    "id": "mcq67",
+    "question": "Was ist die Pluralform von 'das Haus'?",
+    "options": ["die Häuser", "die Hauser", "die Häuse", "die Hausen"],
+    "correct": 0,
+    "category": "Grammar - Plural Forms"
+  },
+  {
+    "id": "mcq68",
+    "question": "Welcher Artikel: '___ Brot ist frisch'?",
+    "options": ["der", "die", "das", "dem"],
+    "correct": 2,
+    "category": "Grammar - Articles"
+  },
+  {
+    "id": "mcq69",
+    "question": "Was ist der Akkusativ von 'die Frau'?",
+    "options": ["die Frau", "der Frau", "den Frau", "eine Frau"],
+    "correct": 0,
+    "category": "Grammar - Cases"
+  },
+  {
+    "id": "mcq70",
+    "question": "Welches Verb ist untrennbar?",
+    "options": ["ankommen", "verstehen", "aufstehen", "mitnehmen"],
+    "correct": 1,
+    "category": "Grammar - Inseparable Verbs"
+  },
+  {
+    "id": "mcq71",
+    "question": "Was bedeutet 'jedenfalls'?",
+    "options": ["anyway", "every fall", "every time", "in case"],
+    "correct": 0,
+    "category": "Vocabulary - Adverbs"
+  },
+  {
+    "id": "mcq72",
+    "question": "Welcher Satz ist richtig?",
+    "options": ["Gestern ich habe gegessen", "Ich habe gestern gegessen", "Ich gestern habe gegessen", "Gegessen habe ich gestern"],
+    "correct": 1,
+    "category": "Grammar - Word Order"
+  },
+  {
+    "id": "mcq73",
+    "question": "Was ist das Partizip II von 'fahren'?",
+    "options": ["gefahren", "gefahrt", "gefahrt", "gefährt"],
+    "correct": 0,
+    "category": "Grammar - Past Participle"
+  },
+  {
+    "id": "mcq74",
+    "question": "Welche Präposition: 'Ich bin stolz ___ dich'?",
+    "options": ["auf", "über", "von", "für"],
+    "correct": 0,
+    "category": "Grammar - Prepositions"
+  },
+  {
+    "id": "mcq75",
+    "question": "Was bedeutet 'währenddessen'?",
+    "options": ["during that", "meanwhile", "before that", "after that"],
+    "correct": 1,
+    "category": "Vocabulary - Adverbs"
+  },
+  {
+    "id": "mcq76",
+    "question": "Welcher Artikel: '___ Milch ist gesund'?",
+    "options": ["der", "die", "das", "dem"],
+    "correct": 1,
+    "category": "Grammar - Articles"
+  },
+  {
+    "id": "mcq77",
+    "question": "Was ist richtig: 'Ich beschwere mich ___ den Service'?",
+    "options": ["über", "auf", "für", "an"],
+    "correct": 0,
+    "category": "Grammar - Reflexive Verbs"
+  },
+  {
+    "id": "mcq78",
+    "question": "Welche Form: 'Wir ___ gerne ins Kino gegangen'?",
+    "options": ["haben", "sind", "waren", "hatten"],
+    "correct": 1,
+    "category": "Grammar - Past Tense"
+  },
+  {
+    "id": "mcq79",
+    "question": "Was ist die Pluralform von 'der Schuh'?",
+    "options": ["die Schuhe", "die Schühe", "die Schuhen", "die Schuhs"],
+    "correct": 0,
+    "category": "Grammar - Plural Forms"
+  },
+  {
+    "id": "mcq80",
+    "question": "Welches Wort bedeutet 'dennoch'?",
+    "options": ["therefore", "nevertheless", "because", "when"],
+    "correct": 1,
+    "category": "Vocabulary - Conjunctions"
+  },
+  {
+    "id": "mcq81",
+    "question": "Was ist der Genitiv von 'die Mutter'?",
+    "options": ["der Mutter", "die Mutter", "des Mutter", "den Mutter"],
+    "correct": 0,
+    "category": "Grammar - Cases"
+  },
+  {
+    "id": "mcq82",
+    "question": "Welche Präposition: 'Das hängt ___ dir ab'?",
+    "options": ["von", "auf", "an", "über"],
+    "correct": 0,
+    "category": "Grammar - Prepositions"
+  },
+  {
+    "id": "mcq83",
+    "question": "Was bedeutet 'wiederum'?",
+    "options": ["again", "in turn", "once more", "backward"],
+    "correct": 1,
+    "category": "Vocabulary - Adverbs"
+  },
+  {
+    "id": "mcq84",
+    "question": "Welcher Satz ist korrekt im Perfekt?",
+    "options": ["Ich habe gelesen ein Buch", "Ich habe ein Buch gelesen", "Ein Buch habe ich gelesen", "beide b und c"],
+    "correct": 3,
+    "category": "Grammar - Word Order"
+  },
+  {
+    "id": "mcq85",
+    "question": "Was ist die Steigerung von 'hoch'?",
+    "options": ["höcher, am höchsten", "höher, am höchsten", "hoch, am hochsten", "hocher, am hochesten"],
+    "correct": 1,
+    "category": "Grammar - Comparison"
+  },
+  {
+    "id": "mcq86",
+    "question": "Welche Form: 'Ich würde gerne ___ Auto kaufen'?",
+    "options": ["ein", "eine", "einen", "einem"],
+    "correct": 0,
+    "category": "Grammar - Articles"
+  },
+  {
+    "id": "mcq87",
+    "question": "Was bedeutet 'hingegen'?",
+    "options": ["however", "therefore", "moreover", "instead"],
+    "correct": 0,
+    "category": "Vocabulary - Conjunctions"
+  },
+  {
+    "id": "mcq88",
+    "question": "Welcher Artikel: '___ Handy ist neu'?",
+    "options": ["der", "die", "das", "dem"],
+    "correct": 2,
+    "category": "Grammar - Articles"
+  },
+  {
+    "id": "mcq89",
+    "question": "Was ist der Dativ von 'ein Mann'?",
+    "options": ["ein Mann", "einen Mann", "einem Mann", "eines Mannes"],
+    "correct": 2,
+    "category": "Grammar - Cases"
+  },
+  {
+    "id": "mcq90",
+    "question": "Welche Präposition: 'Ich bin müde ___ der Arbeit'?",
+    "options": ["von", "durch", "mit", "wegen"],
+    "correct": 0,
+    "category": "Grammar - Prepositions"
+  },
+  {
+    "id": "mcq91",
+    "question": "Was ist das Partizip II von 'schreiben'?",
+    "options": ["geschrieben", "geschreibt", "geschriebt", "geschreibten"],
+    "correct": 0,
+    "category": "Grammar - Past Participle"
+  },
+  {
+    "id": "mcq92",
+    "question": "Welcher Satz ist richtig?",
+    "options": ["Morgen werde ich fahren nach Berlin", "Morgen werde ich nach Berlin fahren", "Morgen nach Berlin werde ich fahren", "Nach Berlin morgen werde ich fahren"],
+    "correct": 1,
+    "category": "Grammar - Word Order"
+  },
+  {
+    "id": "mcq93",
+    "question": "Was bedeutet 'demnach'?",
+    "options": ["then", "accordingly", "afterwards", "therefore"],
+    "correct": 1,
+    "category": "Vocabulary - Adverbs"
+  },
+  {
+    "id": "mcq94",
+    "question": "Welche Form: 'Er tat so, als ___ er krank'?",
+    "options": ["ist", "wäre", "war", "sein"],
+    "correct": 1,
+    "category": "Grammar - Subjunctive"
+  },
+  {
+    "id": "mcq95",
+    "question": "Was ist die Pluralform von 'der Arzt'?",
+    "options": ["die Arzten", "die Ärzte", "die Arzte", "die Ärzten"],
+    "correct": 1,
+    "category": "Grammar - Plural Forms"
+  },
+  {
+    "id": "mcq96",
+    "question": "Welche Präposition: 'Ich verlasse mich ___ dich'?",
+    "options": ["auf", "an", "über", "für"],
+    "correct": 0,
+    "category": "Grammar - Reflexive Verbs"
+  },
+  {
+    "id": "mcq97",
+    "question": "Was bedeutet 'zumindest'?",
+    "options": ["at most", "at least", "at first", "at last"],
+    "correct": 1,
+    "category": "Vocabulary - Adverbs"
+  },
+  {
+    "id": "mcq98",
+    "question": "Welcher Artikel: '___ Sofa ist bequem'?",
+    "options": ["der", "die", "das", "dem"],
+    "correct": 2,
+    "category": "Grammar - Articles"
+  },
+  {
+    "id": "mcq99",
+    "question": "Was ist der Akkusativ Plural von 'der Hund'?",
+    "options": ["die Hunde", "den Hunden", "die Hunden", "der Hunde"],
+    "correct": 0,
+    "category": "Grammar - Cases"
+  },
+  {
+    "id": "mcq100",
+    "question": "Welche Form: 'Ich habe vergessen, die Tür ___ schließen'?",
+    "options": ["zu", "um", "für", "mit"],
+    "correct": 0,
+    "category": "Grammar - Infinitive with zu"
+  },
+  {
+    "id": "mcq101",
+    "question": "Was bedeutet 'keinesfalls'?",
+    "options": ["in any case", "in no case", "in some cases", "in most cases"],
+    "correct": 1,
+    "category": "Vocabulary - Adverbs"
+  },
+  {
+    "id": "mcq102",
+    "question": "Welches Verb bildet das Perfekt mit 'sein'?",
+    "options": ["spielen", "arbeiten", "laufen", "lernen"],
+    "correct": 2,
+    "category": "Grammar - Past Tense"
+  },
+  {
+    "id": "mcq103",
+    "question": "Was ist die Pluralform von 'die Nacht'?",
+    "options": ["die Nächte", "die Nachten", "die Nachts", "die Nacht"],
+    "correct": 0,
+    "category": "Grammar - Plural Forms"
+  },
+  {
+    "id": "mcq104",
+    "question": "Welche Präposition: 'Ich sorge mich ___ meine Familie'?",
+    "options": ["um", "für", "über", "an"],
+    "correct": 0,
+    "category": "Grammar - Reflexive Verbs"
+  },
+  {
+    "id": "mcq105",
+    "question": "Was bedeutet 'schließlich'?",
+    "options": ["firstly", "finally", "quickly", "slowly"],
+    "correct": 1,
+    "category": "Vocabulary - Adverbs"
+  },
+  {
+    "id": "mcq106",
+    "question": "Welcher Satz verwendet den Imperativ richtig?",
+    "options": ["Du kommst hier!", "Komm hier!", "Kommen hier!", "Kommst hier!"],
+    "correct": 1,
+    "category": "Grammar - Imperative"
+  },
+  {
+    "id": "mcq107",
+    "question": "Was ist das Gegenteil von 'schwierig'?",
+    "options": ["leicht", "klein", "kurz", "langsam"],
+    "correct": 0,
+    "category": "Vocabulary - Adjectives"
+  },
+  {
+    "id": "mcq108",
+    "question": "Welcher Artikel: '___ Butter ist frisch'?",
+    "options": ["der", "die", "das", "dem"],
+    "correct": 1,
+    "category": "Grammar - Articles"
+  },
+  {
+    "id": "mcq109",
+    "question": "Was ist die Steigerung von 'nah'?",
+    "options": ["naher, am nahsten", "näher, am nächsten", "nah, am nahesten", "näher, am nähesten"],
+    "correct": 1,
+    "category": "Grammar - Comparison"
+  },
+  {
+    "id": "mcq110",
+    "question": "Welche Form: 'Ich lasse mein Auto ___'?",
+    "options": ["reparieren", "repariert", "zu reparieren", "repariere"],
+    "correct": 0,
+    "category": "Grammar - Causative"
+  }
+]
