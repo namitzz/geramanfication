@@ -199,6 +199,103 @@ export const sentencesDeck: Deck = {
   ],
 };
 
+export const nationalitiesDeck: Deck = {
+  id: 'nationalities',
+  name: 'Nationalities',
+  description: 'Learn nationalities in masculine and feminine forms',
+  cards: [
+    { id: 'nat1', de: 'Franzose / Französin', en: 'French (m/f)', partOfSpeech: 'noun', note: 'from Frankreich' },
+    { id: 'nat2', de: 'Italiener / Italienerin', en: 'Italian (m/f)', partOfSpeech: 'noun', note: 'from Italien' },
+    { id: 'nat3', de: 'Spanier / Spanierin', en: 'Spanish (m/f)', partOfSpeech: 'noun', note: 'from Spanien' },
+    { id: 'nat4', de: 'Amerikaner / Amerikanerin', en: 'American (m/f)', partOfSpeech: 'noun', note: 'from USA' },
+    { id: 'nat5', de: 'Deutscher / Deutsche', en: 'German (m/f)', partOfSpeech: 'noun', note: 'from Deutschland' },
+    { id: 'nat6', de: 'Schweizer', en: 'Swiss (m/f)', partOfSpeech: 'noun', note: 'from Schweiz - same for both' },
+    { id: 'nat7', de: 'Brite / Britin', en: 'British (m/f)', partOfSpeech: 'noun', note: 'from Vereinigtes Königreich' },
+    { id: 'nat8', de: 'Engländer / Engländerin', en: 'English (m/f)', partOfSpeech: 'noun', note: 'from England' },
+    { id: 'nat9', de: 'Österreicher / Österreicherin', en: 'Austrian (m/f)', partOfSpeech: 'noun', note: 'from Österreich' },
+    { id: 'nat10', de: 'Pole / Polin', en: 'Polish (m/f)', partOfSpeech: 'noun', note: 'from Polen' },
+    { id: 'nat11', de: 'Russe / Russin', en: 'Russian (m/f)', partOfSpeech: 'noun', note: 'from Russland' },
+    { id: 'nat12', de: 'Türke / Türkin', en: 'Turkish (m/f)', partOfSpeech: 'noun', note: 'from Türkei' },
+    { id: 'nat13', de: 'Chinese / Chinesin', en: 'Chinese (m/f)', partOfSpeech: 'noun', note: 'from China' },
+    { id: 'nat14', de: 'Japaner / Japanerin', en: 'Japanese (m/f)', partOfSpeech: 'noun', note: 'from Japan' },
+    { id: 'nat15', de: 'Brasilianer / Brasilianerin', en: 'Brazilian (m/f)', partOfSpeech: 'noun', note: 'from Brasilien' },
+  ],
+};
+
+export const familyDeck: Deck = {
+  id: 'family',
+  name: 'Family Members',
+  description: 'Learn German family vocabulary with articles',
+  cards: [
+    { id: 'fam1', de: 'Bruder', en: 'brother', article: 'der', partOfSpeech: 'noun' },
+    { id: 'fam2', de: 'Schwester', en: 'sister', article: 'die', partOfSpeech: 'noun' },
+    { id: 'fam3', de: 'Kind', en: 'child', article: 'das', partOfSpeech: 'noun' },
+    { id: 'fam4', de: 'Eltern', en: 'parents', article: 'die', partOfSpeech: 'noun', note: 'plural only' },
+    { id: 'fam5', de: 'Mutter', en: 'mother', article: 'die', partOfSpeech: 'noun' },
+    { id: 'fam6', de: 'Vater', en: 'father', article: 'der', partOfSpeech: 'noun' },
+    { id: 'fam7', de: 'Onkel', en: 'uncle', article: 'der', partOfSpeech: 'noun' },
+    { id: 'fam8', de: 'Tante', en: 'aunt', article: 'die', partOfSpeech: 'noun' },
+    { id: 'fam9', de: 'Nichte', en: 'niece', article: 'die', partOfSpeech: 'noun' },
+    { id: 'fam10', de: 'Neffe', en: 'nephew', article: 'der', partOfSpeech: 'noun' },
+    { id: 'fam11', de: 'Großmutter', en: 'grandmother', article: 'die', partOfSpeech: 'noun', note: 'informal: Oma' },
+    { id: 'fam12', de: 'Großvater', en: 'grandfather', article: 'der', partOfSpeech: 'noun', note: 'informal: Opa' },
+    { id: 'fam13', de: 'Oma', en: 'grandma', article: 'die', partOfSpeech: 'noun' },
+    { id: 'fam14', de: 'Opa', en: 'grandpa', article: 'der', partOfSpeech: 'noun' },
+    { id: 'fam15', de: 'Cousin', en: 'male cousin', article: 'der', partOfSpeech: 'noun' },
+    { id: 'fam16', de: 'Kusine', en: 'female cousin', article: 'die', partOfSpeech: 'noun' },
+    { id: 'fam17', de: 'Freund', en: 'male friend / boyfriend', article: 'der', partOfSpeech: 'noun' },
+    { id: 'fam18', de: 'Freundin', en: 'female friend / girlfriend', article: 'die', partOfSpeech: 'noun' },
+    { id: 'fam19', de: 'Sohn', en: 'son', article: 'der', partOfSpeech: 'noun' },
+    { id: 'fam20', de: 'Tochter', en: 'daughter', article: 'die', partOfSpeech: 'noun' },
+  ],
+};
+
+export const possessivesDeck: Deck = {
+  id: 'possessives',
+  name: 'Possessives',
+  description: 'Learn possessive pronouns: mein, dein, sein, ihr',
+  cards: [
+    { id: 'pos1', de: 'mein Bruder', en: 'my brother', partOfSpeech: 'phrase', note: 'masculine - no ending' },
+    { id: 'pos2', de: 'meine Schwester', en: 'my sister', partOfSpeech: 'phrase', note: 'feminine - add -e' },
+    { id: 'pos3', de: 'mein Kind', en: 'my child', partOfSpeech: 'phrase', note: 'neuter - no ending' },
+    { id: 'pos4', de: 'meine Eltern', en: 'my parents', partOfSpeech: 'phrase', note: 'plural - add -e' },
+    { id: 'pos5', de: 'dein Freund', en: 'your friend (informal)', partOfSpeech: 'phrase', note: 'masculine - no ending' },
+    { id: 'pos6', de: 'deine Freundin', en: 'your friend (informal, f)', partOfSpeech: 'phrase', note: 'feminine - add -e' },
+    { id: 'pos7', de: 'sein Vater', en: 'his father', partOfSpeech: 'phrase', note: 'masculine - no ending' },
+    { id: 'pos8', de: 'seine Mutter', en: 'his mother', partOfSpeech: 'phrase', note: 'feminine - add -e' },
+    { id: 'pos9', de: 'ihr Bruder', en: 'her brother', partOfSpeech: 'phrase', note: 'masculine - no ending' },
+    { id: 'pos10', de: 'ihre Schwester', en: 'her sister', partOfSpeech: 'phrase', note: 'feminine - add -e' },
+    { id: 'pos11', de: 'Das ist mein Bruder.', en: 'This is my brother.', partOfSpeech: 'phrase' },
+    { id: 'pos12', de: 'Das ist meine Schwester.', en: 'This is my sister.', partOfSpeech: 'phrase' },
+    { id: 'pos13', de: 'Wie heißt dein Freund?', en: 'What is your friend called?', partOfSpeech: 'phrase' },
+    { id: 'pos14', de: 'Sein Bruder spricht Deutsch.', en: 'His brother speaks German.', partOfSpeech: 'phrase' },
+    { id: 'pos15', de: 'Ihre Schwester spricht kein Deutsch.', en: "Her sister doesn't speak German.", partOfSpeech: 'phrase' },
+  ],
+};
+
+export const languagesDeck: Deck = {
+  id: 'languages',
+  name: 'Languages',
+  description: 'Learn how to say different languages in German',
+  cards: [
+    { id: 'lang1', de: 'Deutsch', en: 'German', partOfSpeech: 'noun' },
+    { id: 'lang2', de: 'Englisch', en: 'English', partOfSpeech: 'noun' },
+    { id: 'lang3', de: 'Französisch', en: 'French', partOfSpeech: 'noun' },
+    { id: 'lang4', de: 'Spanisch', en: 'Spanish', partOfSpeech: 'noun' },
+    { id: 'lang5', de: 'Italienisch', en: 'Italian', partOfSpeech: 'noun' },
+    { id: 'lang6', de: 'Russisch', en: 'Russian', partOfSpeech: 'noun' },
+    { id: 'lang7', de: 'Arabisch', en: 'Arabic', partOfSpeech: 'noun' },
+    { id: 'lang8', de: 'Chinesisch', en: 'Chinese', partOfSpeech: 'noun' },
+    { id: 'lang9', de: 'Japanisch', en: 'Japanese', partOfSpeech: 'noun' },
+    { id: 'lang10', de: 'Portugiesisch', en: 'Portuguese', partOfSpeech: 'noun' },
+    { id: 'lang11', de: 'Ich spreche Deutsch.', en: 'I speak German.', partOfSpeech: 'phrase' },
+    { id: 'lang12', de: 'Ich spreche ein bisschen Deutsch.', en: 'I speak a little German.', partOfSpeech: 'phrase' },
+    { id: 'lang13', de: 'Welche Sprachen sprichst du?', en: 'What languages do you speak?', partOfSpeech: 'phrase' },
+    { id: 'lang14', de: 'Ich spreche kein Spanisch.', en: "I don't speak Spanish.", partOfSpeech: 'phrase' },
+    { id: 'lang15', de: 'Sprechen Sie Englisch?', en: 'Do you speak English? (formal)', partOfSpeech: 'phrase' },
+  ],
+};
+
 export const allDecks: Deck[] = [
   greetingsDeck,
   numbersDeck,
@@ -207,4 +304,8 @@ export const allDecks: Deck[] = [
   a1BasicsDeck,
   travelPhrasebookDeck,
   sentencesDeck,
+  nationalitiesDeck,
+  familyDeck,
+  possessivesDeck,
+  languagesDeck,
 ];
