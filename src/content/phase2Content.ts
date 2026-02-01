@@ -506,7 +506,7 @@ Without looking at notes, classify these verbs as: Separable (S), Inseparable (I
 7. verbringen
 8. aufwachen
 9. sich beeilen
-10. erkären
+10. erklären
 
 **CATEGORY 2: Time Recall**
 Write what time it is in German (use conversational format, not 24h):
@@ -549,7 +549,7 @@ Find and correct the errors in these sentences:
 1. Ich aufstehe um 7 Uhr.
 2. Er wascht jeden Morgen.
 3. Wir gehen in dem Park. (direction intended)
-4. Es ist halb zehn. (meaning 9:30)
+4. Es ist halb zehn. (trying to say 10:30 - but this actually means 9:30!)
 5. Sie beeilt.
 
 **CATEGORY 7: Translation Challenge**
@@ -619,9 +619,9 @@ Correct the errors in these sentences. Each sentence has 1-2 errors.
 5. Das Buch ist auf den Tisch. (location - book is on the table)
 6. Ich mich ziehe schnell an.
 7. Er aufwacht um 6 Uhr.
-8. Es ist halb elf. (trying to say 10:30)
-9. Ich gehe nach dem Park.
-10. Sie kauft im Supermarkt ein. (word order issue - which is correct?)
+8. Es ist halb elf. (trying to say 11:30 - but this actually means 10:30!)
+9. Ich gehe nach dem Park. (should be 'in den Park' for direction)
+10. Sie im Supermarkt kauft ein. (word order - verb position is wrong)
 
 **ADVANCED CHALLENGE:**
 
