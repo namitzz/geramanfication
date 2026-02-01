@@ -296,71 +296,170 @@ export const languagesDeck: Deck = {
   ],
 };
 
-// Phase 2: Daily Routines (Alltagsroutine)
-export const phase2DailyRoutinesDeck: Deck = {
-  id: 'phase2-daily-routines',
-  name: 'Phase 2: Daily Routines (Alltagsroutine)',
-  description: 'Phase 2 - Continuation of Phase 1: Learn daily routine vocabulary with separable, inseparable, and reflexive verbs. Includes time expressions (12h/24h).',
+// ============================================================
+// PHASE 2 DECKS - Modular Learning with Practice
+// ============================================================
+
+// Phase 2.1: Daily Routine Vocabulary
+export const phase2DailyRoutineVocabDeck: Deck = {
+  id: 'phase2-daily-routine-vocab',
+  name: 'Daily Routine Vocabulary',
+  description: 'Essential vocabulary for describing your daily routine (Alltagsroutine)',
   cards: [
-    // Reflexive verbs - daily routine
-    { id: 'p2r1', de: 'sich waschen', en: 'to wash (oneself)', partOfSpeech: 'verb', note: 'Reflexive verb - Ich wasche mich' },
-    { id: 'p2r2', de: 'sich anziehen', en: 'to get dressed', partOfSpeech: 'verb', note: 'Reflexive verb - Ich ziehe mich an' },
-    { id: 'p2r3', de: 'sich ausziehen', en: 'to get undressed', partOfSpeech: 'verb', note: 'Reflexive verb - Ich ziehe mich aus' },
-    { id: 'p2r4', de: 'sich duschen', en: 'to shower', partOfSpeech: 'verb', note: 'Reflexive verb - Ich dusche mich' },
-    { id: 'p2r5', de: 'sich kämmen', en: 'to comb (one\'s hair)', partOfSpeech: 'verb', note: 'Reflexive verb - Ich kämme mich' },
-    { id: 'p2r6', de: 'sich rasieren', en: 'to shave', partOfSpeech: 'verb', note: 'Reflexive verb - Ich rasiere mich' },
-    { id: 'p2r7', de: 'sich schminken', en: 'to put on makeup', partOfSpeech: 'verb', note: 'Reflexive verb - Ich schminke mich' },
-    { id: 'p2r8', de: 'sich die Zähne putzen', en: 'to brush one\'s teeth', partOfSpeech: 'verb', note: 'Reflexive verb with dative' },
-    { id: 'p2r9', de: 'sich beeilen', en: 'to hurry', partOfSpeech: 'verb', note: 'Reflexive verb - Ich beeile mich' },
-    { id: 'p2r10', de: 'sich entspannen', en: 'to relax', partOfSpeech: 'verb', note: 'Reflexive verb - Ich entspanne mich' },
-    
-    // Separable verbs - daily routine
-    { id: 'p2s1', de: 'aufstehen', en: 'to get up', partOfSpeech: 'verb', note: 'Separable verb - Ich stehe auf' },
-    { id: 'p2s2', de: 'aufwachen', en: 'to wake up', partOfSpeech: 'verb', note: 'Separable verb - Ich wache auf' },
-    { id: 'p2s3', de: 'einschlafen', en: 'to fall asleep', partOfSpeech: 'verb', note: 'Separable verb - Ich schlafe ein' },
-    { id: 'p2s4', de: 'ausgehen', en: 'to go out', partOfSpeech: 'verb', note: 'Separable verb - Ich gehe aus' },
-    { id: 'p2s5', de: 'zurückkommen', en: 'to come back', partOfSpeech: 'verb', note: 'Separable verb - Ich komme zurück' },
-    { id: 'p2s6', de: 'ankommen', en: 'to arrive', partOfSpeech: 'verb', note: 'Separable verb - Ich komme an' },
-    { id: 'p2s7', de: 'abfahren', en: 'to depart', partOfSpeech: 'verb', note: 'Separable verb - Ich fahre ab' },
-    { id: 'p2s8', de: 'fernsehen', en: 'to watch TV', partOfSpeech: 'verb', note: 'Separable verb - Ich sehe fern' },
-    { id: 'p2s9', de: 'einkaufen', en: 'to go shopping', partOfSpeech: 'verb', note: 'Separable verb - Ich kaufe ein' },
-    { id: 'p2s10', de: 'vorbereiten', en: 'to prepare', partOfSpeech: 'verb', note: 'Separable verb - Ich bereite vor' },
-    
-    // Inseparable verbs - daily context
-    { id: 'p2i1', de: 'beginnen', en: 'to begin', partOfSpeech: 'verb', note: 'Inseparable verb - Ich beginne' },
-    { id: 'p2i2', de: 'beenden', en: 'to end/finish', partOfSpeech: 'verb', note: 'Inseparable verb - Ich beende' },
-    { id: 'p2i3', de: 'verbringen', en: 'to spend (time)', partOfSpeech: 'verb', note: 'Inseparable verb - Ich verbringe' },
-    { id: 'p2i4', de: 'verstehen', en: 'to understand', partOfSpeech: 'verb', note: 'Inseparable verb - Ich verstehe' },
-    { id: 'p2i5', de: 'erklären', en: 'to explain', partOfSpeech: 'verb', note: 'Inseparable verb - Ich erkläre' },
-    
-    // Time expressions
-    { id: 'p2t1', de: 'Um wie viel Uhr?', en: 'At what time?', partOfSpeech: 'phrase', note: 'Asking for time' },
-    { id: 'p2t2', de: 'Es ist acht Uhr.', en: 'It is eight o\'clock.', partOfSpeech: 'phrase', note: '8:00 - 24h: 08:00 Uhr' },
-    { id: 'p2t3', de: 'Es ist halb neun.', en: 'It is half past eight.', partOfSpeech: 'phrase', note: '8:30 - German "half" refers to next hour' },
-    { id: 'p2t4', de: 'Es ist Viertel vor zehn.', en: 'It is quarter to ten.', partOfSpeech: 'phrase', note: '9:45 - 24h: 09:45 Uhr' },
-    { id: 'p2t5', de: 'Es ist Viertel nach sieben.', en: 'It is quarter past seven.', partOfSpeech: 'phrase', note: '7:15 - 24h: 07:15 Uhr' },
-    { id: 'p2t6', de: 'am Morgen', en: 'in the morning', partOfSpeech: 'phrase', note: 'Time of day expression' },
-    { id: 'p2t7', de: 'am Nachmittag', en: 'in the afternoon', partOfSpeech: 'phrase', note: 'Time of day expression' },
-    { id: 'p2t8', de: 'am Abend', en: 'in the evening', partOfSpeech: 'phrase', note: 'Time of day expression' },
-    { id: 'p2t9', de: 'in der Nacht', en: 'at night', partOfSpeech: 'phrase', note: 'Time of day expression' },
-    
-    // Daily routine vocabulary
-    { id: 'p2v1', de: 'Morgenroutine', en: 'morning routine', article: 'die', partOfSpeech: 'noun' },
-    { id: 'p2v2', de: 'Abendroutine', en: 'evening routine', article: 'die', partOfSpeech: 'noun' },
-    { id: 'p2v3', de: 'Frühstück', en: 'breakfast', article: 'das', partOfSpeech: 'noun' },
-    { id: 'p2v4', de: 'Mittagessen', en: 'lunch', article: 'das', partOfSpeech: 'noun' },
-    { id: 'p2v5', de: 'Abendessen', en: 'dinner', article: 'das', partOfSpeech: 'noun' },
-    { id: 'p2v6', de: 'Wecker', en: 'alarm clock', article: 'der', partOfSpeech: 'noun' },
-    { id: 'p2v7', de: 'Uhr', en: 'clock / watch', article: 'die', partOfSpeech: 'noun', note: 'Also means "o\'clock" in time expressions' },
-    
-    // Example sentences - daily routine
-    { id: 'p2e1', de: 'Ich stehe um 7 Uhr auf.', en: 'I get up at 7 o\'clock.', partOfSpeech: 'phrase', note: 'Separable verb in present tense' },
-    { id: 'p2e2', de: 'Ich dusche mich jeden Morgen.', en: 'I shower every morning.', partOfSpeech: 'phrase', note: 'Reflexive verb usage' },
-    { id: 'p2e3', de: 'Ich ziehe mich schnell an.', en: 'I get dressed quickly.', partOfSpeech: 'phrase', note: 'Reflexive + separable verb' },
-    { id: 'p2e4', de: 'Um halb acht frühstücke ich.', en: 'At half past seven I have breakfast.', partOfSpeech: 'phrase', note: 'Time expression + verb' },
-    { id: 'p2e5', de: 'Ich gehe um 9 Uhr aus dem Haus.', en: 'I leave the house at 9 o\'clock.', partOfSpeech: 'phrase', note: 'Separable verb with time' },
-    { id: 'p2e6', de: 'Abends entspanne ich mich.', en: 'In the evening I relax.', partOfSpeech: 'phrase', note: 'Time adverb + reflexive verb' },
-    { id: 'p2e7', de: 'Ich schlafe um 23 Uhr ein.', en: 'I fall asleep at 11 PM.', partOfSpeech: 'phrase', note: '24-hour time format' },
+    { id: 'p2drv1', de: 'Morgen', en: 'morning', article: 'der', partOfSpeech: 'noun' },
+    { id: 'p2drv2', de: 'Vormittag', en: 'late morning/forenoon', article: 'der', partOfSpeech: 'noun' },
+    { id: 'p2drv3', de: 'Mittag', en: 'noon/midday', article: 'der', partOfSpeech: 'noun' },
+    { id: 'p2drv4', de: 'Nachmittag', en: 'afternoon', article: 'der', partOfSpeech: 'noun' },
+    { id: 'p2drv5', de: 'Abend', en: 'evening', article: 'der', partOfSpeech: 'noun' },
+    { id: 'p2drv6', de: 'Nacht', en: 'night', article: 'die', partOfSpeech: 'noun' },
+    { id: 'p2drv7', de: 'frühstücken', en: 'to have breakfast', partOfSpeech: 'verb' },
+    { id: 'p2drv8', de: 'zu Mittag essen', en: 'to have lunch', partOfSpeech: 'phrase' },
+    { id: 'p2drv9', de: 'zu Abend essen', en: 'to have dinner', partOfSpeech: 'phrase' },
+    { id: 'p2drv10', de: 'arbeiten', en: 'to work', partOfSpeech: 'verb' },
+    { id: 'p2drv11', de: 'zur Arbeit gehen', en: 'to go to work', partOfSpeech: 'phrase' },
+    { id: 'p2drv12', de: 'nach Hause kommen', en: 'to come home', partOfSpeech: 'phrase' },
+    { id: 'p2drv13', de: 'kochen', en: 'to cook', partOfSpeech: 'verb' },
+    { id: 'p2drv14', de: 'Morgenroutine', en: 'morning routine', article: 'die', partOfSpeech: 'noun' },
+    { id: 'p2drv15', de: 'Frühstück', en: 'breakfast', article: 'das', partOfSpeech: 'noun' },
+  ],
+};
+
+// Phase 2.2: Separable vs Inseparable Verbs
+export const phase2SeparableInseparableDeck: Deck = {
+  id: 'phase2-separable-inseparable',
+  name: 'Separable vs Inseparable Verbs',
+  description: 'Master the crucial difference between separable and inseparable verb prefixes',
+  cards: [
+    { id: 'p2si1', de: 'aufstehen', en: 'to get up', partOfSpeech: 'verb', note: 'Separable: Ich stehe auf' },
+    { id: 'p2si2', de: 'aufwachen', en: 'to wake up', partOfSpeech: 'verb', note: 'Separable: Ich wache auf' },
+    { id: 'p2si3', de: 'einkaufen', en: 'to go shopping', partOfSpeech: 'verb', note: 'Separable: Ich kaufe ein' },
+    { id: 'p2si4', de: 'ausgehen', en: 'to go out', partOfSpeech: 'verb', note: 'Separable: Ich gehe aus' },
+    { id: 'p2si5', de: 'ankommen', en: 'to arrive', partOfSpeech: 'verb', note: 'Separable: Ich komme an' },
+    { id: 'p2si6', de: 'zurückkommen', en: 'to come back', partOfSpeech: 'verb', note: 'Separable: Ich komme zurück' },
+    { id: 'p2si7', de: 'fernsehen', en: 'to watch TV', partOfSpeech: 'verb', note: 'Separable: Ich sehe fern' },
+    { id: 'p2si8', de: 'beginnen', en: 'to begin', partOfSpeech: 'verb', note: 'Inseparable: Ich beginne' },
+    { id: 'p2si9', de: 'verstehen', en: 'to understand', partOfSpeech: 'verb', note: 'Inseparable: Ich verstehe' },
+    { id: 'p2si10', de: 'verbringen', en: 'to spend (time)', partOfSpeech: 'verb', note: 'Inseparable: Ich verbringe' },
+    { id: 'p2si11', de: 'erklären', en: 'to explain', partOfSpeech: 'verb', note: 'Inseparable: Ich erkläre' },
+    { id: 'p2si12', de: 'bekommen', en: 'to receive/get', partOfSpeech: 'verb', note: 'Inseparable: Ich bekomme' },
+    { id: 'p2si13', de: 'Ich stehe um 7 Uhr auf.', en: 'I get up at 7 o\'clock.', partOfSpeech: 'phrase', note: 'Separable verb example' },
+    { id: 'p2si14', de: 'Der Film beginnt um 20 Uhr.', en: 'The movie begins at 8 PM.', partOfSpeech: 'phrase', note: 'Inseparable verb example' },
+    { id: 'p2si15', de: 'Kommst du mit?', en: 'Are you coming along?', partOfSpeech: 'phrase', note: 'mitkommen - separable' },
+  ],
+};
+
+// Phase 2.3: Reflexive Verbs
+export const phase2ReflexiveVerbsDeck: Deck = {
+  id: 'phase2-reflexive-verbs',
+  name: 'Reflexive Verbs',
+  description: 'Verbs that refer back to the subject - essential for daily routines',
+  cards: [
+    { id: 'p2rv1', de: 'sich waschen', en: 'to wash (oneself)', partOfSpeech: 'verb', note: 'Ich wasche mich' },
+    { id: 'p2rv2', de: 'sich anziehen', en: 'to get dressed', partOfSpeech: 'verb', note: 'Ich ziehe mich an' },
+    { id: 'p2rv3', de: 'sich ausziehen', en: 'to get undressed', partOfSpeech: 'verb', note: 'Ich ziehe mich aus' },
+    { id: 'p2rv4', de: 'sich duschen', en: 'to shower', partOfSpeech: 'verb', note: 'Ich dusche mich' },
+    { id: 'p2rv5', de: 'sich kämmen', en: 'to comb (one\'s hair)', partOfSpeech: 'verb', note: 'Ich kämme mich' },
+    { id: 'p2rv6', de: 'sich rasieren', en: 'to shave', partOfSpeech: 'verb', note: 'Ich rasiere mich' },
+    { id: 'p2rv7', de: 'sich schminken', en: 'to put on makeup', partOfSpeech: 'verb', note: 'Ich schminke mich' },
+    { id: 'p2rv8', de: 'sich die Zähne putzen', en: 'to brush one\'s teeth', partOfSpeech: 'verb', note: 'Ich putze mir die Zähne (dative)' },
+    { id: 'p2rv9', de: 'sich beeilen', en: 'to hurry', partOfSpeech: 'verb', note: 'Ich beeile mich' },
+    { id: 'p2rv10', de: 'sich entspannen', en: 'to relax', partOfSpeech: 'verb', note: 'Ich entspanne mich' },
+    { id: 'p2rv11', de: 'sich freuen', en: 'to be happy/look forward', partOfSpeech: 'verb', note: 'Ich freue mich' },
+    { id: 'p2rv12', de: 'Ich wasche mich jeden Morgen.', en: 'I wash myself every morning.', partOfSpeech: 'phrase' },
+    { id: 'p2rv13', de: 'Er zieht sich schnell an.', en: 'He gets dressed quickly.', partOfSpeech: 'phrase' },
+    { id: 'p2rv14', de: 'Wir entspannen uns am Wochenende.', en: 'We relax on the weekend.', partOfSpeech: 'phrase' },
+    { id: 'p2rv15', de: 'Sie beeilt sich, weil sie spät ist.', en: 'She hurries because she is late.', partOfSpeech: 'phrase' },
+  ],
+};
+
+// Phase 2.4: Time Expressions
+export const phase2TimeExpressionsDeck: Deck = {
+  id: 'phase2-time-expressions',
+  name: 'Time Expressions',
+  description: 'How to tell time in German: um, halb, Viertel, 12h vs 24h formats',
+  cards: [
+    { id: 'p2te1', de: 'Um wie viel Uhr?', en: 'At what time?', partOfSpeech: 'phrase' },
+    { id: 'p2te2', de: 'Wie viel Uhr ist es?', en: 'What time is it?', partOfSpeech: 'phrase' },
+    { id: 'p2te3', de: 'Es ist acht Uhr.', en: 'It is eight o\'clock.', partOfSpeech: 'phrase', note: '8:00' },
+    { id: 'p2te4', de: 'Es ist halb neun.', en: 'It is half past eight.', partOfSpeech: 'phrase', note: '8:30 - half TO nine!' },
+    { id: 'p2te5', de: 'Es ist Viertel vor zehn.', en: 'It is quarter to ten.', partOfSpeech: 'phrase', note: '9:45' },
+    { id: 'p2te6', de: 'Es ist Viertel nach sieben.', en: 'It is quarter past seven.', partOfSpeech: 'phrase', note: '7:15' },
+    { id: 'p2te7', de: 'Es ist zehn nach acht.', en: 'It is ten past eight.', partOfSpeech: 'phrase', note: '8:10' },
+    { id: 'p2te8', de: 'Es ist fünf vor neun.', en: 'It is five to nine.', partOfSpeech: 'phrase', note: '8:55' },
+    { id: 'p2te9', de: 'am Morgen', en: 'in the morning', partOfSpeech: 'phrase' },
+    { id: 'p2te10', de: 'am Vormittag', en: 'in the late morning', partOfSpeech: 'phrase' },
+    { id: 'p2te11', de: 'am Nachmittag', en: 'in the afternoon', partOfSpeech: 'phrase' },
+    { id: 'p2te12', de: 'am Abend', en: 'in the evening', partOfSpeech: 'phrase' },
+    { id: 'p2te13', de: 'in der Nacht', en: 'at night', partOfSpeech: 'phrase' },
+    { id: 'p2te14', de: 'Ich stehe um 7 Uhr auf.', en: 'I get up at 7 o\'clock.', partOfSpeech: 'phrase' },
+    { id: 'p2te15', de: 'Der Film beginnt um halb neun.', en: 'The movie begins at 8:30.', partOfSpeech: 'phrase' },
+  ],
+};
+
+// Phase 2.5: Wohin (Akkusativ) vs Wo (Dativ)
+export const phase2WohinWoDeck: Deck = {
+  id: 'phase2-wohin-wo',
+  name: 'Wohin vs Wo (Direction vs Location)',
+  description: 'Master the difference between direction (where to?) and location (where?)',
+  cards: [
+    { id: 'p2ww1', de: 'Wo bist du?', en: 'Where are you?', partOfSpeech: 'phrase', note: 'Location - Dativ' },
+    { id: 'p2ww2', de: 'Wohin gehst du?', en: 'Where are you going?', partOfSpeech: 'phrase', note: 'Direction - Akkusativ' },
+    { id: 'p2ww3', de: 'Ich bin im Park.', en: 'I am in the park.', partOfSpeech: 'phrase', note: 'Location - Dativ' },
+    { id: 'p2ww4', de: 'Ich gehe in den Park.', en: 'I am going to the park.', partOfSpeech: 'phrase', note: 'Direction - Akkusativ' },
+    { id: 'p2ww5', de: 'Das Buch liegt auf dem Tisch.', en: 'The book is on the table.', partOfSpeech: 'phrase', note: 'liegen - location' },
+    { id: 'p2ww6', de: 'Ich lege das Buch auf den Tisch.', en: 'I put the book on the table.', partOfSpeech: 'phrase', note: 'legen - direction' },
+    { id: 'p2ww7', de: 'zu Hause', en: 'at home', partOfSpeech: 'phrase', note: 'Location' },
+    { id: 'p2ww8', de: 'nach Hause', en: 'homeward/going home', partOfSpeech: 'phrase', note: 'Direction' },
+    { id: 'p2ww9', de: 'im Büro', en: 'in the office', partOfSpeech: 'phrase', note: 'Location - Dativ' },
+    { id: 'p2ww10', de: 'ins Büro', en: 'to the office', partOfSpeech: 'phrase', note: 'Direction - Akkusativ (in das)' },
+    { id: 'p2ww11', de: 'Sie steht vor der Schule.', en: 'She is standing in front of the school.', partOfSpeech: 'phrase', note: 'Location' },
+    { id: 'p2ww12', de: 'Sie geht vor die Schule.', en: 'She is going in front of the school.', partOfSpeech: 'phrase', note: 'Direction' },
+    { id: 'p2ww13', de: 'liegen', en: 'to lie/be lying', partOfSpeech: 'verb', note: 'Location verb' },
+    { id: 'p2ww14', de: 'legen', en: 'to lay/put down', partOfSpeech: 'verb', note: 'Direction verb' },
+    { id: 'p2ww15', de: 'stehen', en: 'to stand/be standing', partOfSpeech: 'verb', note: 'Location verb' },
+  ],
+};
+
+// Phase 2.6: Reading Comprehension - Herr Ihßen
+export const phase2HerrIhssenDeck: Deck = {
+  id: 'phase2-herr-ihssen',
+  name: 'Reading: Herr Ihßen (Journalist)',
+  description: 'Reading comprehension: A day in the life of a journalist',
+  cards: [
+    { id: 'p2hi1', de: 'Zeitung', en: 'newspaper', article: 'die', partOfSpeech: 'noun' },
+    { id: 'p2hi2', de: 'Journalist', en: 'journalist', article: 'der', partOfSpeech: 'noun' },
+    { id: 'p2hi3', de: 'zuerst', en: 'first', partOfSpeech: 'adv' },
+    { id: 'p2hi4', de: 'danach', en: 'after that', partOfSpeech: 'adv' },
+    { id: 'p2hi5', de: 'dabei', en: 'while doing so', partOfSpeech: 'adv' },
+    { id: 'p2hi6', de: 'überprüfen', en: 'to check', partOfSpeech: 'verb' },
+    { id: 'p2hi7', de: 'verlassen', en: 'to leave', partOfSpeech: 'verb', note: 'Inseparable' },
+    { id: 'p2hi8', de: 'U-Bahn', en: 'subway', article: 'die', partOfSpeech: 'noun' },
+    { id: 'p2hi9', de: 'dauern', en: 'to last/take time', partOfSpeech: 'verb' },
+    { id: 'p2hi10', de: 'begrüßen', en: 'to greet', partOfSpeech: 'verb' },
+    { id: 'p2hi11', de: 'besprechen', en: 'to discuss', partOfSpeech: 'verb', note: 'Inseparable' },
+    { id: 'p2hi12', de: 'recherchieren', en: 'to research', partOfSpeech: 'verb' },
+    { id: 'p2hi13', de: 'Kantine', en: 'cafeteria', article: 'die', partOfSpeech: 'noun' },
+    { id: 'p2hi14', de: 'auf dem Heimweg', en: 'on the way home', partOfSpeech: 'phrase' },
+    { id: 'p2hi15', de: 'sich treffen', en: 'to meet up', partOfSpeech: 'verb', note: 'Reflexive' },
+  ],
+};
+
+// Phase 2.7: Practice Sentences
+export const phase2PracticeSentencesDeck: Deck = {
+  id: 'phase2-practice-sentences',
+  name: 'Phase 2: Practice Sentences',
+  description: 'Complete sentences combining all Phase 2 grammar concepts',
+  cards: [
+    { id: 'p2ps1', de: 'Ich wache um 6 Uhr auf und stehe sofort auf.', en: 'I wake up at 6 and get up immediately.', partOfSpeech: 'phrase' },
+    { id: 'p2ps2', de: 'Ich dusche mich jeden Morgen.', en: 'I shower every morning.', partOfSpeech: 'phrase' },
+    { id: 'p2ps3', de: 'Ich ziehe mich schnell an.', en: 'I get dressed quickly.', partOfSpeech: 'phrase' },
+    { id: 'p2ps4', de: 'Um halb acht frühstücke ich.', en: 'At half past seven I have breakfast.', partOfSpeech: 'phrase' },
+    { id: 'p2ps5', de: 'Ich gehe um 9 Uhr aus dem Haus.', en: 'I leave the house at 9 o\'clock.', partOfSpeech: 'phrase' },
+    { id: 'p2ps6', de: 'Abends entspanne ich mich.', en: 'In the evening I relax.', partOfSpeech: 'phrase' },
+    { id: 'p2ps7', de: 'Ich schlafe um 23 Uhr ein.', en: 'I fall asleep at 11 PM.', partOfSpeech: 'phrase' },
+    { id: 'p2ps8', de: 'Ich bin im Büro.', en: 'I am in the office.', partOfSpeech: 'phrase', note: 'Location - Dativ' },
+    { id: 'p2ps9', de: 'Ich gehe ins Büro.', en: 'I am going to the office.', partOfSpeech: 'phrase', note: 'Direction - Akkusativ' },
+    { id: 'p2ps10', de: 'Der Unterricht beginnt um Viertel nach neun.', en: 'The class begins at quarter past nine.', partOfSpeech: 'phrase' },
   ],
 };
 
@@ -376,5 +475,11 @@ export const allDecks: Deck[] = [
   familyDeck,
   possessivesDeck,
   languagesDeck,
-  phase2DailyRoutinesDeck,
+  phase2DailyRoutineVocabDeck,
+  phase2SeparableInseparableDeck,
+  phase2ReflexiveVerbsDeck,
+  phase2TimeExpressionsDeck,
+  phase2WohinWoDeck,
+  phase2HerrIhssenDeck,
+  phase2PracticeSentencesDeck,
 ];

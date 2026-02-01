@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import type { Card } from '../types';
 import {
   allDecks,
   sentencesDeck,
@@ -6,7 +7,13 @@ import {
   familyDeck,
   possessivesDeck,
   languagesDeck,
-  phase2DailyRoutinesDeck,
+  phase2DailyRoutineVocabDeck,
+  phase2SeparableInseparableDeck,
+  phase2ReflexiveVerbsDeck,
+  phase2TimeExpressionsDeck,
+  phase2WohinWoDeck,
+  phase2HerrIhssenDeck,
+  phase2PracticeSentencesDeck,
 } from '../content/decks';
 
 describe('Deck Content', () => {
@@ -156,8 +163,8 @@ describe('Deck Content', () => {
   });
 
   describe('allDecks', () => {
-    it('should have 12 decks total (11 Phase 1 + 1 Phase 2)', () => {
-      expect(allDecks).toHaveLength(12);
+    it('should have 18 decks total (11 Phase 1 + 7 Phase 2)', () => {
+      expect(allDecks).toHaveLength(18);
     });
 
     it('should have all decks with unique IDs', () => {
@@ -166,7 +173,7 @@ describe('Deck Content', () => {
       expect(uniqueIds.size).toBe(allDecks.length);
     });
 
-    it('should contain all expected decks', () => {
+    it('should contain all expected Phase 1 decks', () => {
       const deckIds = allDecks.map((deck) => deck.id);
       expect(deckIds).toContain('greetings');
       expect(deckIds).toContain('numbers');
@@ -179,48 +186,170 @@ describe('Deck Content', () => {
       expect(deckIds).toContain('family');
       expect(deckIds).toContain('possessives');
       expect(deckIds).toContain('languages');
-      expect(deckIds).toContain('phase2-daily-routines');
+    });
+
+    it('should contain all expected Phase 2 decks', () => {
+      const deckIds = allDecks.map((deck) => deck.id);
+      expect(deckIds).toContain('phase2-daily-routine-vocab');
+      expect(deckIds).toContain('phase2-separable-inseparable');
+      expect(deckIds).toContain('phase2-reflexive-verbs');
+      expect(deckIds).toContain('phase2-time-expressions');
+      expect(deckIds).toContain('phase2-wohin-wo');
+      expect(deckIds).toContain('phase2-herr-ihssen');
+      expect(deckIds).toContain('phase2-practice-sentences');
     });
   });
 
-  describe('phase2DailyRoutinesDeck', () => {
-    it('should be included in allDecks', () => {
-      expect(allDecks).toContain(phase2DailyRoutinesDeck);
+  describe('Phase 2 Decks', () => {
+    describe('phase2DailyRoutineVocabDeck', () => {
+      it('should be included in allDecks', () => {
+        expect(allDecks).toContain(phase2DailyRoutineVocabDeck);
+      });
+
+      it('should have correct id and name', () => {
+        expect(phase2DailyRoutineVocabDeck.id).toBe('phase2-daily-routine-vocab');
+        expect(phase2DailyRoutineVocabDeck.name).toBe('Daily Routine Vocabulary');
+      });
+
+      it('should have 15 cards', () => {
+        expect(phase2DailyRoutineVocabDeck.cards).toHaveLength(15);
+      });
+
+      it('should contain time-of-day expressions', () => {
+        const hasTimeExpressions = phase2DailyRoutineVocabDeck.cards.some(
+          (card: Card) => card.de === 'Morgen' || card.de === 'Abend'
+        );
+        expect(hasTimeExpressions).toBe(true);
+      });
     });
 
-    it('should have correct id and name', () => {
-      expect(phase2DailyRoutinesDeck.id).toBe('phase2-daily-routines');
-      expect(phase2DailyRoutinesDeck.name).toBe('Phase 2: Daily Routines (Alltagsroutine)');
+    describe('phase2SeparableInseparableDeck', () => {
+      it('should be included in allDecks', () => {
+        expect(allDecks).toContain(phase2SeparableInseparableDeck);
+      });
+
+      it('should have correct id', () => {
+        expect(phase2SeparableInseparableDeck.id).toBe('phase2-separable-inseparable');
+      });
+
+      it('should have 15 cards', () => {
+        expect(phase2SeparableInseparableDeck.cards).toHaveLength(15);
+      });
+
+      it('should contain separable and inseparable verbs', () => {
+        const hasSeparable = phase2SeparableInseparableDeck.cards.some(
+          (card: Card) => card.de === 'aufstehen' || card.de === 'einkaufen'
+        );
+        const hasInseparable = phase2SeparableInseparableDeck.cards.some(
+          (card: Card) => card.de === 'beginnen' || card.de === 'verstehen'
+        );
+        expect(hasSeparable && hasInseparable).toBe(true);
+      });
     });
 
-    it('should have 48 cards', () => {
-      expect(phase2DailyRoutinesDeck.cards).toHaveLength(48);
+    describe('phase2ReflexiveVerbsDeck', () => {
+      it('should be included in allDecks', () => {
+        expect(allDecks).toContain(phase2ReflexiveVerbsDeck);
+      });
+
+      it('should have correct id', () => {
+        expect(phase2ReflexiveVerbsDeck.id).toBe('phase2-reflexive-verbs');
+      });
+
+      it('should have 15 cards', () => {
+        expect(phase2ReflexiveVerbsDeck.cards).toHaveLength(15);
+      });
+
+      it('should contain reflexive verbs', () => {
+        const hasReflexiveVerbs = phase2ReflexiveVerbsDeck.cards.some(
+          (card: Card) => card.de === 'sich waschen' || card.de === 'sich anziehen'
+        );
+        expect(hasReflexiveVerbs).toBe(true);
+      });
     });
 
-    it('should contain reflexive verbs', () => {
-      const hasReflexiveVerbs = phase2DailyRoutinesDeck.cards.some(
-        (card) => card.de === 'sich waschen' || card.de === 'sich anziehen'
-      );
-      expect(hasReflexiveVerbs).toBe(true);
+    describe('phase2TimeExpressionsDeck', () => {
+      it('should be included in allDecks', () => {
+        expect(allDecks).toContain(phase2TimeExpressionsDeck);
+      });
+
+      it('should have correct id', () => {
+        expect(phase2TimeExpressionsDeck.id).toBe('phase2-time-expressions');
+      });
+
+      it('should have 15 cards', () => {
+        expect(phase2TimeExpressionsDeck.cards).toHaveLength(15);
+      });
+
+      it('should contain time expressions', () => {
+        const hasTimeExpressions = phase2TimeExpressionsDeck.cards.some(
+          (card: Card) => card.de === 'Um wie viel Uhr?' || card.de.includes('halb')
+        );
+        expect(hasTimeExpressions).toBe(true);
+      });
     });
 
-    it('should contain separable verbs', () => {
-      const hasSeparableVerbs = phase2DailyRoutinesDeck.cards.some(
-        (card) => card.de === 'aufstehen' || card.de === 'einschlafen'
-      );
-      expect(hasSeparableVerbs).toBe(true);
+    describe('phase2WohinWoDeck', () => {
+      it('should be included in allDecks', () => {
+        expect(allDecks).toContain(phase2WohinWoDeck);
+      });
+
+      it('should have correct id', () => {
+        expect(phase2WohinWoDeck.id).toBe('phase2-wohin-wo');
+      });
+
+      it('should have 15 cards', () => {
+        expect(phase2WohinWoDeck.cards).toHaveLength(15);
+      });
+
+      it('should contain location and direction phrases', () => {
+        const hasLocationDirection = phase2WohinWoDeck.cards.some(
+          (card: Card) => card.de === 'Wo bist du?' || card.de === 'Wohin gehst du?'
+        );
+        expect(hasLocationDirection).toBe(true);
+      });
     });
 
-    it('should contain time expressions', () => {
-      const hasTimeExpressions = phase2DailyRoutinesDeck.cards.some(
-        (card) => card.de === 'Um wie viel Uhr?' || card.de === 'am Morgen'
-      );
-      expect(hasTimeExpressions).toBe(true);
+    describe('phase2HerrIhssenDeck', () => {
+      it('should be included in allDecks', () => {
+        expect(allDecks).toContain(phase2HerrIhssenDeck);
+      });
+
+      it('should have correct id', () => {
+        expect(phase2HerrIhssenDeck.id).toBe('phase2-herr-ihssen');
+      });
+
+      it('should have 15 cards', () => {
+        expect(phase2HerrIhssenDeck.cards).toHaveLength(15);
+      });
+
+      it('should contain reading comprehension vocabulary', () => {
+        const hasReadingVocab = phase2HerrIhssenDeck.cards.some(
+          (card: Card) => card.de === 'Zeitung' || card.de === 'Journalist'
+        );
+        expect(hasReadingVocab).toBe(true);
+      });
     });
 
-    it('should have verb cards with partOfSpeech', () => {
-      const verbCards = phase2DailyRoutinesDeck.cards.filter((card) => card.partOfSpeech === 'verb');
-      expect(verbCards.length).toBeGreaterThan(0);
+    describe('phase2PracticeSentencesDeck', () => {
+      it('should be included in allDecks', () => {
+        expect(allDecks).toContain(phase2PracticeSentencesDeck);
+      });
+
+      it('should have correct id', () => {
+        expect(phase2PracticeSentencesDeck.id).toBe('phase2-practice-sentences');
+      });
+
+      it('should have 10 cards', () => {
+        expect(phase2PracticeSentencesDeck.cards).toHaveLength(10);
+      });
+
+      it('should contain complete sentences', () => {
+        const hasCompleteSentences = phase2PracticeSentencesDeck.cards.every(
+          (card: Card) => card.de.includes(' ') && card.en.includes(' ')
+        );
+        expect(hasCompleteSentences).toBe(true);
+      });
     });
   });
 });
