@@ -1,0 +1,17 @@
+# Retrieval Practice – Tägliche Routine
+# Practice Exercises for Daily Routines
+
+## Placeholder for: Retrieval Practice – Tägliche Routine.pdf
+
+This file should contain retrieval practice and active recall exercises for daily routines.
+
+### Expected Content:
+- Spaced repetition exercises
+- Active recall questions about daily routine vocabulary
+- Fill-in-the-blank exercises with separable verbs
+- Time telling practice (12h and 24h formats)
+- Reflexive verb conjugation practice
+- Memory retrieval tasks for routine-related vocabulary
+
+### Note:
+This is a placeholder. The actual .pdf file should be added to this directory.

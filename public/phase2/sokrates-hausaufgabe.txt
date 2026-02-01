@@ -1,0 +1,16 @@
+# sokrates hausaufgabe
+# Homework Assignment: Daily Routines (Alltagsroutine)
+
+## Placeholder for: sokrates hausaufgabe.docx
+
+This file should contain homework assignments related to daily routines in German.
+
+### Expected Content:
+- Exercises on separable verbs (aufstehen, aufwachen, einschlafen, etc.)
+- Practice with reflexive verbs (sich waschen, sich anziehen, sich kämmen)
+- Time expressions practice
+- Daily routine vocabulary building
+- Sentence construction exercises
+
+### Note:
+This is a placeholder. The actual .docx file should be added to this directory.

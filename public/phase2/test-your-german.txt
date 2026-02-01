@@ -1,0 +1,29 @@
+# Test Your German
+# Assessment Materials for Phase 2
+
+## Placeholder for: Test Your German.pdf
+
+This file should contain assessment materials to test German language skills covered in Phase 2.
+
+### Expected Content:
+- Comprehensive test covering Phase 2 topics
+- Separable verb exercises
+- Inseparable verb identification
+- Reflexive verb conjugation tests
+- Time expression questions
+- Reading comprehension based on Herr Ihßen text
+- Writing tasks (describe your daily routine)
+- Correction exercises
+- Vocabulary recall tests
+- Grammar application exercises
+
+### Assessment Areas:
+1. Verb structures (separable, inseparable, reflexive)
+2. Time expressions (12h and 24h formats)
+3. Daily routine vocabulary
+4. Reading comprehension
+5. Writing production
+6. Listening comprehension (if audio included)
+
+### Note:
+This is a placeholder. The actual .pdf file should be added to this directory.

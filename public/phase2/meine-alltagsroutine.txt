@@ -1,0 +1,24 @@
+# Meine Alltagsroutine
+# My Daily Routine - Presentation
+
+## Placeholder for: Meine Alltagsroutine.pptx
+
+This file should contain a presentation about daily routines (Meine Alltagsroutine).
+
+### Expected Content:
+- Visual presentation of daily routine vocabulary
+- Time expressions with examples
+- Separable verbs illustrated with images
+- Reflexive verbs with visual aids
+- Sample daily schedules
+- Practice activities and exercises
+- Cultural comparisons of daily routines
+
+### Presentation Sections:
+1. Morning routine (Morgenroutine)
+2. Work/School day (Arbeitstag/Schultag)
+3. Evening routine (Abendroutine)
+4. Weekend routines (Wochenende)
+
+### Note:
+This is a placeholder. The actual .pptx file should be added to this directory.

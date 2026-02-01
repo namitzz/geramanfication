@@ -1,0 +1,24 @@
+# Herr Ihßen – Ein Tag im Leben eines Journalisten
+# Reading Comprehension Text
+
+## Placeholder for: Herr Ihßen.pdf
+
+This file should contain a reading comprehension text about a day in the life of a journalist named Herr Ihßen.
+
+### Expected Content:
+- Narrative text about Herr Ihßen's daily routine
+- Use of separable and inseparable verbs in context
+- Time expressions throughout the day
+- Reflexive verbs in authentic usage
+- Comprehension questions
+- Vocabulary list with translations
+- Discussion prompts
+
+### Learning Objectives:
+- Apply knowledge of verb structures in reading context
+- Practice time expressions in real scenarios
+- Improve reading comprehension
+- Learn professional vocabulary related to journalism
+
+### Note:
+This is a placeholder. The actual .pdf file should be added to this directory.
