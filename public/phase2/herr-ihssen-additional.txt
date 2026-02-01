@@ -1,0 +1,17 @@
+# Herr Ihßen (Additional Materials)
+# Extended Reading Comprehension
+
+## Placeholder for: Herr Ihßen (1).pdf
+
+This file should contain additional reading comprehension materials related to Herr Ihßen.
+
+### Expected Content:
+- Extended narrative or follow-up story
+- Additional comprehension exercises
+- Vocabulary expansion activities
+- Grammar focus on verb structures used in the text
+- Writing prompts based on the reading
+- Cultural notes about daily life in Germany
+
+### Note:
+This is a placeholder. The actual .pdf file should be added to this directory.

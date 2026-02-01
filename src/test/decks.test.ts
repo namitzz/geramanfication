@@ -6,6 +6,7 @@ import {
   familyDeck,
   possessivesDeck,
   languagesDeck,
+  phase2DailyRoutinesDeck,
 } from '../content/decks';
 
 describe('Deck Content', () => {
@@ -155,8 +156,8 @@ describe('Deck Content', () => {
   });
 
   describe('allDecks', () => {
-    it('should have 11 decks total', () => {
-      expect(allDecks).toHaveLength(11);
+    it('should have 12 decks total (11 Phase 1 + 1 Phase 2)', () => {
+      expect(allDecks).toHaveLength(12);
     });
 
     it('should have all decks with unique IDs', () => {
@@ -178,6 +179,48 @@ describe('Deck Content', () => {
       expect(deckIds).toContain('family');
       expect(deckIds).toContain('possessives');
       expect(deckIds).toContain('languages');
+      expect(deckIds).toContain('phase2-daily-routines');
+    });
+  });
+
+  describe('phase2DailyRoutinesDeck', () => {
+    it('should be included in allDecks', () => {
+      expect(allDecks).toContain(phase2DailyRoutinesDeck);
+    });
+
+    it('should have correct id and name', () => {
+      expect(phase2DailyRoutinesDeck.id).toBe('phase2-daily-routines');
+      expect(phase2DailyRoutinesDeck.name).toBe('Phase 2: Daily Routines (Alltagsroutine)');
+    });
+
+    it('should have 48 cards', () => {
+      expect(phase2DailyRoutinesDeck.cards).toHaveLength(48);
+    });
+
+    it('should contain reflexive verbs', () => {
+      const hasReflexiveVerbs = phase2DailyRoutinesDeck.cards.some(
+        (card) => card.de === 'sich waschen' || card.de === 'sich anziehen'
+      );
+      expect(hasReflexiveVerbs).toBe(true);
+    });
+
+    it('should contain separable verbs', () => {
+      const hasSeparableVerbs = phase2DailyRoutinesDeck.cards.some(
+        (card) => card.de === 'aufstehen' || card.de === 'einschlafen'
+      );
+      expect(hasSeparableVerbs).toBe(true);
+    });
+
+    it('should contain time expressions', () => {
+      const hasTimeExpressions = phase2DailyRoutinesDeck.cards.some(
+        (card) => card.de === 'Um wie viel Uhr?' || card.de === 'am Morgen'
+      );
+      expect(hasTimeExpressions).toBe(true);
+    });
+
+    it('should have verb cards with partOfSpeech', () => {
+      const verbCards = phase2DailyRoutinesDeck.cards.filter((card) => card.partOfSpeech === 'verb');
+      expect(verbCards.length).toBeGreaterThan(0);
     });
   });
 });
