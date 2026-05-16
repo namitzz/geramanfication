@@ -2,6 +2,7 @@ import type { Deck } from '../types';
 
 export const greetingsDeck: Deck = {
   id: 'greetings',
+  level: 'A1',
   name: 'Greetings & Basics',
   description: 'Essential German greetings and basic phrases',
   cards: [
@@ -25,6 +26,7 @@ export const greetingsDeck: Deck = {
 
 export const numbersDeck: Deck = {
   id: 'numbers',
+  level: 'A1',
   name: 'Numbers 1-20',
   description: 'Basic German numbers',
   cards: [
@@ -53,6 +55,7 @@ export const numbersDeck: Deck = {
 
 export const daysDeck: Deck = {
   id: 'days',
+  level: 'A1',
   name: 'Days & Time',
   description: 'Days of the week and time-related words',
   cards: [
@@ -71,6 +74,7 @@ export const daysDeck: Deck = {
 
 export const verbsDeck: Deck = {
   id: 'common-verbs',
+  level: 'A1',
   name: 'Common Verbs',
   description: 'Essential German verbs',
   cards: [
@@ -91,6 +95,7 @@ export const verbsDeck: Deck = {
 
 export const a1BasicsDeck: Deck = {
   id: 'a1-basics',
+  level: 'A1',
   name: 'A1 Basics',
   description: 'Basic nouns and words for A1 level',
   cards: [
@@ -114,6 +119,7 @@ export const a1BasicsDeck: Deck = {
 
 export const travelPhrasebookDeck: Deck = {
   id: 'travel-phrasebook',
+  level: 'A1',
   name: 'Travel Phrasebook',
   description: 'Useful phrases for traveling in Germany',
   cards: [
@@ -132,6 +138,7 @@ export const travelPhrasebookDeck: Deck = {
 
 export const sentencesDeck: Deck = {
   id: 'german-sentences',
+  level: 'A2',
   name: 'German Sentences',
   description: 'Complete sentences for real-world conversations',
   cards: [
@@ -201,6 +208,7 @@ export const sentencesDeck: Deck = {
 
 export const nationalitiesDeck: Deck = {
   id: 'nationalities',
+  level: 'A1',
   name: 'Nationalities',
   description: 'Learn nationalities in masculine and feminine forms',
   cards: [
@@ -224,6 +232,7 @@ export const nationalitiesDeck: Deck = {
 
 export const familyDeck: Deck = {
   id: 'family',
+  level: 'A1',
   name: 'Family Members',
   description: 'Learn German family vocabulary with articles',
   cards: [
@@ -252,6 +261,7 @@ export const familyDeck: Deck = {
 
 export const possessivesDeck: Deck = {
   id: 'possessives',
+  level: 'A1',
   name: 'Possessives',
   description: 'Learn possessive pronouns: mein, dein, sein, ihr',
   cards: [
@@ -275,6 +285,7 @@ export const possessivesDeck: Deck = {
 
 export const languagesDeck: Deck = {
   id: 'languages',
+  level: 'A1',
   name: 'Languages',
   description: 'Learn how to say different languages in German',
   cards: [
@@ -303,6 +314,7 @@ export const languagesDeck: Deck = {
 // Phase 2.1: Daily Routine Vocabulary
 export const phase2DailyRoutineVocabDeck: Deck = {
   id: 'phase2-daily-routine-vocab',
+  level: 'A2',
   name: 'Daily Routine Vocabulary',
   description: 'Essential vocabulary for describing your daily routine (Alltagsroutine)',
   cards: [
@@ -327,6 +339,7 @@ export const phase2DailyRoutineVocabDeck: Deck = {
 // Phase 2.2: Separable vs Inseparable Verbs
 export const phase2SeparableInseparableDeck: Deck = {
   id: 'phase2-separable-inseparable',
+  level: 'A2',
   name: 'Separable vs Inseparable Verbs',
   description: 'Master the crucial difference between separable and inseparable verb prefixes',
   cards: [
@@ -351,6 +364,7 @@ export const phase2SeparableInseparableDeck: Deck = {
 // Phase 2.3: Reflexive Verbs
 export const phase2ReflexiveVerbsDeck: Deck = {
   id: 'phase2-reflexive-verbs',
+  level: 'A2',
   name: 'Reflexive Verbs',
   description: 'Verbs that refer back to the subject - essential for daily routines',
   cards: [
@@ -375,6 +389,7 @@ export const phase2ReflexiveVerbsDeck: Deck = {
 // Phase 2.4: Time Expressions
 export const phase2TimeExpressionsDeck: Deck = {
   id: 'phase2-time-expressions',
+  level: 'A2',
   name: 'Time Expressions',
   description: 'How to tell time in German: um, halb, Viertel, 12h vs 24h formats',
   cards: [
@@ -399,6 +414,7 @@ export const phase2TimeExpressionsDeck: Deck = {
 // Phase 2.5: Wohin (Akkusativ) vs Wo (Dativ)
 export const phase2WohinWoDeck: Deck = {
   id: 'phase2-wohin-wo',
+  level: 'A2',
   name: 'Wohin vs Wo (Direction vs Location)',
   description: 'Master the difference between direction (where to?) and location (where?)',
   cards: [
@@ -423,6 +439,7 @@ export const phase2WohinWoDeck: Deck = {
 // Phase 2.6: Reading Comprehension - Herr Ihßen
 export const phase2HerrIhssenDeck: Deck = {
   id: 'phase2-herr-ihssen',
+  level: 'B1',
   name: 'Reading: Herr Ihßen (Journalist)',
   description: 'Reading comprehension: A day in the life of a journalist',
   cards: [
@@ -447,6 +464,7 @@ export const phase2HerrIhssenDeck: Deck = {
 // Phase 2.7: Practice Sentences
 export const phase2PracticeSentencesDeck: Deck = {
   id: 'phase2-practice-sentences',
+  level: 'B1',
   name: 'Phase 2: Practice Sentences',
   description: 'Complete sentences combining all Phase 2 grammar concepts',
   cards: [
