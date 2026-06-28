@@ -1,5 +1,19 @@
-export type PartOfSpeech = "noun" | "verb" | "phrase" | "adj" | "adv";
+export type PartOfSpeech =
+  | "noun"
+  | "verb"
+  | "phrase"
+  | "adj"
+  | "adv"
+  | "name"
+  | "numeral"
+  | "interjection"
+  | "pronoun"
+  | "conjunction"
+  | "preposition"
+  | "determiner"
+  | "particle";
 export type Article = "der" | "die" | "das";
+export type CEFRLevel = "A1" | "A2" | "B1" | "B2" | "C1";
 export type LeitnerBox = 1 | 2 | 3 | 4 | 5;
 
 export interface Card {
@@ -10,6 +24,14 @@ export interface Card {
   article?: Article;
   note?: string;
   audio?: string;
+  /** CEFR level for API-imported cards. */
+  level?: CEFRLevel;
+  /** Frequency rank within the level (1 = most common). */
+  frequencyRank?: number;
+  /** Example sentence in German, when available. */
+  exampleDe?: string;
+  /** English translation of the example sentence, when available. */
+  exampleEn?: string;
 }
 
 export interface SrsRecord {

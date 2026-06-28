@@ -1,7 +1,31 @@
 import { Link } from 'react-router-dom';
 import { allDecks } from '../content/decks';
-import { BookOpen, ArrowRight } from 'lucide-react';
+import { BookOpen, ArrowRight, Library, Dumbbell, MessageSquareText } from 'lucide-react';
 import { allPhase2Sections } from '../content/phase2Content';
+
+const interactiveModes = [
+  {
+    to: '/vocabulary',
+    icon: Library,
+    title: 'Vocabulary by Level',
+    blurb: '8,000+ words, A1–C1, by frequency',
+    gradient: 'from-blue-500 to-indigo-600',
+  },
+  {
+    to: '/grammar',
+    icon: Dumbbell,
+    title: 'Grammar Gym',
+    blurb: 'Learn rules by doing, not reading',
+    gradient: 'from-purple-500 to-fuchsia-600',
+  },
+  {
+    to: '/sentences',
+    icon: MessageSquareText,
+    title: 'Sentence Lab',
+    blurb: 'Build, listen & translate sentences',
+    gradient: 'from-emerald-500 to-teal-600',
+  },
+];
 
 const LearnPage = () => {
   // Separate Phase 1 and Phase 2 decks
@@ -125,6 +149,21 @@ const LearnPage = () => {
           Master German through structured learning: Learn → Practice → Flashcards
         </p>
       </header>
+
+      {/* Interactive practice modes */}
+      <section className="grid gap-3 sm:grid-cols-3">
+        {interactiveModes.map(({ to, icon: Icon, title, blurb, gradient }) => (
+          <Link
+            key={to}
+            to={to}
+            className={`block rounded-lg p-5 bg-gradient-to-br ${gradient} text-white shadow hover:shadow-lg transition-shadow`}
+          >
+            <Icon size={26} className="mb-2" />
+            <h2 className="text-lg font-semibold">{title}</h2>
+            <p className="text-sm text-white/85">{blurb}</p>
+          </Link>
+        ))}
+      </section>
 
       {/* Phase 1 Section */}
       <section className="space-y-4">

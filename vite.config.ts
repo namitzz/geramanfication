@@ -32,6 +32,9 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
+        // The bundled vocabulary chunk (~2.4 MB raw, ~0.5 MB gzipped) is large
+        // but essential for offline study, so allow it to be precached.
+        maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,

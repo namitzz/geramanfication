@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { allDecks } from '../content/decks';
+import type { Deck } from '../types';
+import { getDeckById } from '../content/deckRegistry';
 import { useAppStore } from '../stores/appStore';
 import { initializeSrsRecord, updateSrsRecordOnReview } from '../utils/srs';
 import Flashcard from '../components/flashcards/Flashcard';
@@ -15,10 +16,35 @@ const DeckPage = () => {
   const navigate = useNavigate();
   const { updateSrsRecord, getSrsRecord, progress, updateProgress } = useAppStore();
 
-  const deck = allDecks.find((d) => d.id === deckId);
+  const [deck, setDeck] = useState<Deck | undefined>();
+  const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [mode, setMode] = useState<Mode>('flashcard');
   const [isComplete, setIsComplete] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    setLoading(true);
+    setCurrentIndex(0);
+    setIsComplete(false);
+    getDeckById(deckId ?? '').then((d) => {
+      if (active) {
+        setDeck(d);
+        setLoading(false);
+      }
+    });
+    return () => {
+      active = false;
+    };
+  }, [deckId]);
+
+  if (loading) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-xl text-gray-600 dark:text-gray-400">Loading deck…</p>
+      </div>
+    );
+  }
 
   if (!deck) {
     return (

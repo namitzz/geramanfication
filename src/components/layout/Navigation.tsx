@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, BookOpen, BarChart3, Settings, GraduationCap, Brain } from 'lucide-react';
+import { Home, BookOpen, BarChart3, Settings, GraduationCap, Brain, Library } from 'lucide-react';
 
 const Navigation = () => {
   const location = useLocation();
@@ -7,6 +7,7 @@ const Navigation = () => {
   const navItems = [
     { path: '/', icon: Home, label: 'Home' },
     { path: '/learn', icon: BookOpen, label: 'Learn' },
+    { path: '/vocabulary', icon: Library, label: 'Vocab' },
     { path: '/classes', icon: GraduationCap, label: 'Classes' },
     { path: '/mcq-testing', icon: Brain, label: 'MCQ' },
     { path: '/progress', icon: BarChart3, label: 'Progress' },
@@ -23,7 +24,7 @@ const Navigation = () => {
               <Link
                 key={path}
                 to={path}
-                className={`flex flex-col items-center py-3 px-4 min-w-[60px] ${
+                className={`flex flex-col items-center py-3 px-2 min-w-[48px] ${
                   isActive
                     ? 'text-blue-600 dark:text-blue-400'
                     : 'text-gray-600 dark:text-gray-400'
