@@ -50,7 +50,13 @@ const HomePage = () => {
               <p className="text-2xl font-bold">{progress.wordsLearned}</p>
               <p className="text-xs text-gray-500 dark:text-gray-400">words learned</p>
             </div>
-            <div>
+            <div className="text-center">
+              <p className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">
+                {progress.xp}
+              </p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">XP</p>
+            </div>
+            <div className="text-right">
               <p className="text-2xl font-bold">{dueCards.length}</p>
               <p className="text-xs text-gray-500 dark:text-gray-400">due for review</p>
             </div>

@@ -1,29 +1,44 @@
-// Get the best German voice available
+// Known female German voices, in order of preference.
+const PREFERRED_FEMALE_DE = [
+  'Google Deutsch', // female on Chrome
+  'Microsoft Katja',
+  'Microsoft Hedda',
+  'Microsoft Ingrid',
+  'Anna', // macOS/iOS German (female)
+  'Petra',
+  'Marlene',
+  'Vicki',
+  'Helena',
+];
+
+// Known male German voices to avoid when no explicit female match is found.
+const MALE_DE_HINTS = ['conrad', 'stefan', 'markus', 'yannick', 'klaus', 'hans', 'male'];
+
+// Get the best available FEMALE German voice.
 export const getGermanVoice = (): SpeechSynthesisVoice | null => {
   if (!isTTSAvailable()) return null;
-  
-  const voices = speechSynthesis.getVoices();
-  
-  // Prefer German voices in this order
-  const preferredVoices = [
-    'Google Deutsch',
-    'Microsoft Katja - German',
-    'Microsoft Conrad - German',
-    'Anna',
-    'de-DE',
-  ];
-  
-  // Try to find preferred voice
-  for (const preferred of preferredVoices) {
-    const voice = voices.find(v => 
-      v.name.includes(preferred) || 
-      (v.lang.startsWith('de') && v.name.includes(preferred))
+
+  const germanVoices = speechSynthesis
+    .getVoices()
+    .filter((v) => v.lang.toLowerCase().startsWith('de'));
+  if (germanVoices.length === 0) return null;
+
+  // 1. Prefer a known female German voice by name.
+  for (const name of PREFERRED_FEMALE_DE) {
+    const match = germanVoices.find((v) =>
+      v.name.toLowerCase().includes(name.toLowerCase())
     );
-    if (voice) return voice;
+    if (match) return match;
   }
-  
-  // Fall back to any German voice
-  return voices.find(voice => voice.lang.startsWith('de')) || null;
+
+  // 2. Otherwise pick a German voice that isn't a known male voice.
+  const notMale = germanVoices.find(
+    (v) => !MALE_DE_HINTS.some((m) => v.name.toLowerCase().includes(m))
+  );
+  if (notMale) return notMale;
+
+  // 3. Last resort: any German voice.
+  return germanVoices[0];
 };
 
 // Text-to-Speech using Web Speech API with German voice selection

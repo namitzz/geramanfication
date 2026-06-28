@@ -1,9 +1,10 @@
-import { Trophy, RotateCw } from 'lucide-react';
+import { Trophy, RotateCw, Zap } from 'lucide-react';
 
 interface SessionResultsProps {
   score: number;
   total: number;
   accentClass?: string; // tailwind bg color for buttons, e.g. 'bg-purple-500'
+  xpEarned?: number;
   onRetry: () => void;
   onExit: () => void;
   exitLabel?: string;
@@ -21,6 +22,7 @@ const SessionResults = ({
   score,
   total,
   accentClass = 'bg-blue-500',
+  xpEarned,
   onRetry,
   onExit,
   exitLabel = 'Back to Setup',
@@ -45,6 +47,11 @@ const SessionResults = ({
           <div className="text-xl text-gray-700 dark:text-gray-300">
             {percentage}% Correct
           </div>
+          {xpEarned != null && xpEarned > 0 && (
+            <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 font-semibold">
+              <Zap size={18} />+{xpEarned} XP
+            </div>
+          )}
         </div>
 
         <div className="flex gap-4 justify-center">

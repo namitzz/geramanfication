@@ -62,4 +62,6 @@ export interface ProgressStats {
   wordsLearned: number;
   totalReviews: number;
   lastReviewDate: string;
+  /** Cumulative experience points earned across all practice modes. */
+  xp: number;
 }

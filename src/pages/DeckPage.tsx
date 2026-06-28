@@ -7,26 +7,31 @@ import { initializeSrsRecord, updateSrsRecordOnReview } from '../utils/srs';
 import Flashcard from '../components/flashcards/Flashcard';
 import MultipleChoiceQuiz from '../components/quiz/MultipleChoiceQuiz';
 import TypeInQuiz from '../components/quiz/TypeInQuiz';
-import { ArrowLeft, CheckCircle } from 'lucide-react';
+import { ArrowLeft, CheckCircle, Zap } from 'lucide-react';
 
 type Mode = 'flashcard' | 'multiple-choice' | 'type-in';
 
 const DeckPage = () => {
   const { deckId } = useParams<{ deckId: string }>();
   const navigate = useNavigate();
-  const { updateSrsRecord, getSrsRecord, progress, updateProgress } = useAppStore();
+  const { updateSrsRecord, getSrsRecord, progress, updateProgress, recordSession } =
+    useAppStore();
 
   const [deck, setDeck] = useState<Deck | undefined>();
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [mode, setMode] = useState<Mode>('flashcard');
   const [isComplete, setIsComplete] = useState(false);
+  const [correctCount, setCorrectCount] = useState(0);
+  const [xpEarned, setXpEarned] = useState(0);
 
   useEffect(() => {
     let active = true;
     setLoading(true);
     setCurrentIndex(0);
     setIsComplete(false);
+    setCorrectCount(0);
+    setXpEarned(0);
     getDeckById(deckId ?? '').then((d) => {
       if (active) {
         setDeck(d);
@@ -67,18 +72,18 @@ const DeckPage = () => {
     const updatedRecord = updateSrsRecordOnReview(record, correct);
     updateSrsRecord(updatedRecord);
 
-    // Update progress
-    if (correct) {
-      updateProgress({
-        totalReviews: progress.totalReviews + 1,
-        wordsLearned: progress.wordsLearned + (record.box === 1 ? 1 : 0),
-      });
+    // Track newly-learned words; reviews/XP/streak are tallied once at the end.
+    if (correct && record.box === 1) {
+      updateProgress({ wordsLearned: progress.wordsLearned + 1 });
     }
+    const newCorrect = correctCount + (correct ? 1 : 0);
+    setCorrectCount(newCorrect);
 
     // Move to next card or complete
     if (currentIndex < deck.cards.length - 1) {
       setCurrentIndex(currentIndex + 1);
     } else {
+      setXpEarned(recordSession(newCorrect, deck.cards.length));
       setIsComplete(true);
     }
   };
@@ -104,13 +109,20 @@ const DeckPage = () => {
         <CheckCircle className="mx-auto text-green-500" size={80} />
         <h1 className="text-3xl font-bold">Deck Complete! 🎉</h1>
         <p className="text-gray-600 dark:text-gray-400">
-          You've reviewed all {deck.cards.length} cards in this deck.
+          You got {correctCount} / {deck.cards.length} correct.
         </p>
+        {xpEarned > 0 && (
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 font-semibold">
+            <Zap size={18} />+{xpEarned} XP
+          </div>
+        )}
         <div className="space-y-3">
           <button
             onClick={() => {
               setCurrentIndex(0);
               setIsComplete(false);
+              setCorrectCount(0);
+              setXpEarned(0);
             }}
             className="block w-full max-w-md mx-auto py-3 px-6 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors"
           >

@@ -17,6 +17,11 @@ interface AppState {
   updateProgress: (progress: Partial<ProgressStats>) => void;
   incrementStreak: () => void;
   resetStreak: () => void;
+  /**
+   * Record a finished practice session: awards XP, advances the daily streak,
+   * and counts reviews. Returns the XP earned so the UI can show it.
+   */
+  recordSession: (correct: number, total: number) => number;
   
   // Review queue
   reviewQueue: string[];
@@ -39,7 +44,14 @@ const defaultProgress: ProgressStats = {
   wordsLearned: 0,
   totalReviews: 0,
   lastReviewDate: '',
+  xp: 0,
 };
+
+const XP_PER_CORRECT = 10;
+
+/** Local YYYY-MM-DD for day comparisons. */
+const dayKey = (d: Date): string =>
+  `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
 
 export const useAppStore = create<AppState>()(
   persist(
@@ -76,6 +88,29 @@ export const useAppStore = create<AppState>()(
         set((state) => ({
           progress: { ...state.progress, streak: 0 },
         })),
+      recordSession: (correct, total) => {
+        const xpEarned = correct * XP_PER_CORRECT;
+        const { progress } = get();
+        const today = dayKey(new Date());
+        const yesterday = dayKey(new Date(Date.now() - 86_400_000));
+
+        let streak = progress.streak;
+        if (progress.lastReviewDate !== today) {
+          // First session today: extend streak if yesterday, else restart.
+          streak = progress.lastReviewDate === yesterday ? streak + 1 : 1;
+        }
+
+        set({
+          progress: {
+            ...progress,
+            xp: progress.xp + xpEarned,
+            totalReviews: progress.totalReviews + total,
+            streak,
+            lastReviewDate: today,
+          },
+        });
+        return xpEarned;
+      },
       
       // Review queue
       reviewQueue: [],
@@ -92,6 +127,16 @@ export const useAppStore = create<AppState>()(
     }),
     {
       name: 'deutschsprint-storage',
+      // Backfill newly-added fields (e.g. xp) for users with older saved state.
+      merge: (persisted, current) => {
+        const saved = (persisted ?? {}) as Partial<AppState>;
+        return {
+          ...current,
+          ...saved,
+          settings: { ...defaultSettings, ...saved.settings },
+          progress: { ...defaultProgress, ...saved.progress },
+        };
+      },
     }
   )
 );

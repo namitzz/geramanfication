@@ -16,6 +16,7 @@ import {
 } from '../content/sentences';
 import { speak, isTTSAvailable } from '../utils/tts';
 import { isAnswerCorrect } from '../utils/stringMatch';
+import { useAppStore } from '../stores/appStore';
 import SessionResults from '../components/practice/SessionResults';
 
 type Mode = 'build' | 'listen' | 'translate';
@@ -52,6 +53,9 @@ const SentencesPage = () => {
   const [score, setScore] = useState(0);
   const [revealed, setRevealed] = useState(false);
   const [wasCorrect, setWasCorrect] = useState(false);
+  const [xpEarned, setXpEarned] = useState(0);
+
+  const recordSession = useAppStore((s) => s.recordSession);
 
   // per-question working state
   const [text, setText] = useState('');
@@ -108,6 +112,7 @@ const SentencesPage = () => {
       setIndex(ni);
       loadQuestion(items[ni]);
     } else {
+      setXpEarned(recordSession(score, items.length));
       setPhase('done');
     }
   };
@@ -210,6 +215,7 @@ const SentencesPage = () => {
         score={score}
         total={items.length}
         accentClass="bg-emerald-500"
+        xpEarned={xpEarned}
         onRetry={start}
         onExit={() => setPhase('setup')}
       />

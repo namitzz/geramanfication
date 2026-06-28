@@ -6,6 +6,7 @@ import {
   getGrammarCategories,
   type GrammarQuestion,
 } from '../content/grammar';
+import { useAppStore } from '../stores/appStore';
 import SessionResults from '../components/practice/SessionResults';
 
 const LEVELS: (CEFRLevel | 'all')[] = ['all', 'A1', 'A2', 'B1', 'B2', 'C1'];
@@ -24,6 +25,9 @@ const GrammarPage = () => {
   const [selected, setSelected] = useState<number | null>(null);
   const [revealed, setRevealed] = useState(false);
   const [score, setScore] = useState(0);
+  const [xpEarned, setXpEarned] = useState(0);
+
+  const recordSession = useAppStore((s) => s.recordSession);
 
   useEffect(() => {
     getGrammarCategories().then(setCategories);
@@ -52,6 +56,7 @@ const GrammarPage = () => {
       setSelected(null);
       setRevealed(false);
     } else {
+      setXpEarned(recordSession(score, questions.length));
       setPhase('done');
     }
   };
@@ -144,6 +149,7 @@ const GrammarPage = () => {
         score={score}
         total={questions.length}
         accentClass="bg-purple-500"
+        xpEarned={xpEarned}
         onRetry={start}
         onExit={() => setPhase('setup')}
       />
