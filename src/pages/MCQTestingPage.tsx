@@ -99,7 +99,7 @@ const MCQTestingPage = () => {
             MCQ Testing (Hard)
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
-            Test your German knowledge with 100+ challenging multiple-choice questions
+            100+ challenging questions.
           </p>
         </div>
 
@@ -145,19 +145,6 @@ const MCQTestingPage = () => {
                 <span>110</span>
               </div>
             </div>
-          </div>
-
-          <div className="mt-6 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-            <h3 className="font-semibold mb-2 text-purple-900 dark:text-purple-100">
-              About This Test
-            </h3>
-            <ul className="text-sm text-purple-800 dark:text-purple-200 space-y-1">
-              <li>• 110 carefully crafted questions covering basic German grammar and vocabulary</li>
-              <li>• Focus on articles, cases, prepositions, verb conjugations, and more</li>
-              <li>• Designed for A1-A2 level learners seeking a challenge</li>
-              <li>• Instant feedback on each answer</li>
-              <li>• Review wrong answers at the end</li>
-            </ul>
           </div>
 
           <button

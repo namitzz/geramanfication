@@ -71,8 +71,7 @@ const GrammarPage = () => {
             Grammar Gym
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
-            Learn grammar by doing. Match rules to meanings and spot the sentence
-            that proves each one — no walls of text.
+            Tap to match rules and examples.
           </p>
         </header>
 
@@ -192,7 +191,7 @@ const GrammarPage = () => {
         />
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+      <div key={index} className="card p-6 animate-fade-in-up">
         <span className="inline-block px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-xs font-semibold mb-3">
           {q.category} · {q.level}
         </span>
@@ -236,7 +235,7 @@ const GrammarPage = () => {
 
         {revealed && (
           <>
-            <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-sm text-gray-700 dark:text-gray-300">
+            <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-sm text-gray-700 dark:text-gray-300 animate-pop">
               💡 {q.explanation}
             </div>
             <button

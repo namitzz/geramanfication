@@ -127,8 +127,7 @@ const SentencesPage = () => {
             Sentence Lab
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
-            Practice real German sentences by doing: rebuild the word order, take
-            dictation, or translate.
+            Real sentences. Build, hear, or translate.
           </p>
         </header>
 
@@ -260,7 +259,7 @@ const SentencesPage = () => {
         />
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 space-y-5">
+      <div key={index} className="card p-6 space-y-5 animate-fade-in-up">
         {/* Prompt */}
         {mode === 'build' && (
           <div className="text-center">
@@ -349,7 +348,7 @@ const SentencesPage = () => {
         {/* Feedback */}
         {revealed && (
           <div
-            className={`p-4 rounded-lg ${
+            className={`p-4 rounded-lg animate-pop ${
               wasCorrect
                 ? 'bg-green-50 dark:bg-green-900/20'
                 : 'bg-red-50 dark:bg-red-900/20'

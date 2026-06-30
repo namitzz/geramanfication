@@ -13,15 +13,12 @@ const ProgressPage = () => {
 
   return (
     <div className="space-y-6">
-      <header className="mb-6">
-        <h1 className="text-3xl font-bold mb-2">Progress</h1>
-        <p className="text-gray-600 dark:text-gray-400">
-          Track your learning journey
-        </p>
+      <header className="mb-2">
+        <h1 className="text-3xl font-bold">Progress</h1>
       </header>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4 stagger">
         <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow">
           <div className="flex items-center gap-3 mb-2">
             <Flame className="text-orange-500" size={28} />
@@ -60,11 +57,8 @@ const ProgressPage = () => {
       </div>
 
       {/* Leitner Box Distribution */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow">
-        <h2 className="text-xl font-semibold mb-4">Leitner Box Distribution</h2>
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-          Cards in each spaced repetition box
-        </p>
+      <div className="card p-6">
+        <h2 className="text-xl font-semibold mb-4">Review Boxes</h2>
         <ResponsiveContainer width="100%" height={250}>
           <BarChart data={boxDistribution}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -74,17 +68,10 @@ const ProgressPage = () => {
             <Bar dataKey="count" fill="#3b82f6" />
           </BarChart>
         </ResponsiveContainer>
-        <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
-          <p>📦 Box 1: Review tomorrow</p>
-          <p>📦 Box 2: Review in 3 days</p>
-          <p>📦 Box 3: Review in 1 week</p>
-          <p>📦 Box 4: Review in 2 weeks</p>
-          <p>📦 Box 5: Review in 1 month</p>
-        </div>
       </div>
 
       {/* Learning Stats */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow">
+      <div className="card p-6">
         <h2 className="text-xl font-semibold mb-4">Learning Stats</h2>
         <div className="space-y-3">
           <div className="flex justify-between items-center pb-2 border-b border-gray-200 dark:border-gray-700">
