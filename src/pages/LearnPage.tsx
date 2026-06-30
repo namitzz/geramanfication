@@ -35,7 +35,7 @@ const LearnPage = () => {
     <Link
       key={deck.id}
       to={`/deck/${deck.id}`}
-      className="block bg-white dark:bg-gray-800 rounded-lg p-6 shadow hover:shadow-lg transition-shadow"
+      className="card-interactive block p-6"
     >
       <div className="flex items-start justify-between">
         <div className="flex-1">

@@ -1,112 +1,103 @@
 import { Link } from 'react-router-dom';
 import { useAppStore } from '../stores/appStore';
-import { Flame, Target, BookOpen } from 'lucide-react';
+import { Flame, BookOpen, Layers, ArrowRight, Zap } from 'lucide-react';
 import { getDueCards } from '../utils/srs';
 import { allDecks } from '../content/decks';
 
 const HomePage = () => {
-  const { progress, settings, srsRecords } = useAppStore();
+  const { progress, srsRecords } = useAppStore();
 
-  // Calculate total due cards across all decks
-  const allCardIds = allDecks.flatMap(deck => deck.cards.map(card => card.id));
+  const allCardIds = allDecks.flatMap((deck) => deck.cards.map((card) => card.id));
   const dueCards = getDueCards(allCardIds, srsRecords);
+
+  // Lightweight leveling: 100 XP per level.
+  const level = Math.floor(progress.xp / 100) + 1;
+  const xpIntoLevel = progress.xp % 100;
+
+  const stats = [
+    {
+      icon: Flame,
+      value: progress.streak,
+      label: 'day streak',
+      color: 'text-orange-500',
+    },
+    {
+      icon: BookOpen,
+      value: progress.wordsLearned,
+      label: 'words learned',
+      color: 'text-green-500',
+    },
+    {
+      icon: Layers,
+      value: dueCards.length,
+      label: 'due to review',
+      color: 'text-brand-500',
+    },
+  ];
 
   return (
     <div className="space-y-6">
-      <header className="text-center mb-8">
-        <h1 className="text-4xl font-bold mb-2">🇩🇪 DeutschSprint</h1>
-        <p className="text-gray-600 dark:text-gray-400">
-          Learn German with flashcards & spaced repetition
+      {/* Hero / level card */}
+      <section className="rounded-2xl p-6 bg-gradient-to-br from-brand-600 to-indigo-500 text-white shadow-card">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <p className="text-white/80 text-sm">Willkommen zurück 👋</p>
+            <h1 className="text-2xl font-bold">Level {level}</h1>
+          </div>
+          <div className="chip bg-white/20 text-white">
+            <Zap size={16} />
+            {progress.xp} XP
+          </div>
+        </div>
+        <div className="h-2.5 rounded-full bg-white/25 overflow-hidden">
+          <div
+            className="h-full bg-white rounded-full transition-all duration-500"
+            style={{ width: `${xpIntoLevel}%` }}
+          />
+        </div>
+        <p className="text-xs text-white/80 mt-2">
+          {100 - xpIntoLevel} XP to Level {level + 1}
         </p>
-      </header>
+      </section>
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-2 gap-4">
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow">
-          <div className="flex items-center gap-2 mb-2">
-            <Flame className="text-orange-500" size={24} />
-            <span className="text-sm text-gray-600 dark:text-gray-400">Streak</span>
+      {/* Stat chips */}
+      <section className="grid grid-cols-3 gap-3">
+        {stats.map(({ icon: Icon, value, label, color }) => (
+          <div key={label} className="card p-4 text-center">
+            <Icon className={`mx-auto mb-1 ${color}`} size={22} />
+            <p className="text-2xl font-bold leading-tight">{value}</p>
+            <p className="text-[11px] text-gray-500 dark:text-gray-400">{label}</p>
           </div>
-          <p className="text-3xl font-bold">{progress.streak}</p>
-          <p className="text-xs text-gray-500 dark:text-gray-400">days</p>
-        </div>
+        ))}
+      </section>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow">
-          <div className="flex items-center gap-2 mb-2">
-            <Target className="text-blue-500" size={24} />
-            <span className="text-sm text-gray-600 dark:text-gray-400">Daily Goal</span>
-          </div>
-          <p className="text-3xl font-bold">{settings.dailyGoal}</p>
-          <p className="text-xs text-gray-500 dark:text-gray-400">words/day</p>
-        </div>
-
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow col-span-2">
-          <div className="flex items-center gap-2 mb-2">
-            <BookOpen className="text-green-500" size={24} />
-            <span className="text-sm text-gray-600 dark:text-gray-400">Progress</span>
-          </div>
-          <div className="flex justify-between items-end">
-            <div>
-              <p className="text-2xl font-bold">{progress.wordsLearned}</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">words learned</p>
-            </div>
-            <div className="text-center">
-              <p className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">
-                {progress.xp}
-              </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">XP</p>
-            </div>
-            <div className="text-right">
-              <p className="text-2xl font-bold">{dueCards.length}</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">due for review</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Action Buttons */}
-      <div className="space-y-3">
+      {/* Primary actions */}
+      <section className="space-y-3">
         {dueCards.length > 0 && (
           <Link
             to="/review"
-            className="block w-full py-4 px-6 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold text-center transition-colors shadow-lg"
+            className="btn-primary w-full py-4 text-lg shadow-card"
           >
-            Continue Review ({dueCards.length} cards)
+            Continue Review ({dueCards.length})
+            <ArrowRight size={20} />
           </Link>
         )}
-
         <Link
           to="/learn"
-          className="block w-full py-4 px-6 bg-green-500 hover:bg-green-600 text-white rounded-lg font-semibold text-center transition-colors"
+          className="card-interactive flex items-center justify-between p-5"
         >
-          Browse Decks
+          <div className="flex items-center gap-3">
+            <BookOpen className="text-brand-500" size={24} />
+            <div>
+              <p className="font-semibold">Start Learning</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                Vocabulary, grammar & sentences
+              </p>
+            </div>
+          </div>
+          <ArrowRight className="text-gray-400" size={20} />
         </Link>
-
-        <Link
-          to="/grammar"
-          className="block w-full py-4 px-6 bg-purple-500 hover:bg-purple-600 text-white rounded-lg font-semibold text-center transition-colors"
-        >
-          Grammar Lessons
-        </Link>
-      </div>
-
-      {/* Today's Goal Progress */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow">
-        <div className="flex justify-between items-center mb-2">
-          <span className="text-sm font-medium">Today's Progress</span>
-          <span className="text-sm text-gray-600 dark:text-gray-400">
-            {Math.min(progress.totalReviews, settings.dailyGoal)} / {settings.dailyGoal}
-          </span>
-        </div>
-        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-          <div
-            className="bg-blue-500 h-2 rounded-full transition-all"
-            style={{
-              width: `${Math.min((progress.totalReviews / settings.dailyGoal) * 100, 100)}%`,
-            }}
-          />
-        </div>
-      </div>
+      </section>
     </div>
   );
 };
