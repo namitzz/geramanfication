@@ -55,6 +55,43 @@ function toArticle(gender: string): Article | undefined {
   return undefined;
 }
 
+/**
+ * The source dataset includes Wiktionary-style morphological labels in the
+ * `english` field (e.g. "singular imperative of hausen", "plural of Auge",
+ * "genitive of er") instead of a real translation. These make confusing,
+ * effectively wrong flashcards/quiz answers, so they are excluded.
+ */
+const JUNK_MEANING_PATTERNS = [
+  'imperative',
+  'genitive',
+  'dative',
+  'accusative',
+  'nominative',
+  'vocative',
+  'inflection of',
+  'inflected form',
+  'past participle',
+  'present participle',
+  'past tense of',
+  'alternative form of',
+  'alternative spelling of',
+  'obsolete',
+  'archaic',
+  'misspelling',
+  'ungrammatical',
+  'comparative of',
+  'superlative of',
+  'plural of',
+  'singular of',
+];
+
+function isUsableTranslation(english: string): boolean {
+  const s = english.trim().toLowerCase();
+  if (!s) return false;
+  if (s === 'singular' || s === 'plural') return false;
+  return !JUNK_MEANING_PATTERNS.some((p) => s.includes(p));
+}
+
 function toCard(row: ApiVocab, index: number): Card {
   return {
     id: `v-${row.level}-${index}`,
@@ -82,9 +119,15 @@ export function loadVocabularyDecks(): Promise<Deck[]> {
       const decks: Deck[] = [];
 
       for (const level of CEFR_LEVELS) {
-        // Proper nouns ("name") add little learning value — skip them.
+        // Skip proper nouns and entries whose "translation" is a grammatical
+        // label rather than a real meaning.
         const words = rows
-          .filter((r) => r.level === level && r.pos !== 'name')
+          .filter(
+            (r) =>
+              r.level === level &&
+              r.pos !== 'name' &&
+              isUsableTranslation(r.english)
+          )
           .sort((a, b) => a.frequency_rank - b.frequency_rank);
 
         const cards = words.map(toCard);

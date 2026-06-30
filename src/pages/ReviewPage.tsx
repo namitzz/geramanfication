@@ -89,17 +89,15 @@ const ReviewPage = () => {
 
   const generateMultipleChoiceOptions = (): string[] => {
     const correct = currentCard.en;
-    const allOptions = allCards
-      .filter((c) => c.id !== currentCard.id)
-      .map((c) => c.en);
 
-    // Shuffle and take 3 wrong answers
-    const shuffled = allOptions.sort(() => Math.random() - 0.5);
-    const wrongOptions = shuffled.slice(0, 3);
+    // Distinct distractors that differ from the correct answer.
+    const distractors = [
+      ...new Set(allCards.map((c) => c.en).filter((en) => en !== correct)),
+    ]
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3);
 
-    // Combine and shuffle again
-    const options = [correct, ...wrongOptions].sort(() => Math.random() - 0.5);
-    return options;
+    return [correct, ...distractors].sort(() => Math.random() - 0.5);
   };
 
   return (
