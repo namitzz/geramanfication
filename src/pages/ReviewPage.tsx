@@ -6,9 +6,10 @@ import { initializeSrsRecord, updateSrsRecordOnReview, getDueCards } from '../ut
 import Flashcard from '../components/flashcards/Flashcard';
 import MultipleChoiceQuiz from '../components/quiz/MultipleChoiceQuiz';
 import TypeInQuiz from '../components/quiz/TypeInQuiz';
+import ModeToggle, { type QuizMode } from '../components/quiz/ModeToggle';
 import { ArrowLeft, CheckCircle } from 'lucide-react';
 
-type Mode = 'flashcard' | 'multiple-choice' | 'type-in';
+type Mode = QuizMode;
 
 const ReviewPage = () => {
   const navigate = useNavigate();
@@ -117,45 +118,10 @@ const ReviewPage = () => {
       </header>
 
       <div className="text-center mb-4">
-        <h2 className="text-2xl font-bold">Review Session</h2>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">
-          Review your due cards
-        </p>
+        <h2 className="text-2xl font-bold">Review</h2>
       </div>
 
-      {/* Mode Toggle */}
-      <div className="flex gap-2 justify-center mb-6">
-        <button
-          onClick={() => setMode('flashcard')}
-          className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-            mode === 'flashcard'
-              ? 'bg-blue-500 text-white'
-              : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
-          }`}
-        >
-          Flashcard
-        </button>
-        <button
-          onClick={() => setMode('multiple-choice')}
-          className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-            mode === 'multiple-choice'
-              ? 'bg-blue-500 text-white'
-              : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
-          }`}
-        >
-          Multiple Choice
-        </button>
-        <button
-          onClick={() => setMode('type-in')}
-          className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-            mode === 'type-in'
-              ? 'bg-blue-500 text-white'
-              : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
-          }`}
-        >
-          Type In
-        </button>
-      </div>
+      <ModeToggle mode={mode} onChange={setMode} />
 
       {/* Render based on mode */}
       {mode === 'flashcard' && (
