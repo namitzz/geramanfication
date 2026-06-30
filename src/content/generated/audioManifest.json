@@ -1,0 +1,92 @@
+{
+  "greetings": {
+    "file": "greetings.zip",
+    "count": 15,
+    "bytes": 84715
+  },
+  "numbers": {
+    "file": "numbers.zip",
+    "count": 20,
+    "bytes": 92101
+  },
+  "days": {
+    "file": "days.zip",
+    "count": 10,
+    "bytes": 54865
+  },
+  "common-verbs": {
+    "file": "common-verbs.zip",
+    "count": 12,
+    "bytes": 60148
+  },
+  "a1-basics": {
+    "file": "a1-basics.zip",
+    "count": 15,
+    "bytes": 62606
+  },
+  "travel-phrasebook": {
+    "file": "travel-phrasebook.zip",
+    "count": 10,
+    "bytes": 80165
+  },
+  "german-sentences": {
+    "file": "german-sentences.zip",
+    "count": 50,
+    "bytes": 447610
+  },
+  "nationalities": {
+    "file": "nationalities.zip",
+    "count": 15,
+    "bytes": 135464
+  },
+  "family": {
+    "file": "family.zip",
+    "count": 20,
+    "bytes": 93706
+  },
+  "possessives": {
+    "file": "possessives.zip",
+    "count": 15,
+    "bytes": 115407
+  },
+  "languages": {
+    "file": "languages.zip",
+    "count": 15,
+    "bytes": 105086
+  },
+  "phase2-daily-routine-vocab": {
+    "file": "phase2-daily-routine-vocab.zip",
+    "count": 15,
+    "bytes": 95018
+  },
+  "phase2-separable-inseparable": {
+    "file": "phase2-separable-inseparable.zip",
+    "count": 15,
+    "bytes": 100333
+  },
+  "phase2-reflexive-verbs": {
+    "file": "phase2-reflexive-verbs.zip",
+    "count": 15,
+    "bytes": 125543
+  },
+  "phase2-time-expressions": {
+    "file": "phase2-time-expressions.zip",
+    "count": 15,
+    "bytes": 127238
+  },
+  "phase2-wohin-wo": {
+    "file": "phase2-wohin-wo.zip",
+    "count": 15,
+    "bytes": 104912
+  },
+  "phase2-herr-ihssen": {
+    "file": "phase2-herr-ihssen.zip",
+    "count": 15,
+    "bytes": 87143
+  },
+  "phase2-practice-sentences": {
+    "file": "phase2-practice-sentences.zip",
+    "count": 10,
+    "bytes": 117417
+  }
+}

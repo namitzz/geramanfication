@@ -8,6 +8,7 @@ import Flashcard from '../components/flashcards/Flashcard';
 import MultipleChoiceQuiz from '../components/quiz/MultipleChoiceQuiz';
 import TypeInQuiz from '../components/quiz/TypeInQuiz';
 import { ArrowLeft, CheckCircle, Zap } from 'lucide-react';
+import AudioDownloadButton from '../components/AudioDownloadButton';
 
 type Mode = 'flashcard' | 'multiple-choice' | 'type-in';
 
@@ -154,8 +155,11 @@ const DeckPage = () => {
         </div>
       </header>
 
-      <div className="text-center mb-4">
+      <div className="text-center mb-4 space-y-2">
         <h2 className="text-2xl font-bold">{deck.name}</h2>
+        <div className="flex justify-center">
+          <AudioDownloadButton deckId={deck.id} />
+        </div>
       </div>
 
       {/* Mode Toggle */}
