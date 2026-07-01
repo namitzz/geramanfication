@@ -26,24 +26,29 @@ export const levenshteinDistance = (str1: string, str2: string): number => {
   return dp[m][n];
 };
 
-// Check if user answer is close enough to correct answer
+// Check if a user answer is close enough to the correct answer.
+//
+// Case-sensitive: capitalization is meaningful in German (nouns are
+// capitalized, "sie" vs "Sie", etc.), so a case-only difference is treated as
+// wrong. Whitespace is trimmed and small typos are still tolerated.
 export const isAnswerCorrect = (
   userAnswer: string,
   correctAnswer: string,
   threshold: number = 2
 ): boolean => {
-  const normalizedUser = userAnswer.toLowerCase().trim();
-  const normalizedCorrect = correctAnswer.toLowerCase().trim();
+  const user = userAnswer.trim();
+  const correct = correctAnswer.trim();
 
-  // Exact match
-  if (normalizedUser === normalizedCorrect) return true;
+  // Exact, case-sensitive match.
+  if (user === correct) return true;
 
-  // Calculate Levenshtein distance
-  const distance = levenshteinDistance(normalizedUser, normalizedCorrect);
-  
-  // Allow some typos based on length
-  const maxAllowedDistance = Math.min(threshold, Math.floor(normalizedCorrect.length * 0.2));
-  
+  // A difference that is only capitalization is a real mistake in German.
+  if (user.toLowerCase() === correct.toLowerCase()) return false;
+
+  // Otherwise tolerate small typos, scaled to the answer length.
+  const distance = levenshteinDistance(user, correct);
+  const maxAllowedDistance = Math.min(threshold, Math.floor(correct.length * 0.2));
+
   return distance <= maxAllowedDistance;
 };
 

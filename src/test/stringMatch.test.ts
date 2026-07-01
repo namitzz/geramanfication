@@ -19,13 +19,18 @@ describe('stringMatch utilities', () => {
       expect(isAnswerCorrect('hello', 'hello')).toBe(true);
     });
 
-    it('should be case insensitive', () => {
-      expect(isAnswerCorrect('Hello', 'hello')).toBe(true);
-      expect(isAnswerCorrect('HELLO', 'hello')).toBe(true);
+    it('should be case sensitive (capitalization matters in German)', () => {
+      expect(isAnswerCorrect('Hello', 'hello')).toBe(false);
+      expect(isAnswerCorrect('HELLO', 'hello')).toBe(false);
+      // German: capitalized noun vs lowercase is wrong
+      expect(isAnswerCorrect('haus', 'Haus')).toBe(false);
+      expect(isAnswerCorrect('Haus', 'Haus')).toBe(true);
+      // "sie" (they) vs "Sie" (formal you) is a meaningful distinction
+      expect(isAnswerCorrect('sie', 'Sie')).toBe(false);
     });
 
     it('should handle whitespace', () => {
-      expect(isAnswerCorrect(' hello ', 'hello')).toBe(true);
+      expect(isAnswerCorrect(' Hallo ', 'Hallo')).toBe(true);
     });
 
     it('should allow small typos', () => {

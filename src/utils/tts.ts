@@ -1,20 +1,12 @@
-// Known female German voices, in order of preference.
-const PREFERRED_FEMALE_DE = [
-  'Google Deutsch', // female on Chrome
-  'Microsoft Katja',
-  'Microsoft Hedda',
-  'Microsoft Ingrid',
-  'Anna', // macOS/iOS German (female)
-  'Petra',
-  'Marlene',
-  'Vicki',
-  'Helena',
+// High-quality German voices to prefer, in rough quality order. These span
+// both genders — voice gender is a device/OS choice, not something we filter.
+const PREFERRED_DE_VOICES = [
+  'Google Deutsch',
+  'Microsoft', // Katja, Conrad, Hedda, etc. — whichever the OS provides
+  'Anna', // macOS/iOS German
 ];
 
-// Known male German voices to avoid when no explicit female match is found.
-const MALE_DE_HINTS = ['conrad', 'stefan', 'markus', 'yannick', 'klaus', 'hans', 'male'];
-
-// Get the best available FEMALE German voice.
+// Get the best available German voice (any gender).
 export const getGermanVoice = (): SpeechSynthesisVoice | null => {
   if (!isTTSAvailable()) return null;
 
@@ -23,21 +15,14 @@ export const getGermanVoice = (): SpeechSynthesisVoice | null => {
     .filter((v) => v.lang.toLowerCase().startsWith('de'));
   if (germanVoices.length === 0) return null;
 
-  // 1. Prefer a known female German voice by name.
-  for (const name of PREFERRED_FEMALE_DE) {
+  // Prefer a known high-quality voice, otherwise fall back to any German voice.
+  for (const name of PREFERRED_DE_VOICES) {
     const match = germanVoices.find((v) =>
       v.name.toLowerCase().includes(name.toLowerCase())
     );
     if (match) return match;
   }
 
-  // 2. Otherwise pick a German voice that isn't a known male voice.
-  const notMale = germanVoices.find(
-    (v) => !MALE_DE_HINTS.some((m) => v.name.toLowerCase().includes(m))
-  );
-  if (notMale) return notMale;
-
-  // 3. Last resort: any German voice.
   return germanVoices[0];
 };
 
