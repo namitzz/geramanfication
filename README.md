@@ -1,158 +1,71 @@
-# 🇩🇪 DeutschSprint - Offline German Learning PWA
+# 🇩🇪 DeutschSprint — Learn German (A1–C1), Offline
 
-A lightweight, mobile-first Progressive Web App for learning German (A1–A2 level) with flashcards, spaced-repetition quizzes, pronunciation (TTS), and bite-size grammar lessons.
+A fast, mobile-first **Progressive Web App** for learning German — from beginner (A1) to advanced (C1). Practice by **doing**, not reading: interactive vocabulary, grammar drills, sentence building, listening dictation, spaced repetition, and **downloadable audio**. Free, offline-first, and no sign-in.
+
+**▶ Live demo: https://namitzz.github.io/geramanfication/**
+
+![DeutschSprint](public/og-image.png)
 
 ## ✨ Features
 
-- **📱 PWA (Progressive Web App)**: Install on your device and use offline
-- **🎴 Flashcards**: German ⇄ English with flip animation
-- **🎯 Spaced Repetition**: Leitner system (5 boxes) for optimal learning
-- **📝 Quiz Modes**: Multiple choice and type-in with fuzzy matching
-- **🔊 Pronunciation**: Web Speech API for German text-to-speech
-- **📚 Content Packs**: Greetings, numbers, days, verbs, A1 basics, travel phrases
-- **📖 Grammar Lessons**: Essential German grammar with examples
-- **📊 Progress Tracking**: Streak counter, words learned, review statistics
-- **🌙 Dark Mode**: Toggle between light and dark themes
-- **♿ Accessibility**: Keyboard navigation, ARIA labels, dyslexic-friendly font option
-- **💾 Local Storage**: All data stored on your device, no sign-in required
+- **📚 8,000+ words (A1–C1)** — CEFR-leveled vocabulary, ordered by frequency
+- **🏋️ Grammar Gym** — learn 365 grammar rules through gamified quizzes (match rule ↔ meaning, spot the example) instead of walls of text
+- **🧪 Sentence Lab** — practice 2,300 real sentences three ways: **build** the word order, **listen & type** (dictation), or **translate**
+- **🎴 Flashcards + quizzes** — flip cards, multiple-choice, and typo-tolerant type-in
+- **🎯 Spaced repetition** — Leitner 5-box system for efficient review
+- **🎮 Gamification** — XP, levels, and a daily streak across every mode
+- **🔊 German audio** — Web Speech pronunciation **plus downloadable audio packs** (real MP3s, female neural voice)
+- **📱 Offline PWA** — installable, works with no connection, data stored locally
+- **🌙 Dark mode & ♿ accessibility** — keyboard nav, ARIA labels, dyslexic-friendly font
 
-## 🚀 Quick Start
+## 🧩 How it works
 
-### Prerequisites
+Content is imported **at build time** from a German-language API into bundled JSON — so the app stays fully offline with no runtime API calls or keys.
 
-- Node.js 20.x or higher
-- npm or yarn
+- `npm run content:fetch` — import vocabulary, grammar, and sentences
+- `npm run audio:generate` — pre-generate MP3 audio packs (Microsoft Edge neural voice)
 
-### Installation
+Low-quality source entries (Wiktionary-style grammatical labels rather than translations) are filtered out so quiz answers are always meaningful.
+
+## 📦 Tech stack
+
+React 19 · TypeScript · Vite · Tailwind CSS · Zustand · React Router · Recharts · Lucide · vite-plugin-pwa (Workbox) · Vitest · ESLint/Prettier
+
+## 🚀 Getting started
 
 ```bash
-# Clone the repository
 git clone https://github.com/namitzz/geramanfication.git
 cd geramanfication
-
-# Install dependencies
 npm install
-
-# Start development server
-npm run dev
+npm run dev        # http://localhost:5173/geramanfication/
 ```
-
-Visit `http://localhost:5173` to see the app.
-
-### Building for Production
 
 ```bash
-npm run build
-npm run preview
+npm run build      # type-check + production build
+npm run test       # unit tests (Vitest)
+npm run lint       # ESLint
 ```
 
-## 🧪 Testing
+## 🎯 Spaced repetition (Leitner)
 
-```bash
-# Run tests
-npm run test
+Cards move up a box on a correct answer and reset to Box 1 on a miss:
 
-# Run tests with UI
-npm run test:ui
-```
-
-## 📦 Tech Stack
-
-- **Frontend**: React 19 + TypeScript
-- **Build Tool**: Vite
-- **State Management**: Zustand with localStorage persistence
-- **Routing**: React Router v6
-- **Styling**: Tailwind CSS
-- **PWA**: vite-plugin-pwa with Workbox
-- **Charts**: Recharts
-- **Icons**: Lucide React
-- **Testing**: Vitest + React Testing Library
-- **Linting**: ESLint + Prettier
-
-## 🎯 Learning System
-
-The app uses the **Leitner System** for spaced repetition:
-
-- **Box 1**: Review tomorrow (new/failed cards)
-- **Box 2**: Review in 3 days
-- **Box 3**: Review in 1 week
-- **Box 4**: Review in 2 weeks
-- **Box 5**: Review in 1 month (mastered)
-
-Correct answers move cards to higher boxes; incorrect answers reset to Box 1.
-
-## 📚 Content
-
-### Available Decks
-
-1. **Greetings & Basics** - Essential German greetings and phrases
-2. **Numbers 1-20** - Basic German numbers
-3. **Days & Time** - Days of the week and time-related words
-4. **Common Verbs** - Essential German verbs (sein, haben, gehen, etc.)
-5. **A1 Basics** - Basic nouns for A1 level
-6. **Travel Phrasebook** - Useful phrases for traveling in Germany
-
-### Grammar Topics
-
-- German Articles (der, die, das)
-- Verb Conjugations (sein, haben, regular verbs)
-- Basic Word Order
-- Question Words
-
-## 🔧 Configuration
-
-### Settings
-
-- **Dark Mode**: Toggle dark theme
-- **Text-to-Speech**: Enable/disable pronunciation
-- **Font Size**: Small, medium, or large
-- **Dyslexic Font**: Toggle OpenDyslexic font
-- **Daily Goal**: Set your daily review target (5-100 cards)
+| Box | Next review |
+| --- | ----------- |
+| 1 | tomorrow |
+| 2 | 3 days |
+| 3 | 1 week |
+| 4 | 2 weeks |
+| 5 | 1 month (mastered) |
 
 ## 🚢 Deployment
 
-The app automatically deploys to GitHub Pages when pushing to the `main` branch.
-
-### Manual Deployment
-
-```bash
-npm run build
-# Deploy the 'dist' folder to your hosting service
-```
-
-## 📱 PWA Installation
-
-### Desktop
-
-1. Visit the deployed app
-2. Look for the install icon in the address bar
-3. Click "Install"
-
-### Mobile
-
-1. Visit the deployed app
-2. Open browser menu
-3. Select "Add to Home Screen"
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
+Auto-deploys to **GitHub Pages** via GitHub Actions on every push to `main` (lint → test → build → deploy).
 
 ## 📄 License
 
-This project is open source and available under the MIT License.
-
-## 🙏 Acknowledgments
-
-- German vocabulary and grammar resources
-- Web Speech API for text-to-speech
-- Leitner System for spaced repetition
-
-## 📞 Support
-
-For issues, questions, or suggestions, please open an issue on GitHub.
+MIT — open source and free to use.
 
 ---
 
-**Made with ❤️ for German learners**
-
+**Made with ❤️ for German learners.**

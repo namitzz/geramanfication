@@ -13,7 +13,7 @@ export default defineConfig({
       manifest: {
         name: 'DeutschSprint - Learn German',
         short_name: 'DeutschSprint',
-        description: 'Offline German Learning PWA with flashcards, quizzes, and spaced repetition',
+        description: 'Offline German-learning PWA: 8,000+ words (A1–C1), Grammar Gym, Sentence Lab, spaced repetition, and downloadable audio.',
         theme_color: '#ffffff',
         background_color: '#ffffff',
         display: 'standalone',
@@ -27,6 +27,12 @@ export default defineConfig({
             src: 'pwa-512x512.png',
             sizes: '512x512',
             type: 'image/png'
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable'
           }
         ]
       },
