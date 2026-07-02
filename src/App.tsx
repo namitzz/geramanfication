@@ -15,6 +15,7 @@ import { Suspense, lazy, useEffect, type ReactNode } from 'react';
 const VocabularyPage = lazy(() => import('./pages/VocabularyPage'));
 const GrammarPage = lazy(() => import('./pages/GrammarPage'));
 const SentencesPage = lazy(() => import('./pages/SentencesPage'));
+const AnalyzerPage = lazy(() => import('./pages/AnalyzerPage'));
 
 const lazyRoute = (node: ReactNode) => (
   <Suspense
@@ -50,6 +51,7 @@ function App() {
           <Route path="/review" element={<ReviewPage />} />
           <Route path="/grammar" element={lazyRoute(<GrammarPage />)} />
           <Route path="/sentences" element={lazyRoute(<SentencesPage />)} />
+          <Route path="/analyzer" element={lazyRoute(<AnalyzerPage />)} />
           <Route path="/mcq-testing" element={<MCQTestingPage />} />
           <Route path="/progress" element={<ProgressPage />} />
           <Route path="/settings" element={<SettingsPage />} />

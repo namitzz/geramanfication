@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { allDecks } from '../content/decks';
-import { BookOpen, ArrowRight, Library, Dumbbell, MessageSquareText } from 'lucide-react';
+import { BookOpen, ArrowRight, Library, Dumbbell, MessageSquareText, Sparkles } from 'lucide-react';
 import type { Deck } from '../types';
 
 const interactiveModes = [
@@ -24,6 +24,13 @@ const interactiveModes = [
     title: 'Sentence Lab',
     blurb: 'Build · listen · translate',
     gradient: 'from-emerald-500 to-teal-600',
+  },
+  {
+    to: '/analyzer',
+    icon: Sparkles,
+    title: 'Analyzer',
+    blurb: 'Break down any German text',
+    gradient: 'from-amber-500 to-orange-600',
   },
 ];
 
@@ -53,7 +60,7 @@ const LearnPage = () => {
   return (
     <div className="space-y-8">
       {/* Interactive practice modes */}
-      <section className="grid grid-cols-3 gap-3 stagger">
+      <section className="grid grid-cols-2 sm:grid-cols-4 gap-3 stagger">
         {interactiveModes.map(({ to, icon: Icon, title, blurb, gradient }) => (
           <Link
             key={to}

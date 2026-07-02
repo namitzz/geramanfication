@@ -85,7 +85,7 @@ const JUNK_MEANING_PATTERNS = [
   'singular of',
 ];
 
-function isUsableTranslation(english: string): boolean {
+export function isUsableTranslation(english: string): boolean {
   const s = english.trim().toLowerCase();
   if (!s) return false;
   if (s === 'singular' || s === 'plural') return false;
