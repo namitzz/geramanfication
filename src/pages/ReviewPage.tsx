@@ -43,7 +43,7 @@ const ReviewPage = () => {
         <div className="space-y-3">
           <button
             onClick={() => navigate('/')}
-            className="block w-full max-w-md mx-auto py-3 px-6 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors"
+            className="btn-primary block w-full max-w-md mx-auto py-3 px-6"
           >
             Back to Home
           </button>

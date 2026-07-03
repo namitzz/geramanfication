@@ -103,7 +103,7 @@ const MCQTestingPage = () => {
           </p>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-6">
+        <div className="card p-6 mb-6">
           <h2 className="text-xl font-semibold mb-4">Quiz Configuration</h2>
           
           <div className="space-y-4">
@@ -115,7 +115,7 @@ const MCQTestingPage = () => {
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="w-full appearance-none pl-4 pr-10 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:border-blue-500 focus:outline-none cursor-pointer"
+                  className="w-full appearance-none pl-4 pr-10 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:border-brand-500 focus:outline-none cursor-pointer"
                 >
                   {categories.map(category => (
                     <option key={category} value={category}>
@@ -198,7 +198,7 @@ const MCQTestingPage = () => {
 
     return (
       <div className="max-w-4xl mx-auto">
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 text-center">
+        <div className="card p-8 text-center">
           <Trophy className="mx-auto text-yellow-500 mb-4" size={80} />
           <h2 className="text-3xl font-bold mb-2">Quiz Complete!</h2>
           <p className="text-xl text-gray-600 dark:text-gray-400 mb-6">
@@ -277,7 +277,7 @@ const MCQTestingPage = () => {
         />
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+      <div className="card p-6">
         <div className="mb-4">
           <span className="inline-block px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-xs font-semibold mb-3">
             {currentQuestion.category}

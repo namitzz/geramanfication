@@ -3,12 +3,20 @@ import { Trophy, RotateCw, Zap } from 'lucide-react';
 interface SessionResultsProps {
   score: number;
   total: number;
-  accentClass?: string; // tailwind bg color for buttons, e.g. 'bg-purple-500'
+  /** Accent for the retry button. Must be a key so Tailwind sees full class names. */
+  accent?: 'brand' | 'purple' | 'emerald';
   xpEarned?: number;
   onRetry: () => void;
   onExit: () => void;
   exitLabel?: string;
 }
+
+// Full class strings (not built at runtime) so Tailwind compiles them.
+const ACCENT_CLASSES: Record<NonNullable<SessionResultsProps['accent']>, string> = {
+  brand: 'bg-brand-600 hover:bg-brand-700',
+  purple: 'bg-purple-500 hover:bg-purple-600',
+  emerald: 'bg-emerald-500 hover:bg-emerald-600',
+};
 
 function grade(percentage: number): { message: string; emoji: string } {
   if (percentage >= 90) return { message: 'Ausgezeichnet! Excellent!', emoji: '🏆' };
@@ -21,7 +29,7 @@ function grade(percentage: number): { message: string; emoji: string } {
 const SessionResults = ({
   score,
   total,
-  accentClass = 'bg-blue-500',
+  accent = 'brand',
   xpEarned,
   onRetry,
   onExit,
@@ -29,11 +37,10 @@ const SessionResults = ({
 }: SessionResultsProps) => {
   const percentage = total > 0 ? Math.round((score / total) * 100) : 0;
   const { message, emoji } = grade(percentage);
-  const hoverClass = accentClass.replace('-500', '-600');
 
   return (
     <div className="max-w-2xl mx-auto">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 text-center">
+      <div className="card p-8 text-center animate-fade-in-up">
         <Trophy className="mx-auto text-yellow-500 mb-4" size={72} />
         <h2 className="text-3xl font-bold mb-2">Session Complete!</h2>
         <p className="text-xl text-gray-600 dark:text-gray-400 mb-6">
@@ -57,14 +64,14 @@ const SessionResults = ({
         <div className="flex gap-4 justify-center">
           <button
             onClick={onRetry}
-            className={`px-6 py-3 ${accentClass} hover:${hoverClass} text-white rounded-lg font-semibold transition-colors flex items-center gap-2`}
+            className={`btn px-6 py-3 ${ACCENT_CLASSES[accent]} text-white`}
           >
             <RotateCw size={20} />
             Try Again
           </button>
           <button
             onClick={onExit}
-            className="px-6 py-3 bg-gray-500 hover:bg-gray-600 text-white rounded-lg font-semibold transition-colors"
+            className="btn px-6 py-3 bg-gray-500 hover:bg-gray-600 text-white"
           >
             {exitLabel}
           </button>

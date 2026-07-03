@@ -147,7 +147,7 @@ const GrammarPage = () => {
       <SessionResults
         score={score}
         total={questions.length}
-        accentClass="bg-purple-500"
+        accent="purple"
         xpEarned={xpEarned}
         onRetry={start}
         onExit={() => setPhase('setup')}

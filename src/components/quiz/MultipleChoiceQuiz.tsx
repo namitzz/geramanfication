@@ -27,15 +27,15 @@ const MultipleChoiceQuiz = ({ card, options, onAnswer }: MultipleChoiceQuizProps
 
   return (
     <div className="w-full max-w-md mx-auto">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+      <div className="card p-8">
         <h3 className="text-xl font-semibold mb-6 text-center">
           What does this mean?
         </h3>
-        
-        <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-center">
+
+        <div className="mb-6 p-4 bg-brand-50 dark:bg-brand-900/20 rounded-lg text-center">
           <p className="text-2xl font-bold">
             {card.article && (
-              <span className="text-blue-600 dark:text-blue-400 mr-2">
+              <span className="text-brand-600 dark:text-brand-400 mr-2">
                 {card.article}
               </span>
             )}
@@ -60,7 +60,7 @@ const MultipleChoiceQuiz = ({ card, options, onAnswer }: MultipleChoiceQuizProps
             return (
               <button
                 key={index}
-                className={`w-full p-4 rounded-lg font-medium transition-colors ${bgColor}`}
+                className={`w-full p-4 rounded-lg font-medium transition-all duration-150 active:scale-[0.98] ${bgColor}`}
                 onClick={() => handleSelect(option)}
                 disabled={showResult}
               >

@@ -78,11 +78,11 @@ const VocabularyPage = () => {
             <Link
               key={deck.id}
               to={`/deck/${deck.id}`}
-              className="block bg-white dark:bg-gray-800 rounded-lg p-4 shadow hover:shadow-lg transition-shadow"
+              className="card-interactive block p-4"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <Layers className="text-blue-500 flex-shrink-0" size={20} />
+                  <Layers className="text-brand-500 flex-shrink-0" size={20} />
                   <div>
                     <h3 className="font-semibold">{deck.name}</h3>
                     <p className="text-xs text-gray-500 dark:text-gray-400">

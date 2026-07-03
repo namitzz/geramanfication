@@ -55,6 +55,25 @@
     padding-bottom: env(safe-area-inset-bottom);
   }
 
+  /* 3D card flip (scene > inner > two faces). */
+  .flip-scene {
+    perspective: 1200px;
+  }
+  .flip-inner {
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .flip-inner.is-flipped {
+    transform: rotateY(180deg);
+  }
+  .flip-face {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .flip-back {
+    transform: rotateY(180deg);
+  }
+
   .page-enter {
     animation: fade-in-up 0.35s ease-out;
   }
@@ -79,5 +98,8 @@
   .animate-fade-in-up,
   .animate-pop {
     animation: none !important;
+  }
+  .flip-inner {
+    transition: none !important;
   }
 }

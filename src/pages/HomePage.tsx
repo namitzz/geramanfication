@@ -61,7 +61,7 @@ const HomePage = () => {
       </section>
 
       {/* Stat chips */}
-      <section className="grid grid-cols-3 gap-3">
+      <section className="grid grid-cols-3 gap-3 stagger">
         {stats.map(({ icon: Icon, value, label, color }) => (
           <div key={label} className="card p-4 text-center">
             <Icon className={`mx-auto mb-1 ${color}`} size={22} />

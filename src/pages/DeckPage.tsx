@@ -127,7 +127,7 @@ const DeckPage = () => {
               setCorrectCount(0);
               setXpEarned(0);
             }}
-            className="block w-full max-w-md mx-auto py-3 px-6 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors"
+            className="btn-primary block w-full max-w-md mx-auto py-3 px-6"
           >
             Review Again
           </button>

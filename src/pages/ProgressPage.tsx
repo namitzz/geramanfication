@@ -19,7 +19,7 @@ const ProgressPage = () => {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-2 gap-4 stagger">
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow">
+        <div className="card p-6">
           <div className="flex items-center gap-3 mb-2">
             <Flame className="text-orange-500" size={28} />
             <span className="text-sm text-gray-600 dark:text-gray-400">Streak</span>
@@ -28,16 +28,16 @@ const ProgressPage = () => {
           <p className="text-sm text-gray-500 dark:text-gray-400">days in a row</p>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow">
+        <div className="card p-6">
           <div className="flex items-center gap-3 mb-2">
-            <BookOpen className="text-blue-500" size={28} />
+            <BookOpen className="text-brand-500" size={28} />
             <span className="text-sm text-gray-600 dark:text-gray-400">Words</span>
           </div>
           <p className="text-4xl font-bold">{progress.wordsLearned}</p>
           <p className="text-sm text-gray-500 dark:text-gray-400">learned</p>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow">
+        <div className="card p-6">
           <div className="flex items-center gap-3 mb-2">
             <Target className="text-green-500" size={28} />
             <span className="text-sm text-gray-600 dark:text-gray-400">Reviews</span>
@@ -46,7 +46,7 @@ const ProgressPage = () => {
           <p className="text-sm text-gray-500 dark:text-gray-400">completed</p>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow">
+        <div className="card p-6">
           <div className="flex items-center gap-3 mb-2">
             <TrendingUp className="text-purple-500" size={28} />
             <span className="text-sm text-gray-600 dark:text-gray-400">Cards</span>
@@ -65,7 +65,7 @@ const ProgressPage = () => {
             <XAxis dataKey="box" />
             <YAxis />
             <Tooltip />
-            <Bar dataKey="count" fill="#3b82f6" />
+            <Bar dataKey="count" fill="#6366f1" radius={[6, 6, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>

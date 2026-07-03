@@ -30,15 +30,15 @@ const TypeInQuiz = ({ card, onAnswer }: TypeInQuizProps) => {
 
   return (
     <div className="w-full max-w-md mx-auto">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+      <div className="card p-8">
         <h3 className="text-xl font-semibold mb-6 text-center">
           Type the English translation
         </h3>
 
-        <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-center">
+        <div className="mb-6 p-4 bg-brand-50 dark:bg-brand-900/20 rounded-lg text-center">
           <p className="text-2xl font-bold">
             {card.article && (
-              <span className="text-blue-600 dark:text-blue-400 mr-2">
+              <span className="text-brand-600 dark:text-brand-400 mr-2">
                 {card.article}
               </span>
             )}
@@ -58,7 +58,7 @@ const TypeInQuiz = ({ card, onAnswer }: TypeInQuizProps) => {
               value={userAnswer}
               onChange={(e) => setUserAnswer(e.target.value)}
               placeholder="Type your answer..."
-              className="w-full p-4 pr-12 border-2 border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 focus:outline-none focus:border-blue-500 dark:focus:border-blue-400"
+              className="w-full p-4 pr-12 border-2 border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               disabled={showResult}
               autoFocus
             />
@@ -83,7 +83,7 @@ const TypeInQuiz = ({ card, onAnswer }: TypeInQuizProps) => {
 
           <button
             type="submit"
-            className="w-full mt-4 py-3 px-6 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="btn-primary w-full mt-4 py-3 px-6"
             disabled={showResult || !userAnswer.trim()}
           >
             Check Answer

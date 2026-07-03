@@ -213,7 +213,7 @@ const SentencesPage = () => {
       <SessionResults
         score={score}
         total={items.length}
-        accentClass="bg-emerald-500"
+        accent="emerald"
         xpEarned={xpEarned}
         onRetry={start}
         onExit={() => setPhase('setup')}
