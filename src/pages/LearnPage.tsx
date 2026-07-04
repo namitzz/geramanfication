@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { allDecks } from '../content/decks';
-import { BookOpen, ArrowRight, Library, Dumbbell, MessageSquareText, Sparkles, Timer, Magnet, Pickaxe } from 'lucide-react';
+import { BookOpen, ArrowRight, Library, Dumbbell, MessageSquareText, Sparkles, Timer, Magnet, Pickaxe, GraduationCap, Brain } from 'lucide-react';
 import type { Deck } from '../types';
 import { useAppStore } from '../stores/appStore';
 
@@ -47,6 +47,20 @@ const interactiveModes = [
     blurb: 'German ≈ English words',
     gradient: 'from-cyan-500 to-sky-600',
   },
+  {
+    to: '/classes',
+    icon: GraduationCap,
+    title: 'Classes',
+    blurb: 'Course flashcards & quizzes',
+    gradient: 'from-indigo-500 to-blue-600',
+  },
+  {
+    to: '/mcq-testing',
+    icon: Brain,
+    title: 'MCQ Test',
+    blurb: '110 hard questions',
+    gradient: 'from-violet-500 to-purple-600',
+  },
 ];
 
 const LearnPage = () => {
@@ -76,7 +90,7 @@ const LearnPage = () => {
   return (
     <div className="space-y-8">
       {/* Interactive practice modes */}
-      <section className="grid grid-cols-2 sm:grid-cols-3 gap-3 stagger">
+      <section className="grid grid-cols-2 sm:grid-cols-4 gap-3 stagger">
         {interactiveModes.map(({ to, icon: Icon, title, blurb, gradient }) => (
           <Link
             key={to}

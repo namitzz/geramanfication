@@ -14,7 +14,7 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <div className={settings.darkMode ? 'dark' : ''}>
-      <div className="min-h-screen theme-transition bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950 text-gray-900 dark:text-gray-100 pb-24">
+      <div className="min-h-screen theme-transition app-bg bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 pb-24">
         <TopBar />
         {/* key by pathname so content animates in on each navigation */}
         <main key={location.pathname} className="max-w-4xl mx-auto px-4 py-6 page-enter">

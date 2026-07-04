@@ -25,7 +25,7 @@
 
 @layer components {
   .card {
-    @apply bg-white dark:bg-gray-800 rounded-2xl shadow-card border border-gray-100 dark:border-gray-700/60;
+    @apply bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-card border border-gray-100 dark:border-gray-700/60;
   }
 
   .card-interactive {
@@ -78,6 +78,27 @@
     animation: fade-in-up 0.35s ease-out;
   }
 
+  /* Ambient color washes behind the whole app (fixed, subtle). */
+  .app-bg {
+    background-image:
+      radial-gradient(640px circle at 8% -4%, rgba(99, 102, 241, 0.16), transparent 42%),
+      radial-gradient(720px circle at 104% 12%, rgba(244, 114, 182, 0.11), transparent 46%),
+      radial-gradient(640px circle at 50% 108%, rgba(251, 191, 36, 0.12), transparent 42%);
+    background-attachment: fixed;
+  }
+  .dark .app-bg {
+    background-image:
+      radial-gradient(640px circle at 8% -4%, rgba(99, 102, 241, 0.22), transparent 42%),
+      radial-gradient(720px circle at 104% 12%, rgba(217, 70, 239, 0.12), transparent 46%),
+      radial-gradient(640px circle at 50% 108%, rgba(245, 158, 11, 0.10), transparent 42%);
+  }
+
+  /* Slow "breathing" gradient for hero surfaces. */
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+
   /* Staggered entrance for cards/lists: children fade in one after another. */
   .stagger > * {
     animation: fade-in-up 0.4s ease-out backwards;
@@ -92,10 +113,21 @@
   .stagger > *:nth-child(8) { animation-delay: 0.32s; }
 }
 
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .page-enter,
   .stagger > *,
   .animate-fade-in-up,
+  .animate-gradient,
   .animate-pop {
     animation: none !important;
   }

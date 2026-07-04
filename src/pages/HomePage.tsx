@@ -20,26 +20,26 @@ const HomePage = () => {
       icon: Flame,
       value: progress.streak,
       label: 'day streak',
-      color: 'text-orange-500',
+      chip: 'bg-orange-100 dark:bg-orange-900/30 text-orange-500',
     },
     {
       icon: BookOpen,
       value: progress.wordsLearned,
       label: 'words learned',
-      color: 'text-green-500',
+      chip: 'bg-green-100 dark:bg-green-900/30 text-green-500',
     },
     {
       icon: Layers,
       value: dueCards.length,
       label: 'due to review',
-      color: 'text-brand-500',
+      chip: 'bg-brand-100 dark:bg-brand-900/30 text-brand-500',
     },
   ];
 
   return (
     <div className="space-y-6">
       {/* Hero / level card */}
-      <section className="relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-brand-600 via-violet-600 to-violet-700 text-white shadow-card">
+      <section className="relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-brand-600 via-violet-600 to-fuchsia-600 animate-gradient text-white shadow-card">
         {/* Bolt watermark */}
         <BoltLogo
           size={190}
@@ -69,9 +69,11 @@ const HomePage = () => {
 
       {/* Stat chips */}
       <section className="grid grid-cols-3 gap-3 stagger">
-        {stats.map(({ icon: Icon, value, label, color }) => (
+        {stats.map(({ icon: Icon, value, label, chip }) => (
           <div key={label} className="card p-4 text-center">
-            <Icon className={`mx-auto mb-1 ${color}`} size={22} />
+            <span className={`mx-auto mb-1.5 flex items-center justify-center w-9 h-9 rounded-xl ${chip}`}>
+              <Icon size={20} />
+            </span>
             <p className="text-2xl font-bold leading-tight">{value}</p>
             <p className="text-[11px] text-gray-500 dark:text-gray-400">{label}</p>
           </div>
