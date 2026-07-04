@@ -3,6 +3,7 @@ import { Timer, Zap, Flame, RotateCw } from 'lucide-react';
 import type { Article, CEFRLevel } from '../types';
 import { genderHint, loadGenderNouns, type GenderNoun } from '../content/gender';
 import { useAppStore } from '../stores/appStore';
+import BackButton from '../components/BackButton';
 
 const ROUND_SECONDS = 45;
 const ARTICLES: Article[] = ['der', 'die', 'das'];
@@ -105,6 +106,7 @@ const ReflexPage = () => {
   if (phase === 'setup') {
     return (
       <div className="max-w-xl mx-auto space-y-6">
+        <BackButton />
         <header>
           <h1 className="text-3xl font-bold flex items-center gap-2">
             <Timer size={28} className="text-rose-500" />

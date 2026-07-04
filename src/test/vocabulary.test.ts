@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   CEFR_LEVELS,
+  cleanMeaning,
   loadVocabularyDecks,
   loadVocabularyByLevel,
 } from '../content/vocabulary';
@@ -53,6 +54,13 @@ describe('vocabulary content', () => {
       expect(m).not.toContain('genitive');
       expect(m).not.toMatch(/^(singular|plural)$/);
     }
+  });
+
+  it('cleans awkward dictionary glosses for display', () => {
+    expect(cleanMeaning('house; dwelling')).toBe('house');
+    expect(cleanMeaning('free [not imprisoned]')).toBe('free');
+    expect(cleanMeaning('to go (on foot)')).toBe('to go');
+    expect(cleanMeaning('plain')).toBe('plain');
   });
 
   it('summarizes word counts per level', async () => {

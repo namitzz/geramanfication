@@ -7,6 +7,7 @@ import { isSpeechRecognitionAvailable, listenOnce } from '../utils/speech';
 import { levenshteinDistance } from '../utils/stringMatch';
 import { useAppStore } from '../stores/appStore';
 import SessionResults from '../components/practice/SessionResults';
+import BackButton from '../components/BackButton';
 
 type Phase = 'setup' | 'playing' | 'done';
 
@@ -135,6 +136,7 @@ const SpeakPage = () => {
   if (phase === 'setup') {
     return (
       <div className="max-w-2xl mx-auto space-y-6">
+        <BackButton />
         <header>
           <h1 className="text-3xl font-bold mb-2 flex items-center gap-2">
             <Mic size={30} className="text-rose-500" />
@@ -213,6 +215,7 @@ const SpeakPage = () => {
   return (
     <div className="max-w-2xl mx-auto">
       <div className="mb-4 flex items-center justify-between text-sm">
+        <BackButton onClick={() => setPhase('setup')} />
         <span className="text-gray-600 dark:text-gray-400">
           {index + 1} of {items.length}
         </span>

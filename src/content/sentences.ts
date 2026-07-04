@@ -143,13 +143,24 @@ export async function buildClozeSet(
     });
   }
 
-  // Distractors: other items' answers (real words of similar difficulty).
-  const allAnswers = Array.from(new Set(items.map((i) => i.answer)));
+  // Distractors: other items' answers, preferring the same part of speech so
+  // options are grammatically plausible in the gap (verb among verbs, etc.).
+  const answerPos = new Map<string, string | undefined>();
+  for (const i of items) {
+    if (!answerPos.has(i.answer)) {
+      answerPos.set(i.answer, lookupWord(i.answer, lexicon).entry?.pos);
+    }
+  }
+  const allAnswers = Array.from(answerPos.keys());
   for (const item of items) {
-    const distractors = shuffle(
-      allAnswers.filter((a) => a !== item.answer)
-    ).slice(0, 3);
-    // Rare small sets: pad from the lexicon-free token pool if needed.
+    const pos = answerPos.get(item.answer);
+    const others = allAnswers.filter((a) => a !== item.answer);
+    const samePos = pos ? others.filter((a) => answerPos.get(a) === pos) : [];
+    const distractors: string[] = [];
+    for (const a of [...shuffle(samePos), ...shuffle(others)]) {
+      if (distractors.length >= 3) break;
+      if (!distractors.includes(a)) distractors.push(a);
+    }
     item.options = shuffle([item.answer, ...distractors]);
   }
 

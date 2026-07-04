@@ -109,15 +109,21 @@ const DeckPage = () => {
   const generateMultipleChoiceOptions = (): string[] => {
     const correct = currentCard.en;
 
-    // Distinct distractors that differ from the correct answer, so options are
-    // never duplicated or ambiguous (some cards share an English meaning).
-    const distractors = [
-      ...new Set(
-        deck.cards.map((c) => c.en).filter((en) => en !== correct)
-      ),
-    ]
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 3);
+    // Prefer distractors of the same part of speech so the options feel
+    // related (a noun among nouns, not "seven" next to "goodbye"); fall back
+    // to the rest of the deck. Always distinct and never the correct answer.
+    const shuffled = <T,>(arr: T[]): T[] => [...arr].sort(() => Math.random() - 0.5);
+    const samePos = currentCard.partOfSpeech
+      ? deck.cards.filter((c) => c.partOfSpeech === currentCard.partOfSpeech)
+      : [];
+    const pool = [...shuffled(samePos), ...shuffled(deck.cards)];
+    const distractors: string[] = [];
+    for (const c of pool) {
+      if (distractors.length >= 3) break;
+      if (c.en !== correct && !distractors.includes(c.en)) {
+        distractors.push(c.en);
+      }
+    }
 
     return [correct, ...distractors].sort(() => Math.random() - 0.5);
   };
@@ -168,8 +174,18 @@ const DeckPage = () => {
           <ArrowLeft size={20} />
           <span>Back</span>
         </button>
-        <div className="text-sm text-gray-600 dark:text-gray-400">
-          {currentIndex + 1} / {deck.cards.length}
+        <div className="flex items-center gap-3">
+          {currentIndex > 0 && (
+            <button
+              onClick={() => setCurrentIndex(currentIndex - 1)}
+              className="text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline"
+            >
+              ‹ Prev
+            </button>
+          )}
+          <div className="text-sm text-gray-600 dark:text-gray-400">
+            {currentIndex + 1} / {deck.cards.length}
+          </div>
         </div>
       </header>
 

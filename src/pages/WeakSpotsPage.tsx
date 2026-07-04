@@ -4,6 +4,7 @@ import type { Card, Mistake } from '../types';
 import { useAppStore } from '../stores/appStore';
 import Flashcard from '../components/flashcards/Flashcard';
 import SessionResults from '../components/practice/SessionResults';
+import BackButton from '../components/BackButton';
 
 const SOURCE_LABELS: Record<Mistake['source'], string> = {
   vocab: 'Vocabulary',
@@ -110,6 +111,7 @@ const WeakSpotsPage = () => {
   // ----- Overview -----
   return (
     <div className="max-w-2xl mx-auto space-y-6">
+      <BackButton />
       <header>
         <h1 className="text-3xl font-bold mb-2 flex items-center gap-2">
           <Target size={30} className="text-red-500" />

@@ -114,15 +114,23 @@ const SUFFIXES = [
   't',
 ];
 
+/** Reverse umlauting for plural stems (Häuser -> haus, Mütter -> mutter). */
+const deUmlaut = (s: string): string =>
+  s.replace(/ä/g, 'a').replace(/ö/g, 'o').replace(/ü/g, 'u');
+
 /** Candidate base forms for a lowercased word, in priority order. */
 function candidates(word: string): string[] {
   const out = [word];
   for (const suf of SUFFIXES) {
     if (word.length - suf.length >= 3 && word.endsWith(suf)) {
       const base = word.slice(0, -suf.length);
-      out.push(base);
-      // Reconstruct a likely verb infinitive (gehe/gehst/geht -> gehen).
+      // Try the reconstructed infinitive BEFORE the bare stem: "heiße"
+      // should gloss as heißen (to be called), not heiß (hot).
       out.push(base + 'en');
+      out.push(base);
+      // Umlauted plural stems: Häuser -> häus -> haus.
+      const plain = deUmlaut(base);
+      if (plain !== base) out.push(plain);
     }
   }
   return out;

@@ -5,6 +5,7 @@ import { buildClozeSet, type ClozeItem } from '../content/sentences';
 import { speak } from '../utils/tts';
 import { useAppStore } from '../stores/appStore';
 import SessionResults from '../components/practice/SessionResults';
+import BackButton from '../components/BackButton';
 
 type Phase = 'setup' | 'playing' | 'done';
 
@@ -18,8 +19,8 @@ const ClozePage = () => {
   const [items, setItems] = useState<ClozeItem[]>([]);
   const [index, setIndex] = useState(0);
   const [score, setScore] = useState(0);
-  const [selected, setSelected] = useState<string | null>(null);
-  const [revealed, setRevealed] = useState(false);
+  // Per-question chosen option; enables going back to answered questions.
+  const [answers, setAnswers] = useState<(string | null)[]>([]);
   const [xpEarned, setXpEarned] = useState(0);
 
   const recordSession = useAppStore((s) => s.recordSession);
@@ -27,21 +28,25 @@ const ClozePage = () => {
   const ttsEnabled = useAppStore((s) => s.settings.ttsEnabled);
 
   const current = items[index];
+  const selected = answers[index] ?? null;
+  const revealed = selected !== null;
 
   const start = async () => {
     const set = await buildClozeSet(level, count);
     setItems(set);
     setIndex(0);
     setScore(0);
-    setSelected(null);
-    setRevealed(false);
+    setAnswers(new Array(set.length).fill(null));
     setPhase('playing');
   };
 
   const choose = (option: string) => {
     if (revealed || !current) return;
-    setSelected(option);
-    setRevealed(true);
+    setAnswers((prev) => {
+      const next = [...prev];
+      next[index] = option;
+      return next;
+    });
     const correct = option === current.answer;
     if (correct) {
       setScore((s) => s + 1);
@@ -60,17 +65,20 @@ const ClozePage = () => {
   const next = () => {
     if (index < items.length - 1) {
       setIndex(index + 1);
-      setSelected(null);
-      setRevealed(false);
     } else {
       setXpEarned(recordSession(score, items.length));
       setPhase('done');
     }
   };
 
+  const prev = () => {
+    if (index > 0) setIndex(index - 1);
+  };
+
   if (phase === 'setup') {
     return (
       <div className="max-w-2xl mx-auto space-y-6">
+        <BackButton />
         <header>
           <h1 className="text-3xl font-bold mb-2 flex items-center gap-2">
             <TextCursorInput size={30} className="text-amber-500" />
@@ -159,6 +167,7 @@ const ClozePage = () => {
   return (
     <div className="max-w-2xl mx-auto">
       <div className="mb-4 flex items-center justify-between text-sm">
+        <BackButton onClick={() => setPhase('setup')} />
         <span className="text-gray-600 dark:text-gray-400">
           {index + 1} of {items.length}
         </span>
@@ -236,12 +245,22 @@ const ClozePage = () => {
             <p className="text-sm text-center text-gray-600 dark:text-gray-400">
               🇬🇧 {current.en}
             </p>
-            <button
-              onClick={next}
-              className="btn w-full py-3 bg-amber-500 hover:bg-amber-600 text-white"
-            >
-              {index < items.length - 1 ? 'Next' : 'See Results'}
-            </button>
+            <div className="flex gap-3">
+              {index > 0 && (
+                <button
+                  onClick={prev}
+                  className="btn px-5 py-3 bg-gray-200 dark:bg-gray-700"
+                >
+                  ← Prev
+                </button>
+              )}
+              <button
+                onClick={next}
+                className="btn flex-1 py-3 bg-amber-500 hover:bg-amber-600 text-white"
+              >
+                {index < items.length - 1 ? 'Next' : 'See Results'}
+              </button>
+            </div>
           </div>
         )}
       </div>

@@ -14,6 +14,7 @@ import {
 import { POS_MAP } from '../content/vocabulary';
 import { speak } from '../utils/tts';
 import { useAppStore } from '../stores/appStore';
+import BackButton from '../components/BackButton';
 
 /** Build a practice card from a lexicon entry (id keyed by the German word). */
 function toMinedCard(entry: LexEntry): Card {
@@ -85,6 +86,7 @@ const AnalyzerPage = () => {
 
   return (
     <div className="space-y-6">
+      <BackButton />
       <header>
         <h1 className="text-3xl font-bold flex items-center gap-2">
           <Sparkles size={28} className="text-brand-500" />

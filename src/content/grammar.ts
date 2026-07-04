@@ -70,10 +70,26 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
-/** Pick `n` distinct distractor strings from `pool`, excluding `exclude`. */
-function pickDistractors(pool: string[], exclude: string, n: number): string[] {
-  const unique = Array.from(new Set(pool.filter((s) => s && s !== exclude)));
-  return shuffle(unique).slice(0, n);
+/**
+ * Pick `n` distinct distractor strings, preferring `preferred` (same-category
+ * rules, so options feel related) and padding from `fallback`.
+ */
+function pickDistractors(
+  preferred: string[],
+  fallback: string[],
+  exclude: string,
+  n: number
+): string[] {
+  const seen = new Set<string>([exclude]);
+  const out: string[] = [];
+  for (const s of [...shuffle(preferred), ...shuffle(fallback)]) {
+    if (out.length >= n) break;
+    if (s && !seen.has(s)) {
+      seen.add(s);
+      out.push(s);
+    }
+  }
+  return out;
 }
 
 /**
@@ -103,12 +119,21 @@ export async function buildGrammarQuestions(
 
   return chosen.map((rule, i) => {
     const ruleLevel = rule.cefr_levels[0] ?? 'A1';
+    // Same-topic rules make plausible wrong answers; random ones feel absurd.
+    const sameCategory = rules.filter(
+      (r) => r.category_name === rule.category_name && r.id !== rule.id
+    );
     // Alternate question kinds for variety.
     const kind: GrammarQuestionKind = i % 2 === 0 ? 'meaning' : 'example';
 
     if (kind === 'meaning') {
       const correct = rule.rule_english;
-      const distractors = pickDistractors(allMeanings, correct, 3);
+      const distractors = pickDistractors(
+        sameCategory.map((r) => r.rule_english),
+        allMeanings,
+        correct,
+        3
+      );
       const options = shuffle([correct, ...distractors]);
       return {
         id: `${rule.id}-meaning`,
@@ -126,7 +151,12 @@ export async function buildGrammarQuestions(
     }
 
     const correct = rule.example_de;
-    const distractors = pickDistractors(allExamples, correct, 3);
+    const distractors = pickDistractors(
+      sameCategory.map((r) => r.example_de),
+      allExamples,
+      correct,
+      3
+    );
     const options = shuffle([correct, ...distractors]);
     return {
       id: `${rule.id}-example`,

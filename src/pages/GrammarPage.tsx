@@ -8,6 +8,7 @@ import {
 } from '../content/grammar';
 import { useAppStore } from '../stores/appStore';
 import SessionResults from '../components/practice/SessionResults';
+import BackButton from '../components/BackButton';
 
 const LEVELS: (CEFRLevel | 'all')[] = ['all', 'A1', 'A2', 'B1', 'B2', 'C1'];
 
@@ -22,13 +23,16 @@ const GrammarPage = () => {
 
   const [questions, setQuestions] = useState<GrammarQuestion[]>([]);
   const [index, setIndex] = useState(0);
-  const [selected, setSelected] = useState<number | null>(null);
-  const [revealed, setRevealed] = useState(false);
+  // Per-question chosen option; enables going back to already-answered ones.
+  const [answers, setAnswers] = useState<(number | null)[]>([]);
   const [score, setScore] = useState(0);
   const [xpEarned, setXpEarned] = useState(0);
 
   const recordSession = useAppStore((s) => s.recordSession);
   const recordMistake = useAppStore((s) => s.recordMistake);
+
+  const selected = answers[index] ?? null;
+  const revealed = selected !== null;
 
   useEffect(() => {
     getGrammarCategories().then(setCategories);
@@ -38,16 +42,18 @@ const GrammarPage = () => {
     const qs = await buildGrammarQuestions(category, level, count);
     setQuestions(qs);
     setIndex(0);
-    setSelected(null);
-    setRevealed(false);
+    setAnswers(new Array(qs.length).fill(null));
     setScore(0);
     setPhase('playing');
   };
 
   const choose = (i: number) => {
     if (revealed) return;
-    setSelected(i);
-    setRevealed(true);
+    setAnswers((prev) => {
+      const next = [...prev];
+      next[index] = i;
+      return next;
+    });
     const q = questions[index];
     if (i === q.correctIndex) {
       setScore((s) => s + 1);
@@ -66,18 +72,21 @@ const GrammarPage = () => {
   const next = () => {
     if (index < questions.length - 1) {
       setIndex(index + 1);
-      setSelected(null);
-      setRevealed(false);
     } else {
       setXpEarned(recordSession(score, questions.length));
       setPhase('done');
     }
   };
 
+  const prev = () => {
+    if (index > 0) setIndex(index - 1);
+  };
+
   // ----- Setup -----
   if (phase === 'setup') {
     return (
       <div className="max-w-2xl mx-auto space-y-6">
+        <BackButton />
         <header>
           <h1 className="text-3xl font-bold mb-2 flex items-center gap-2">
             <Dumbbell size={30} className="text-purple-500" />
@@ -189,6 +198,7 @@ const GrammarPage = () => {
   return (
     <div className="max-w-2xl mx-auto">
       <div className="mb-4 flex items-center justify-between text-sm">
+        <BackButton onClick={() => setPhase('setup')} />
         <span className="text-gray-600 dark:text-gray-400">
           {index + 1} of {questions.length}
         </span>
@@ -251,12 +261,22 @@ const GrammarPage = () => {
             <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-sm text-gray-700 dark:text-gray-300 animate-pop">
               💡 {q.explanation}
             </div>
-            <button
-              onClick={next}
-              className="w-full mt-4 py-3 bg-purple-500 hover:bg-purple-600 text-white rounded-lg font-semibold transition-colors"
-            >
-              {index < questions.length - 1 ? 'Next' : 'See Results'}
-            </button>
+            <div className="flex gap-3 mt-4">
+              {index > 0 && (
+                <button
+                  onClick={prev}
+                  className="btn px-5 py-3 bg-gray-200 dark:bg-gray-700"
+                >
+                  ← Prev
+                </button>
+              )}
+              <button
+                onClick={next}
+                className="btn flex-1 py-3 bg-purple-500 hover:bg-purple-600 text-white"
+              >
+                {index < questions.length - 1 ? 'Next' : 'See Results'}
+              </button>
+            </div>
           </>
         )}
       </div>

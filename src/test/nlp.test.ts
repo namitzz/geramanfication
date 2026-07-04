@@ -43,6 +43,30 @@ describe('nlp lexicon + lookup', () => {
   });
 });
 
+describe('nlp lemmatization fixes', () => {
+  const entry = (de: string, en: string) => ({
+    de,
+    en,
+    pos: 'noun',
+    gender: '',
+    level: 'A1' as const,
+    freq: 1,
+  });
+
+  it('prefers verb infinitives over bare stems (heiße -> heißen, not heiß)', () => {
+    const lex = new Map([
+      ['heiß', entry('heiß', 'hot')],
+      ['heißen', entry('heißen', 'to be called')],
+    ]);
+    expect(lookupWord('heiße', lex).entry?.de).toBe('heißen');
+  });
+
+  it('resolves umlauted plurals (Häuser -> Haus)', () => {
+    const lex = new Map([['haus', entry('Haus', 'house')]]);
+    expect(lookupWord('Häuser', lex).entry?.de).toBe('Haus');
+  });
+});
+
 describe('nlp compound splitter', () => {
   // Synthetic lexicon so the tests don't depend on which compounds happen to
   // exist as whole entries in the real dataset (the splitter only runs on

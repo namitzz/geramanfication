@@ -18,6 +18,7 @@ import { speak, isTTSAvailable } from '../utils/tts';
 import { isAnswerCorrect } from '../utils/stringMatch';
 import { useAppStore } from '../stores/appStore';
 import SessionResults from '../components/practice/SessionResults';
+import BackButton from '../components/BackButton';
 
 type Mode = 'build' | 'listen' | 'translate';
 type Phase = 'setup' | 'playing' | 'done';
@@ -139,6 +140,7 @@ const SentencesPage = () => {
   if (phase === 'setup') {
     return (
       <div className="max-w-2xl mx-auto space-y-6">
+        <BackButton />
         <header>
           <h1 className="text-3xl font-bold mb-2 flex items-center gap-2">
             <MessageSquareText size={30} className="text-emerald-500" />
@@ -262,6 +264,7 @@ const SentencesPage = () => {
   return (
     <div className="max-w-2xl mx-auto">
       <div className="mb-4 flex items-center justify-between text-sm">
+        <BackButton onClick={() => setPhase('setup')} />
         <span className="text-gray-600 dark:text-gray-400">
           {index + 1} of {items.length}
         </span>

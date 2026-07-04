@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Layers, ArrowRight } from 'lucide-react';
 import type { CEFRLevel } from '../types';
 import { loadVocabularyByLevel, type LevelSummary } from '../content/vocabulary';
+import BackButton from '../components/BackButton';
 
 const LEVEL_ACCENT: Record<CEFRLevel, string> = {
   A1: 'bg-green-500',
@@ -41,6 +42,7 @@ const VocabularyPage = () => {
 
   return (
     <div className="space-y-6">
+      <BackButton />
       <header className="mb-2">
         <h1 className="text-3xl font-bold mb-2">Vocabulary</h1>
         <p className="text-gray-600 dark:text-gray-400">

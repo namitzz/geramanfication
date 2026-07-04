@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { CheckCircle, XCircle, RotateCw, Trophy, Brain, ChevronDown } from 'lucide-react';
 import mcqData from '../content/mcq-hard.json';
+import BackButton from '../components/BackButton';
 
 interface MCQ {
   id: string;
@@ -93,6 +94,7 @@ const MCQTestingPage = () => {
   if (!quizStarted) {
     return (
       <div className="max-w-4xl mx-auto">
+        <div className="mb-4"><BackButton /></div>
         <div className="mb-6">
           <h1 className="text-3xl font-bold mb-2 flex items-center gap-2">
             <Brain size={32} className="text-purple-500" />

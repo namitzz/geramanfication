@@ -83,7 +83,31 @@ const JUNK_MEANING_PATTERNS = [
   'superlative of',
   'plural of',
   'singular of',
+  'abbreviation',
+  'initialism',
+  'acronym',
+  'clipping of',
+  'contraction of',
+  'synonym of',
+  'eye dialect',
+  'dated form',
+  'informal spelling',
+  'only used in',
 ];
+
+/**
+ * Trim awkward dictionary-style glosses for display: keep the text before the
+ * first semicolon and drop bracketed usage notes, e.g.
+ * "house; dwelling [dated]" -> "house".
+ */
+export function cleanMeaning(english: string): string {
+  const cleaned = english
+    .split(';')[0]
+    .replace(/\s*[[(][^\])]*[\])]\s*/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return cleaned || english.trim();
+}
 
 export function isUsableTranslation(english: string): boolean {
   const s = english.trim().toLowerCase();
@@ -96,7 +120,7 @@ function toCard(row: ApiVocab, index: number): Card {
   return {
     id: `v-${row.level}-${index}`,
     de: row.german,
-    en: row.english,
+    en: cleanMeaning(row.english),
     partOfSpeech: POS_MAP[row.pos],
     article: toArticle(row.gender),
     level: row.level,
