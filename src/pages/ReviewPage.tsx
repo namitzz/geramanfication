@@ -13,7 +13,8 @@ type Mode = QuizMode;
 
 const ReviewPage = () => {
   const navigate = useNavigate();
-  const { updateSrsRecord, getSrsRecord, progress, updateProgress, srsRecords } = useAppStore();
+  const { updateSrsRecord, getSrsRecord, progress, updateProgress, srsRecords, recordMistake } =
+    useAppStore();
 
   // Get all cards and filter for due cards
   const allCards = allDecks.flatMap(deck => deck.cards);
@@ -76,6 +77,15 @@ const ReviewPage = () => {
       updateProgress({
         totalReviews: progress.totalReviews + 1,
         wordsLearned: progress.wordsLearned + (record.box === 1 ? 1 : 0),
+      });
+    } else {
+      recordMistake({
+        id: `vocab-${currentCard.id}`,
+        de: currentCard.article
+          ? `${currentCard.article} ${currentCard.de}`
+          : currentCard.de,
+        en: currentCard.en,
+        source: 'vocab',
       });
     }
 

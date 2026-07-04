@@ -27,3 +27,34 @@ describe('gamification (recordSession)', () => {
     expect(progress.xp).toBe(50); // XP still accumulates
   });
 });
+
+describe('smart review (mistakes)', () => {
+  beforeEach(reset);
+
+  it('records and clears mistakes', () => {
+    useAppStore.getState().recordMistake({
+      id: 'vocab-x',
+      de: 'das Haus',
+      en: 'house',
+      source: 'vocab',
+    });
+    expect(useAppStore.getState().mistakes['vocab-x'].de).toBe('das Haus');
+    useAppStore.getState().clearMistake('vocab-x');
+    expect(useAppStore.getState().mistakes['vocab-x']).toBeUndefined();
+  });
+
+  it('dedupes by id (same mistake twice = one entry)', () => {
+    const { recordMistake } = useAppStore.getState();
+    recordMistake({ id: 'a', de: 'x', en: 'y', source: 'cloze' });
+    recordMistake({ id: 'a', de: 'x', en: 'y', source: 'cloze' });
+    expect(Object.keys(useAppStore.getState().mistakes).length).toBe(1);
+  });
+
+  it('caps the queue at 100 newest', () => {
+    const { recordMistake } = useAppStore.getState();
+    for (let i = 0; i < 110; i++) {
+      recordMistake({ id: `m-${i}`, de: `de${i}`, en: `en${i}`, source: 'vocab' });
+    }
+    expect(Object.keys(useAppStore.getState().mistakes).length).toBe(100);
+  });
+});

@@ -11,6 +11,9 @@ A fast, mobile-first **Progressive Web App** for learning German — from beginn
 - **📚 8,000+ words (A1–C1)** — CEFR-leveled vocabulary, ordered by frequency
 - **🏋️ Grammar Gym** — learn 365 grammar rules through gamified quizzes (match rule ↔ meaning, spot the example) instead of walls of text
 - **🧪 Sentence Lab** — practice 2,300 real sentences three ways: **build** the word order, **listen & type** (dictation), or **translate**
+- **🎤 Speak & Score** — say sentences aloud; browser speech recognition grades you word by word
+- **✏️ Cloze** — fill the gap in real sentences, Clozemaster-style, fully offline
+- **🎯 Weak Spots** — every mistake across every mode is remembered and replayed until you fix it
 - **🎴 Flashcards + quizzes** — flip cards, multiple-choice, and typo-tolerant type-in
 - **🎯 Spaced repetition** — Leitner 5-box system for efficient review
 - **🎮 Gamification** — XP, levels, and a daily streak across every mode

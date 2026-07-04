@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { allDecks } from '../content/decks';
-import { BookOpen, ArrowRight, Library, Dumbbell, MessageSquareText, Sparkles, Timer, Magnet, Pickaxe, GraduationCap, Brain } from 'lucide-react';
+import { BookOpen, ArrowRight, Library, Dumbbell, MessageSquareText, Sparkles, Timer, Magnet, Pickaxe, GraduationCap, Brain, Mic, TextCursorInput, Target } from 'lucide-react';
 import type { Deck } from '../types';
 import { useAppStore } from '../stores/appStore';
 
@@ -25,6 +25,27 @@ const interactiveModes = [
     title: 'Sentence Lab',
     blurb: 'Build · listen · translate',
     gradient: 'from-emerald-500 to-teal-600',
+  },
+  {
+    to: '/speak',
+    icon: Mic,
+    title: 'Speak & Score',
+    blurb: 'Say it — get graded',
+    gradient: 'from-rose-500 to-pink-600',
+  },
+  {
+    to: '/cloze',
+    icon: TextCursorInput,
+    title: 'Cloze',
+    blurb: 'Fill the gap in context',
+    gradient: 'from-amber-500 to-yellow-600',
+  },
+  {
+    to: '/weak',
+    icon: Target,
+    title: 'Weak Spots',
+    blurb: 'Fix your mistakes',
+    gradient: 'from-red-500 to-rose-700',
   },
   {
     to: '/analyzer',

@@ -1,0 +1,252 @@
+import { useState } from 'react';
+import { TextCursorInput, CheckCircle, XCircle } from 'lucide-react';
+import type { CEFRLevel } from '../types';
+import { buildClozeSet, type ClozeItem } from '../content/sentences';
+import { speak } from '../utils/tts';
+import { useAppStore } from '../stores/appStore';
+import SessionResults from '../components/practice/SessionResults';
+
+type Phase = 'setup' | 'playing' | 'done';
+
+const LEVELS: (CEFRLevel | 'all')[] = ['all', 'A1', 'A2', 'B1', 'B2', 'C1'];
+
+const ClozePage = () => {
+  const [phase, setPhase] = useState<Phase>('setup');
+  const [level, setLevel] = useState<CEFRLevel | 'all'>('A1');
+  const [count, setCount] = useState(10);
+
+  const [items, setItems] = useState<ClozeItem[]>([]);
+  const [index, setIndex] = useState(0);
+  const [score, setScore] = useState(0);
+  const [selected, setSelected] = useState<string | null>(null);
+  const [revealed, setRevealed] = useState(false);
+  const [xpEarned, setXpEarned] = useState(0);
+
+  const recordSession = useAppStore((s) => s.recordSession);
+  const recordMistake = useAppStore((s) => s.recordMistake);
+  const ttsEnabled = useAppStore((s) => s.settings.ttsEnabled);
+
+  const current = items[index];
+
+  const start = async () => {
+    const set = await buildClozeSet(level, count);
+    setItems(set);
+    setIndex(0);
+    setScore(0);
+    setSelected(null);
+    setRevealed(false);
+    setPhase('playing');
+  };
+
+  const choose = (option: string) => {
+    if (revealed || !current) return;
+    setSelected(option);
+    setRevealed(true);
+    const correct = option === current.answer;
+    if (correct) {
+      setScore((s) => s + 1);
+    } else {
+      recordMistake({
+        id: `cloze-${current.id}`,
+        de: current.tokens.join(' '),
+        en: current.en,
+        source: 'cloze',
+      });
+    }
+    // Hear the complete sentence once the gap is filled.
+    if (ttsEnabled) speak(current.tokens.join(' ')).catch(() => {});
+  };
+
+  const next = () => {
+    if (index < items.length - 1) {
+      setIndex(index + 1);
+      setSelected(null);
+      setRevealed(false);
+    } else {
+      setXpEarned(recordSession(score, items.length));
+      setPhase('done');
+    }
+  };
+
+  if (phase === 'setup') {
+    return (
+      <div className="max-w-2xl mx-auto space-y-6">
+        <header>
+          <h1 className="text-3xl font-bold mb-2 flex items-center gap-2">
+            <TextCursorInput size={30} className="text-amber-500" />
+            Cloze
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400">
+            Fill the gap in real German sentences.
+          </p>
+        </header>
+
+        <div className="card p-6 space-y-5">
+          <div>
+            <label className="block text-sm font-medium mb-2">Level</label>
+            <div className="flex flex-wrap gap-2">
+              {LEVELS.map((l) => (
+                <button
+                  key={l}
+                  onClick={() => setLevel(l)}
+                  className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+                    level === l
+                      ? 'bg-amber-500 text-white'
+                      : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
+                  }`}
+                >
+                  {l === 'all' ? 'All' : l}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-2">
+              Sentences: {count}
+            </label>
+            <input
+              type="range"
+              min={5}
+              max={20}
+              step={5}
+              value={count}
+              onChange={(e) => setCount(Number(e.target.value))}
+              className="w-full"
+            />
+          </div>
+
+          <button
+            onClick={start}
+            className="btn w-full py-4 bg-amber-500 hover:bg-amber-600 text-white text-lg"
+          >
+            Start
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (phase === 'done') {
+    return (
+      <SessionResults
+        score={score}
+        total={items.length}
+        accent="brand"
+        xpEarned={xpEarned}
+        onRetry={start}
+        onExit={() => setPhase('setup')}
+      />
+    );
+  }
+
+  if (!current) {
+    return (
+      <div className="text-center py-12 text-gray-600 dark:text-gray-400">
+        No sentences for this selection.
+        <div className="mt-4">
+          <button
+            onClick={() => setPhase('setup')}
+            className="btn px-6 py-3 bg-amber-500 text-white"
+          >
+            Back
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-2xl mx-auto">
+      <div className="mb-4 flex items-center justify-between text-sm">
+        <span className="text-gray-600 dark:text-gray-400">
+          {index + 1} of {items.length}
+        </span>
+        <span className="font-semibold text-amber-600 dark:text-amber-400">
+          Score: {score}
+        </span>
+      </div>
+
+      <div className="mb-6 bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
+        <div
+          className="bg-amber-500 h-full transition-all duration-300"
+          style={{ width: `${((index + 1) / items.length) * 100}%` }}
+        />
+      </div>
+
+      <div key={index} className="card p-6 space-y-6 animate-fade-in-up">
+        <span className="chip text-xs bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300">
+          {current.level}
+        </span>
+
+        {/* Sentence with the gap */}
+        <p className="text-2xl font-bold text-center leading-relaxed">
+          {current.tokens.map((t, i) =>
+            i === current.blankIndex ? (
+              <span
+                key={i}
+                className={`inline-block min-w-[80px] border-b-4 mx-1 text-center ${
+                  revealed
+                    ? 'border-green-500 text-green-600 dark:text-green-400'
+                    : 'border-amber-400 text-transparent'
+                }`}
+              >
+                {revealed ? current.answer : '____'}
+              </span>
+            ) : (
+              <span key={i}>{t} </span>
+            )
+          )}
+        </p>
+
+        {/* Options */}
+        <div className="grid grid-cols-2 gap-3">
+          {current.options.map((option, i) => {
+            let cls =
+              'p-4 rounded-lg border-2 font-medium transition-all duration-150 active:scale-[0.98]';
+            if (revealed) {
+              if (option === current.answer) {
+                cls += ' border-green-500 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300';
+              } else if (option === selected) {
+                cls += ' border-red-500 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300';
+              } else {
+                cls += ' border-gray-300 dark:border-gray-600 opacity-50';
+              }
+            } else {
+              cls += ' border-gray-300 dark:border-gray-600 hover:border-amber-400';
+            }
+            return (
+              <button key={i} onClick={() => choose(option)} disabled={revealed} className={cls}>
+                <span className="inline-flex items-center gap-2">
+                  {option}
+                  {revealed && option === current.answer && (
+                    <CheckCircle className="text-green-500" size={18} />
+                  )}
+                  {revealed && option === selected && option !== current.answer && (
+                    <XCircle className="text-red-500" size={18} />
+                  )}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        {revealed && (
+          <div className="animate-pop space-y-3">
+            <p className="text-sm text-center text-gray-600 dark:text-gray-400">
+              🇬🇧 {current.en}
+            </p>
+            <button
+              onClick={next}
+              className="btn w-full py-3 bg-amber-500 hover:bg-amber-600 text-white"
+            >
+              {index < items.length - 1 ? 'Next' : 'See Results'}
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default ClozePage;

@@ -5,8 +5,10 @@ import type { CEFRLevel, Card } from '../types';
 import {
   analyze,
   loadLexicon,
+  splitCompound,
   type Analysis,
   type AnalyzedWord,
+  type CompoundPart,
   type LexEntry,
 } from '../content/nlp';
 import { POS_MAP } from '../content/vocabulary';
@@ -63,6 +65,23 @@ const AnalyzerPage = () => {
     () => (lexicon ? analyze(debounced, lexicon) : null),
     [lexicon, debounced]
   );
+
+  const [compound, setCompound] = useState<{
+    word: string;
+    parts: CompoundPart[];
+  } | null>(null);
+
+  // Try to split unknown words into known compound parts (Haus+Arbeit).
+  const compoundSplits = useMemo(() => {
+    const map = new Map<string, CompoundPart[]>();
+    if (!lexicon || !analysis) return map;
+    for (const word of analysis.unknown) {
+      if (map.has(word)) continue;
+      const parts = splitCompound(word, lexicon);
+      if (parts) map.set(word, parts);
+    }
+    return map;
+  }, [lexicon, analysis]);
 
   return (
     <div className="space-y-6">
@@ -133,6 +152,22 @@ const AnalyzerPage = () => {
               if (!t.isWord) return <span key={i}>{t.text}</span>;
               const a = t.annotation!;
               if (!a.entry) {
+                const parts = compoundSplits.get(t.text);
+                if (parts) {
+                  return (
+                    <button
+                      key={i}
+                      onClick={() => {
+                        setCompound({ word: t.text, parts });
+                        setSelected(null);
+                      }}
+                      className="rounded px-1 mx-0.5 bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300 underline decoration-dotted transition-colors hover:brightness-95"
+                      title="Compound word — tap to split"
+                    >
+                      {t.text}
+                    </button>
+                  );
+                }
                 return (
                   <span
                     key={i}
@@ -146,7 +181,10 @@ const AnalyzerPage = () => {
               return (
                 <button
                   key={i}
-                  onClick={() => setSelected(a)}
+                  onClick={() => {
+                    setSelected(a);
+                    setCompound(null);
+                  }}
                   className={`rounded px-1 mx-0.5 transition-colors ${LEVEL_COLOR[a.entry.level]} hover:brightness-95`}
                 >
                   {t.text}
@@ -217,6 +255,43 @@ const AnalyzerPage = () => {
             </div>
           )}
 
+          {/* Compound word breakdown */}
+          {compound && (
+            <div className="card p-5 animate-fade-in-up">
+              <p className="text-xs font-semibold uppercase tracking-wide text-amber-600 dark:text-amber-400 mb-2">
+                Compound word
+              </p>
+              <h3 className="text-2xl font-bold mb-3">
+                {compound.parts.map((p, i) => (
+                  <span key={i}>
+                    {i > 0 && <span className="text-amber-500 mx-0.5">·</span>}
+                    {p.part}
+                  </span>
+                ))}
+              </h3>
+              <div className="space-y-2">
+                {compound.parts.map((p, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center justify-between p-3 rounded-lg bg-amber-50 dark:bg-amber-900/20"
+                  >
+                    <div className="flex items-center gap-2">
+                      {p.entry.gender && (
+                        <span className="text-brand-600 dark:text-brand-400 font-semibold text-sm">
+                          {p.entry.gender}
+                        </span>
+                      )}
+                      <span className="font-semibold">{p.entry.de}</span>
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                      {p.entry.en}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Mined deck link */}
           {minedCount > 0 && (
             <Link
@@ -236,12 +311,18 @@ const AnalyzerPage = () => {
             </Link>
           )}
 
-          {analysis.unknown.length > 0 && (
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Not found: {analysis.unknown.slice(0, 15).join(', ')}
-              {analysis.unknown.length > 15 ? '…' : ''}
-            </p>
-          )}
+          {(() => {
+            // Splittable compounds are explained above, not "not found".
+            const trulyUnknown = analysis.unknown.filter(
+              (w) => !compoundSplits.has(w)
+            );
+            return trulyUnknown.length > 0 ? (
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                Not found: {trulyUnknown.slice(0, 15).join(', ')}
+                {trulyUnknown.length > 15 ? '…' : ''}
+              </p>
+            ) : null;
+          })()}
         </>
       )}
     </div>

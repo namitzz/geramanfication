@@ -141,6 +141,54 @@ export function lookupWord(
   return { text: word };
 }
 
+export interface CompoundPart {
+  part: string;
+  entry: LexEntry;
+}
+
+// German linking elements ("Fugenelemente") that glue compound parts together:
+// Arbeit+s+zeit, Blume+n+laden, ...
+const LINKERS = ['', 's', 'es', 'n', 'en', 'er', 'e'];
+
+/**
+ * Try to split a German compound word into lexicon-known parts
+ * (Hausarbeit -> Haus + Arbeit). Depth-first, preferring the fewest parts;
+ * each part must be ≥ 3 chars and exist in the lexicon. Returns null when no
+ * full split is found.
+ */
+export function splitCompound(
+  word: string,
+  lexicon: Map<string, LexEntry>
+): CompoundPart[] | null {
+  const lower = word.toLowerCase();
+  if (lower.length < 7) return null; // too short to be a compound worth splitting
+
+  const find = (rest: string, depth: number): CompoundPart[] | null => {
+    if (rest.length === 0) return [];
+    if (depth >= 3) return null;
+    // Longest-first keeps splits natural (Kranken+haus over Kran+ken+haus).
+    for (let end = rest.length; end >= 3; end--) {
+      const head = rest.slice(0, end);
+      const entry = lexicon.get(head);
+      if (!entry) continue;
+      // The final part must consume the whole remainder.
+      if (end === rest.length) return [{ part: head, entry }];
+      for (const linker of LINKERS) {
+        const after = rest.slice(end + linker.length);
+        if (linker && !rest.slice(end).startsWith(linker)) continue;
+        if (after.length < 3) continue;
+        const tail = find(after, depth + 1);
+        if (tail) return [{ part: head, entry }, ...tail];
+      }
+    }
+    return null;
+  };
+
+  const parts = find(lower, 0);
+  // A "split" into one part just means the word itself was found — not a compound.
+  return parts && parts.length >= 2 ? parts : null;
+}
+
 const EMPTY_LEVELS = (): Record<CEFRLevel, number> => ({
   A1: 0,
   A2: 0,

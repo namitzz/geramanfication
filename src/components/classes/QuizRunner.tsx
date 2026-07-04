@@ -30,6 +30,7 @@ const QuizRunner = ({ pool, allLessons, mode, onSpeak, onExit }: Props) => {
   const done = index >= questions.length;
   const current = questions[index];
   const ttsEnabled = useAppStore((s) => s.settings.ttsEnabled);
+  const recordMistake = useAppStore((s) => s.recordMistake);
 
   // Pronounce each new question's German automatically.
   useEffect(() => {
@@ -55,7 +56,15 @@ const QuizRunner = ({ pool, allLessons, mode, onSpeak, onExit }: Props) => {
     setCorrect(isRight);
     setRevealed(true);
     if (isRight) setScore((s) => s + 1);
-    else setMistakes((m) => [...m, current]);
+    else {
+      setMistakes((m) => [...m, current]);
+      recordMistake({
+        id: `classes-${current.id}`,
+        de: current.de,
+        en: current.en,
+        source: 'classes',
+      });
+    }
     setTimeout(() => {
       setIndex((i) => i + 1);
       setAnswer('');

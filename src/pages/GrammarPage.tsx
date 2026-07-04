@@ -28,6 +28,7 @@ const GrammarPage = () => {
   const [xpEarned, setXpEarned] = useState(0);
 
   const recordSession = useAppStore((s) => s.recordSession);
+  const recordMistake = useAppStore((s) => s.recordMistake);
 
   useEffect(() => {
     getGrammarCategories().then(setCategories);
@@ -47,7 +48,19 @@ const GrammarPage = () => {
     if (revealed) return;
     setSelected(i);
     setRevealed(true);
-    if (i === questions[index].correctIndex) setScore((s) => s + 1);
+    const q = questions[index];
+    if (i === q.correctIndex) {
+      setScore((s) => s + 1);
+    } else {
+      // Remember the rule as a de/en pair for Smart Review.
+      const correct = q.options[q.correctIndex];
+      recordMistake({
+        id: `grammar-${q.id}`,
+        de: q.kind === 'meaning' ? q.prompt : correct,
+        en: q.kind === 'meaning' ? correct : q.prompt,
+        source: 'grammar',
+      });
+    }
   };
 
   const next = () => {

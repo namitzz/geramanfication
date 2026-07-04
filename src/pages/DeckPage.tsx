@@ -16,8 +16,14 @@ type Mode = QuizMode;
 const DeckPage = () => {
   const { deckId } = useParams<{ deckId: string }>();
   const navigate = useNavigate();
-  const { updateSrsRecord, getSrsRecord, progress, updateProgress, recordSession } =
-    useAppStore();
+  const {
+    updateSrsRecord,
+    getSrsRecord,
+    progress,
+    updateProgress,
+    recordSession,
+    recordMistake,
+  } = useAppStore();
 
   const [deck, setDeck] = useState<Deck | undefined>();
   const [loading, setLoading] = useState(true);
@@ -77,6 +83,16 @@ const DeckPage = () => {
     // Track newly-learned words; reviews/XP/streak are tallied once at the end.
     if (correct && record.box === 1) {
       updateProgress({ wordsLearned: progress.wordsLearned + 1 });
+    }
+    if (!correct) {
+      recordMistake({
+        id: `vocab-${currentCard.id}`,
+        de: currentCard.article
+          ? `${currentCard.article} ${currentCard.de}`
+          : currentCard.de,
+        en: currentCard.en,
+        source: 'vocab',
+      });
     }
     const newCorrect = correctCount + (correct ? 1 : 0);
     setCorrectCount(newCorrect);

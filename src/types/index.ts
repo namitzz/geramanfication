@@ -57,6 +57,24 @@ export interface UserSettings {
   dyslexicFont: boolean;
 }
 
+export type MistakeSource =
+  | 'vocab'
+  | 'grammar'
+  | 'sentence'
+  | 'cloze'
+  | 'article'
+  | 'classes'
+  | 'speak';
+
+/** A single wrong answer, remembered so Smart Review can circle back to it. */
+export interface Mistake {
+  id: string;
+  de: string;
+  en: string;
+  source: MistakeSource;
+  ts: number;
+}
+
 export interface ProgressStats {
   streak: number;
   wordsLearned: number;

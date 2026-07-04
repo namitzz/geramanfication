@@ -18,6 +18,9 @@ const SentencesPage = lazy(() => import('./pages/SentencesPage'));
 const AnalyzerPage = lazy(() => import('./pages/AnalyzerPage'));
 const DailySprintPage = lazy(() => import('./pages/DailySprintPage'));
 const ReflexPage = lazy(() => import('./pages/ReflexPage'));
+const SpeakPage = lazy(() => import('./pages/SpeakPage'));
+const ClozePage = lazy(() => import('./pages/ClozePage'));
+const WeakSpotsPage = lazy(() => import('./pages/WeakSpotsPage'));
 
 const lazyRoute = (node: ReactNode) => (
   <Suspense
@@ -56,6 +59,9 @@ function App() {
           <Route path="/analyzer" element={lazyRoute(<AnalyzerPage />)} />
           <Route path="/daily" element={lazyRoute(<DailySprintPage />)} />
           <Route path="/reflex" element={lazyRoute(<ReflexPage />)} />
+          <Route path="/speak" element={lazyRoute(<SpeakPage />)} />
+          <Route path="/cloze" element={lazyRoute(<ClozePage />)} />
+          <Route path="/weak" element={lazyRoute(<WeakSpotsPage />)} />
           <Route path="/mcq-testing" element={<MCQTestingPage />} />
           <Route path="/progress" element={<ProgressPage />} />
           <Route path="/settings" element={<SettingsPage />} />

@@ -40,6 +40,7 @@ const ReflexPage = () => {
   const lockRef = useRef(false);
 
   const recordSession = useAppStore((s) => s.recordSession);
+  const recordMistake = useAppStore((s) => s.recordMistake);
 
   // Round countdown.
   useEffect(() => {
@@ -85,6 +86,12 @@ const ReflexPage = () => {
       });
     } else {
       setCombo(0);
+      recordMistake({
+        id: `article-${noun.de.toLowerCase()}`,
+        de: `${noun.article} ${noun.de}`,
+        en: noun.en,
+        source: 'article',
+      });
     }
     setFeedback({ ok, hint: ok ? null : genderHint(noun.de, noun.article) });
     setTimeout(() => {

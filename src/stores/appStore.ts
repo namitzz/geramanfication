@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { Card, SrsRecord, UserSettings, ProgressStats } from '../types';
+import type { Card, Mistake, SrsRecord, UserSettings, ProgressStats } from '../types';
 
 interface AppState {
   // SRS Records
@@ -31,10 +31,18 @@ interface AppState {
   minedWords: Record<string, Card>;
   addMinedWord: (card: Card) => void;
   removeMinedWord: (cardId: string) => void;
-  
+
+  // Smart Review: wrong answers remembered across all practice modes
+  mistakes: Record<string, Mistake>;
+  recordMistake: (mistake: Omit<Mistake, 'ts'>) => void;
+  clearMistake: (id: string) => void;
+
   // Reset all data
   resetAllData: () => void;
 }
+
+/** Keep only the newest mistakes so the queue stays reviewable. */
+const MISTAKE_CAP = 100;
 
 const defaultSettings: UserSettings = {
   darkMode: false,
@@ -133,7 +141,31 @@ export const useAppStore = create<AppState>()(
           delete next[cardId];
           return { minedWords: next };
         }),
-      
+
+      // Smart Review mistakes
+      mistakes: {},
+      recordMistake: (mistake) =>
+        set((state) => {
+          const next = {
+            ...state.mistakes,
+            [mistake.id]: { ...mistake, ts: Date.now() },
+          };
+          const ids = Object.keys(next);
+          if (ids.length > MISTAKE_CAP) {
+            ids
+              .sort((a, b) => next[a].ts - next[b].ts) // oldest first
+              .slice(0, ids.length - MISTAKE_CAP)
+              .forEach((id) => delete next[id]);
+          }
+          return { mistakes: next };
+        }),
+      clearMistake: (id) =>
+        set((state) => {
+          const next = { ...state.mistakes };
+          delete next[id];
+          return { mistakes: next };
+        }),
+
       // Reset all data
       resetAllData: () =>
         set({
@@ -142,6 +174,7 @@ export const useAppStore = create<AppState>()(
           progress: defaultProgress,
           reviewQueue: [],
           minedWords: {},
+          mistakes: {},
         }),
     }),
     {

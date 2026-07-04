@@ -1,15 +1,16 @@
 import { Link } from 'react-router-dom';
 import { useAppStore } from '../stores/appStore';
-import { Flame, BookOpen, Layers, ArrowRight, Zap, CalendarDays } from 'lucide-react';
+import { Flame, BookOpen, Layers, ArrowRight, Zap, CalendarDays, Target } from 'lucide-react';
 import { getDueCards } from '../utils/srs';
 import { allDecks } from '../content/decks';
 import BoltLogo from '../components/BoltLogo';
 
 const HomePage = () => {
-  const { progress, srsRecords } = useAppStore();
+  const { progress, srsRecords, mistakes } = useAppStore();
 
   const allCardIds = allDecks.flatMap((deck) => deck.cards.map((card) => card.id));
   const dueCards = getDueCards(allCardIds, srsRecords);
+  const weakCount = Object.keys(mistakes).length;
 
   // Lightweight leveling: 100 XP per level.
   const level = Math.floor(progress.xp / 100) + 1;
@@ -98,6 +99,27 @@ const HomePage = () => {
         </div>
         <ArrowRight className="text-gray-400" size={20} />
       </Link>
+
+      {/* Weak spots callout */}
+      {weakCount > 0 && (
+        <Link
+          to="/weak"
+          className="card-interactive flex items-center justify-between p-5"
+        >
+          <div className="flex items-center gap-3">
+            <span className="flex items-center justify-center w-11 h-11 rounded-xl bg-gradient-to-br from-red-500 to-rose-600 text-white">
+              <Target size={22} />
+            </span>
+            <div>
+              <p className="font-semibold">Fix my weak spots</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                {weakCount} {weakCount === 1 ? 'mistake' : 'mistakes'} to review
+              </p>
+            </div>
+          </div>
+          <ArrowRight className="text-gray-400" size={20} />
+        </Link>
+      )}
 
       {/* Primary actions */}
       <section className="space-y-3">

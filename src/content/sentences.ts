@@ -82,6 +82,80 @@ export async function buildSentenceSet(
   return shuffle(pool).slice(0, count).map(toItem);
 }
 
+export interface ClozeItem {
+  id: number;
+  /** All word tokens of the sentence. */
+  tokens: string[];
+  /** Index of the blanked-out word within `tokens`. */
+  blankIndex: number;
+  /** The correct word (as written in the sentence). */
+  answer: string;
+  /** Four options, `answer` included, shuffled. */
+  options: string[];
+  en: string;
+  level: CEFRLevel;
+}
+
+/**
+ * Build fill-in-the-blank exercises from real sentences (Clozemaster-style).
+ * The blank is the longest word that exists in the vocabulary lexicon, so the
+ * gap is always a meaningful content word rather than punctuation-adjacent
+ * filler.
+ */
+export async function buildClozeSet(
+  level: CEFRLevel | 'all',
+  count: number
+): Promise<ClozeItem[]> {
+  const [{ loadLexicon, lookupWord }, raw] = await Promise.all([
+    import('./nlp'),
+    loadRaw(),
+  ]);
+  const lexicon = await loadLexicon();
+
+  const pool = raw.filter((s) => {
+    const lvlOk = level === 'all' || s.cefr_level === level;
+    return lvlOk && s.word_count >= 3 && s.word_count <= 12 && s.sentence_en;
+  });
+
+  const items: ClozeItem[] = [];
+  for (const s of shuffle(pool)) {
+    if (items.length >= count) break;
+    const tokens = s.sentence_de.split(/\s+/).filter(Boolean);
+    // Longest lexicon-known word wins; strip punctuation for the lookup.
+    let blankIndex = -1;
+    let best = '';
+    tokens.forEach((t, i) => {
+      const word = t.replace(/[^A-Za-zÀ-ÿäöüÄÖÜß-]/g, '');
+      if (word.length > best.length && lookupWord(word, lexicon).entry) {
+        best = word;
+        blankIndex = i;
+      }
+    });
+    if (blankIndex === -1 || best.length < 3) continue;
+    items.push({
+      id: s.id,
+      tokens,
+      blankIndex,
+      answer: best,
+      options: [], // distractors filled in below, across the whole set
+      en: s.sentence_en,
+      level: s.cefr_level,
+    });
+  }
+
+  // Distractors: other items' answers (real words of similar difficulty).
+  const allAnswers = Array.from(new Set(items.map((i) => i.answer)));
+  for (const item of items) {
+    const distractors = shuffle(
+      allAnswers.filter((a) => a !== item.answer)
+    ).slice(0, 3);
+    // Rare small sets: pad from the lexicon-free token pool if needed.
+    item.options = shuffle([item.answer, ...distractors]);
+  }
+
+  return items.filter((i) => i.options.length >= 2);
+}
+
 /** Word counts available per level, for the setup screen. */
 export async function getSentenceLevelCounts(): Promise<
   Record<CEFRLevel | 'all', number>

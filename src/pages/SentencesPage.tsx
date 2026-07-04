@@ -56,6 +56,7 @@ const SentencesPage = () => {
   const [xpEarned, setXpEarned] = useState(0);
 
   const recordSession = useAppStore((s) => s.recordSession);
+  const recordMistake = useAppStore((s) => s.recordMistake);
   const ttsEnabled = useAppStore((s) => s.settings.ttsEnabled);
 
   // per-question working state
@@ -106,7 +107,16 @@ const SentencesPage = () => {
       correct = isAnswerCorrect(text, current.en, 3);
     }
     setWasCorrect(correct);
-    if (correct) setScore((s) => s + 1);
+    if (correct) {
+      setScore((s) => s + 1);
+    } else {
+      recordMistake({
+        id: `sentence-${current.id}`,
+        de: current.de,
+        en: current.en,
+        source: 'sentence',
+      });
+    }
     setRevealed(true);
     // Hear the correct sentence after building it — audio reinforcement.
     if (mode === 'build' && ttsEnabled) {

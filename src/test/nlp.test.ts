@@ -1,5 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { analyze, loadLexicon, lookupWord, tokenize } from '../content/nlp';
+import {
+  analyze,
+  loadLexicon,
+  lookupWord,
+  splitCompound,
+  tokenize,
+} from '../content/nlp';
 
 describe('nlp tokenizer', () => {
   it('separates words from punctuation and spaces', () => {
@@ -34,6 +40,49 @@ describe('nlp lexicon + lookup', () => {
   it('returns no entry for gibberish', async () => {
     const lex = await loadLexicon();
     expect(lookupWord('xqzptv', lex).entry).toBeUndefined();
+  });
+});
+
+describe('nlp compound splitter', () => {
+  // Synthetic lexicon so the tests don't depend on which compounds happen to
+  // exist as whole entries in the real dataset (the splitter only runs on
+  // words the lexicon does NOT contain).
+  const entry = (de: string, en: string) => ({
+    de,
+    en,
+    pos: 'noun',
+    gender: 'das',
+    level: 'A1' as const,
+    freq: 1,
+  });
+  const lex = new Map([
+    ['haus', entry('Haus', 'house')],
+    ['arbeit', entry('Arbeit', 'work')],
+    ['zeit', entry('Zeit', 'time')],
+  ]);
+
+  it('splits a two-part compound into known words', () => {
+    const parts = splitCompound('Hausarbeit', lex);
+    expect(parts).toBeTruthy();
+    expect(parts!.map((p) => p.part)).toEqual(['haus', 'arbeit']);
+    for (const p of parts!) expect(p.entry.en).toBeTruthy();
+  });
+
+  it('handles linking elements (Fugen-s etc.)', () => {
+    // Arbeitszeit = Arbeit + s + Zeit
+    const parts = splitCompound('Arbeitszeit', lex);
+    expect(parts).toBeTruthy();
+    expect(parts!.map((p) => p.part)).toEqual(['arbeit', 'zeit']);
+  });
+
+  it('returns null for non-compounds, known words, and gibberish', () => {
+    expect(splitCompound('Haus', lex)).toBeNull(); // too short / single word
+    expect(splitCompound('xqzptvwxyz', lex)).toBeNull();
+  });
+
+  it('does not fire on unknown words in the real lexicon that are not compounds', async () => {
+    const real = await loadLexicon();
+    expect(splitCompound('xqzptvwxyzqq', real)).toBeNull();
   });
 });
 
