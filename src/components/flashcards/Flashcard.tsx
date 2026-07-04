@@ -13,10 +13,15 @@ const Flashcard = ({ card, onAnswer }: FlashcardProps) => {
   const [flipped, setFlipped] = useState(false);
   const { settings } = useAppStore();
 
-  // New card -> always start on the German side (never leak the answer).
+  // New card -> always start on the German side (never leak the answer),
+  // and pronounce the German automatically.
   useEffect(() => {
     setFlipped(false);
-  }, [card.id]);
+    if (settings.ttsEnabled) {
+      const id = setTimeout(() => speak(card.de, 'de-DE'), 350);
+      return () => clearTimeout(id);
+    }
+  }, [card.id, card.de, settings.ttsEnabled]);
 
   const handleSpeak = (e: React.MouseEvent) => {
     e.stopPropagation();

@@ -1,7 +1,8 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Volume2, Check, X, ArrowLeft, GraduationCap, RotateCw } from 'lucide-react';
 import { isAnswerCorrect } from '../../utils/stringMatch';
 import type { Lesson } from '../../content/classes/types';
+import { useAppStore } from '../../stores/appStore';
 
 export type ClassQuizMode = 'multiple-choice' | 'type-in';
 
@@ -28,6 +29,15 @@ const QuizRunner = ({ pool, allLessons, mode, onSpeak, onExit }: Props) => {
 
   const done = index >= questions.length;
   const current = questions[index];
+  const ttsEnabled = useAppStore((s) => s.settings.ttsEnabled);
+
+  // Pronounce each new question's German automatically.
+  useEffect(() => {
+    if (ttsEnabled && current) {
+      const id = setTimeout(() => onSpeak(current.de), 300);
+      return () => clearTimeout(id);
+    }
+  }, [index, current, ttsEnabled, onSpeak]);
 
   const options = useMemo(() => {
     if (mode !== 'multiple-choice' || !current) return [];

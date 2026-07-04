@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Volume2, Star, RotateCw, ArrowLeft, ArrowRight } from 'lucide-react';
 import { formatTopic, type Lesson } from '../../content/classes/types';
+import { useAppStore } from '../../stores/appStore';
 
 interface Props {
   lessons: Lesson[];
@@ -12,12 +13,22 @@ interface Props {
 const Flashcards = ({ lessons, starredIds, onToggleStar, onSpeak }: Props) => {
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
+  const ttsEnabled = useAppStore((s) => s.settings.ttsEnabled);
 
   // Reset when the lesson set changes (filters, shuffle, etc.).
   useEffect(() => {
     setIndex(0);
     setFlipped(false);
   }, [lessons]);
+
+  // Pronounce each card's German automatically.
+  useEffect(() => {
+    const lesson = lessons[index];
+    if (ttsEnabled && lesson) {
+      const id = setTimeout(() => onSpeak(lesson.de), 350);
+      return () => clearTimeout(id);
+    }
+  }, [index, lessons, ttsEnabled, onSpeak]);
 
   const next = useCallback(() => {
     setIndex((i) => (i < lessons.length - 1 ? i + 1 : i));

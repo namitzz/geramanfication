@@ -85,8 +85,8 @@ const SettingsPage = () => {
 
         <Row
           icon={<Volume2 size={22} />}
-          title="Text-to-Speech"
-          subtitle="German pronunciation audio"
+          title="Auto Audio"
+          subtitle="Automatically pronounce German words"
           control={
             <Toggle
               on={settings.ttsEnabled}

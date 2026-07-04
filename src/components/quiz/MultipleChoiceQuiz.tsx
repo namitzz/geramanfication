@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Card } from '../../types';
+import { speak } from '../../utils/tts';
+import { useAppStore } from '../../stores/appStore';
 
 interface MultipleChoiceQuizProps {
   card: Card;
@@ -10,6 +12,15 @@ interface MultipleChoiceQuizProps {
 const MultipleChoiceQuiz = ({ card, options, onAnswer }: MultipleChoiceQuizProps) => {
   const [selected, setSelected] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
+  const ttsEnabled = useAppStore((s) => s.settings.ttsEnabled);
+
+  // Pronounce each new German prompt automatically.
+  useEffect(() => {
+    if (ttsEnabled) {
+      const id = setTimeout(() => speak(card.de, 'de-DE'), 300);
+      return () => clearTimeout(id);
+    }
+  }, [card.id, card.de, ttsEnabled]);
 
   const handleSelect = (option: string) => {
     if (showResult) return;

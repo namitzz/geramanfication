@@ -56,6 +56,7 @@ const SentencesPage = () => {
   const [xpEarned, setXpEarned] = useState(0);
 
   const recordSession = useAppStore((s) => s.recordSession);
+  const ttsEnabled = useAppStore((s) => s.settings.ttsEnabled);
 
   // per-question working state
   const [text, setText] = useState('');
@@ -75,7 +76,10 @@ const SentencesPage = () => {
     setRevealed(false);
     setAssembled([]);
     setBank(shuffleTokens(item.tokens));
-    if (mode === 'listen') {
+    // Listen mode must speak (it IS the exercise); translate also hears the
+    // German prompt automatically. Build stays silent until checked, since
+    // hearing the word order would give the answer away.
+    if (mode === 'listen' || (mode === 'translate' && ttsEnabled)) {
       // Slight delay so the page is mounted before speaking.
       setTimeout(() => speak(item.de).catch(() => {}), 250);
     }
@@ -104,6 +108,10 @@ const SentencesPage = () => {
     setWasCorrect(correct);
     if (correct) setScore((s) => s + 1);
     setRevealed(true);
+    // Hear the correct sentence after building it — audio reinforcement.
+    if (mode === 'build' && ttsEnabled) {
+      speak(current.de).catch(() => {});
+    }
   };
 
   const next = () => {

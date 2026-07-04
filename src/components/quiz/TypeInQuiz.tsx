@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Card } from '../../types';
 import { isAnswerCorrect } from '../../utils/stringMatch';
+import { speak } from '../../utils/tts';
+import { useAppStore } from '../../stores/appStore';
 import { Check, X } from 'lucide-react';
 
 interface TypeInQuizProps {
@@ -12,6 +14,15 @@ const TypeInQuiz = ({ card, onAnswer }: TypeInQuizProps) => {
   const [userAnswer, setUserAnswer] = useState('');
   const [showResult, setShowResult] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
+  const ttsEnabled = useAppStore((s) => s.settings.ttsEnabled);
+
+  // Pronounce each new German prompt automatically.
+  useEffect(() => {
+    if (ttsEnabled) {
+      const id = setTimeout(() => speak(card.de, 'de-DE'), 300);
+      return () => clearTimeout(id);
+    }
+  }, [card.id, card.de, ttsEnabled]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
