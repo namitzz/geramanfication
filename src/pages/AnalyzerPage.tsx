@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Sparkles, Volume2, Wand2 } from 'lucide-react';
-import type { CEFRLevel } from '../types';
+import { Sparkles, Volume2, Wand2, Pickaxe, Check, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import type { CEFRLevel, Card } from '../types';
 import {
   analyze,
   loadLexicon,
@@ -8,7 +9,25 @@ import {
   type AnalyzedWord,
   type LexEntry,
 } from '../content/nlp';
+import { POS_MAP } from '../content/vocabulary';
 import { speak } from '../utils/tts';
+import { useAppStore } from '../stores/appStore';
+
+/** Build a practice card from a lexicon entry (id keyed by the German word). */
+function toMinedCard(entry: LexEntry): Card {
+  return {
+    id: `mined-${entry.de.toLowerCase()}`,
+    de: entry.de,
+    en: entry.en,
+    partOfSpeech: POS_MAP[entry.pos],
+    article:
+      entry.gender === 'der' || entry.gender === 'die' || entry.gender === 'das'
+        ? entry.gender
+        : undefined,
+    level: entry.level,
+    frequencyRank: entry.freq,
+  };
+}
 
 const EXAMPLE =
   'Ich heiße Anna und wohne in Berlin. Ich lerne Deutsch, weil es mir gefällt.';
@@ -27,6 +46,9 @@ const AnalyzerPage = () => {
   const [text, setText] = useState(EXAMPLE);
   const [debounced, setDebounced] = useState(EXAMPLE);
   const [selected, setSelected] = useState<AnalyzedWord | null>(null);
+
+  const { minedWords, addMinedWord, removeMinedWord } = useAppStore();
+  const minedCount = Object.keys(minedWords).length;
 
   useEffect(() => {
     loadLexicon().then(setLexicon);
@@ -171,7 +193,47 @@ const AnalyzerPage = () => {
                   </span>
                 </div>
               </div>
+
+              {/* Vocabulary mining */}
+              {(() => {
+                const card = toMinedCard(selected.entry!);
+                const mined = card.id in minedWords;
+                return (
+                  <button
+                    onClick={() =>
+                      mined ? removeMinedWord(card.id) : addMinedWord(card)
+                    }
+                    className={`btn w-full mt-4 py-2.5 text-sm ${
+                      mined
+                        ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300'
+                        : 'bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600'
+                    }`}
+                  >
+                    {mined ? <Check size={16} /> : <Pickaxe size={16} />}
+                    {mined ? 'Saved to My Words' : 'Mine this word'}
+                  </button>
+                );
+              })()}
             </div>
+          )}
+
+          {/* Mined deck link */}
+          {minedCount > 0 && (
+            <Link
+              to="/deck/mined"
+              className="card-interactive flex items-center justify-between p-4"
+            >
+              <div className="flex items-center gap-3">
+                <Pickaxe className="text-amber-500" size={20} />
+                <div>
+                  <p className="font-semibold">My Mined Words</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    {minedCount} saved · practice with flashcards & quizzes
+                  </p>
+                </div>
+              </div>
+              <ArrowRight className="text-gray-400" size={20} />
+            </Link>
           )}
 
           {analysis.unknown.length > 0 && (

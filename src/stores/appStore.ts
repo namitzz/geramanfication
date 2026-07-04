@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { SrsRecord, UserSettings, ProgressStats } from '../types';
+import type { Card, SrsRecord, UserSettings, ProgressStats } from '../types';
 
 interface AppState {
   // SRS Records
@@ -26,6 +26,11 @@ interface AppState {
   // Review queue
   reviewQueue: string[];
   setReviewQueue: (cardIds: string[]) => void;
+
+  // Vocabulary mining: words the user saved from the Analyzer
+  minedWords: Record<string, Card>;
+  addMinedWord: (card: Card) => void;
+  removeMinedWord: (cardId: string) => void;
   
   // Reset all data
   resetAllData: () => void;
@@ -115,6 +120,19 @@ export const useAppStore = create<AppState>()(
       // Review queue
       reviewQueue: [],
       setReviewQueue: (cardIds) => set({ reviewQueue: cardIds }),
+
+      // Vocabulary mining
+      minedWords: {},
+      addMinedWord: (card) =>
+        set((state) => ({
+          minedWords: { ...state.minedWords, [card.id]: card },
+        })),
+      removeMinedWord: (cardId) =>
+        set((state) => {
+          const next = { ...state.minedWords };
+          delete next[cardId];
+          return { minedWords: next };
+        }),
       
       // Reset all data
       resetAllData: () =>
@@ -123,6 +141,7 @@ export const useAppStore = create<AppState>()(
           settings: defaultSettings,
           progress: defaultProgress,
           reviewQueue: [],
+          minedWords: {},
         }),
     }),
     {

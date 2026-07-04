@@ -35,7 +35,7 @@ export const LEVEL_LABELS: Record<CEFRLevel, string> = {
 /** Words per generated deck — small enough for a single study session. */
 const CARDS_PER_DECK = 50;
 
-const POS_MAP: Record<string, PartOfSpeech> = {
+export const POS_MAP: Record<string, PartOfSpeech> = {
   adjective: 'adj',
   adverb: 'adv',
   noun: 'noun',

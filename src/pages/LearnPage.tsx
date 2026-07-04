@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { allDecks } from '../content/decks';
-import { BookOpen, ArrowRight, Library, Dumbbell, MessageSquareText, Sparkles } from 'lucide-react';
+import { BookOpen, ArrowRight, Library, Dumbbell, MessageSquareText, Sparkles, Timer, Magnet, Pickaxe } from 'lucide-react';
 import type { Deck } from '../types';
+import { useAppStore } from '../stores/appStore';
 
 const interactiveModes = [
   {
@@ -32,11 +33,26 @@ const interactiveModes = [
     blurb: 'Break down any German text',
     gradient: 'from-amber-500 to-orange-600',
   },
+  {
+    to: '/reflex',
+    icon: Timer,
+    title: 'Der·Die·Das',
+    blurb: '45s article reflex game',
+    gradient: 'from-rose-500 to-red-600',
+  },
+  {
+    to: '/deck/cognates',
+    icon: Magnet,
+    title: 'Already Know',
+    blurb: 'German ≈ English words',
+    gradient: 'from-cyan-500 to-sky-600',
+  },
 ];
 
 const LearnPage = () => {
   const starterDecks = allDecks.filter((d) => !d.id.startsWith('phase2'));
   const topicDecks = allDecks.filter((d) => d.id.startsWith('phase2'));
+  const minedCount = Object.keys(useAppStore((s) => s.minedWords)).length;
 
   const DeckCard = (deck: Deck) => (
     <Link
@@ -60,7 +76,7 @@ const LearnPage = () => {
   return (
     <div className="space-y-8">
       {/* Interactive practice modes */}
-      <section className="grid grid-cols-2 sm:grid-cols-4 gap-3 stagger">
+      <section className="grid grid-cols-2 sm:grid-cols-3 gap-3 stagger">
         {interactiveModes.map(({ to, icon: Icon, title, blurb, gradient }) => (
           <Link
             key={to}
@@ -73,6 +89,24 @@ const LearnPage = () => {
           </Link>
         ))}
       </section>
+
+      {minedCount > 0 && (
+        <Link
+          to="/deck/mined"
+          className="card-interactive flex items-center justify-between p-4"
+        >
+          <div className="flex items-center gap-3">
+            <Pickaxe className="text-amber-500" size={22} />
+            <div>
+              <p className="font-semibold">My Mined Words</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                {minedCount} words you saved from the Analyzer
+              </p>
+            </div>
+          </div>
+          <ArrowRight className="text-gray-400" size={20} />
+        </Link>
+      )}
 
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-gray-800 dark:text-gray-200">

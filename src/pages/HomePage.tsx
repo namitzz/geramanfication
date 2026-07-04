@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useAppStore } from '../stores/appStore';
-import { Flame, BookOpen, Layers, ArrowRight, Zap } from 'lucide-react';
+import { Flame, BookOpen, Layers, ArrowRight, Zap, CalendarDays } from 'lucide-react';
 import { getDueCards } from '../utils/srs';
 import { allDecks } from '../content/decks';
 import BoltLogo from '../components/BoltLogo';
@@ -77,6 +77,25 @@ const HomePage = () => {
           </div>
         ))}
       </section>
+
+      {/* Daily ritual */}
+      <Link
+        to="/daily"
+        className="card-interactive flex items-center justify-between p-5"
+      >
+        <div className="flex items-center gap-3">
+          <span className="flex items-center justify-center w-11 h-11 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 text-white">
+            <CalendarDays size={22} />
+          </span>
+          <div>
+            <p className="font-semibold">Daily Sprint</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Today’s puzzle — one sentence, three tries
+            </p>
+          </div>
+        </div>
+        <ArrowRight className="text-gray-400" size={20} />
+      </Link>
 
       {/* Primary actions */}
       <section className="space-y-3">
