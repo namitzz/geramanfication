@@ -3,6 +3,7 @@ import { useAppStore } from '../stores/appStore';
 import { Flame, BookOpen, Layers, ArrowRight, Zap } from 'lucide-react';
 import { getDueCards } from '../utils/srs';
 import { allDecks } from '../content/decks';
+import BoltLogo from '../components/BoltLogo';
 
 const HomePage = () => {
   const { progress, srsRecords } = useAppStore();
@@ -38,24 +39,30 @@ const HomePage = () => {
   return (
     <div className="space-y-6">
       {/* Hero / level card */}
-      <section className="rounded-2xl p-6 bg-gradient-to-br from-brand-600 to-indigo-500 text-white shadow-card">
-        <div className="flex items-center justify-between mb-4">
+      <section className="relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-brand-600 via-violet-600 to-violet-700 text-white shadow-card">
+        {/* Bolt watermark */}
+        <BoltLogo
+          size={190}
+          tile={false}
+          className="absolute -right-8 -top-8 opacity-20 rotate-12 pointer-events-none"
+        />
+        <div className="relative flex items-center justify-between mb-4">
           <div>
             <p className="text-white/80 text-sm">Willkommen zurück 👋</p>
             <h1 className="text-2xl font-bold">Level {level}</h1>
           </div>
-          <div className="chip bg-white/20 text-white">
+          <div className="chip bg-yellow-400 text-gray-900">
             <Zap size={16} />
             {progress.xp} XP
           </div>
         </div>
-        <div className="h-2.5 rounded-full bg-white/25 overflow-hidden">
+        <div className="relative h-2.5 rounded-full bg-white/25 overflow-hidden">
           <div
-            className="h-full bg-white rounded-full transition-all duration-500"
+            className="h-full bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-full transition-all duration-500"
             style={{ width: `${xpIntoLevel}%` }}
           />
         </div>
-        <p className="text-xs text-white/80 mt-2">
+        <p className="relative text-xs text-white/80 mt-2">
           {100 - xpIntoLevel} XP to Level {level + 1}
         </p>
       </section>
@@ -76,7 +83,7 @@ const HomePage = () => {
         {dueCards.length > 0 && (
           <Link
             to="/review"
-            className="btn-primary w-full py-4 text-lg shadow-card"
+            className="btn w-full py-4 text-lg text-white shadow-card bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-700 hover:to-violet-700"
           >
             Continue Review ({dueCards.length})
             <ArrowRight size={20} />
