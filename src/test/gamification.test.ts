@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { useAppStore } from '../stores/appStore';
+import { useAppStore, getTodayKey } from '../stores/appStore';
+import { getDailyBatch, WORDS_PER_DAY } from '../content/dailyWords';
 
 const reset = () => useAppStore.getState().resetAllData();
 
@@ -56,5 +57,56 @@ describe('smart review (mistakes)', () => {
       recordMistake({ id: `m-${i}`, de: `de${i}`, en: `en${i}`, source: 'vocab' });
     }
     expect(Object.keys(useAppStore.getState().mistakes).length).toBe(100);
+  });
+});
+
+describe('daily words program', () => {
+  beforeEach(reset);
+
+  it('starts a fresh batch today on rollover', () => {
+    useAppStore.getState().rolloverDaily();
+    const d = useAppStore.getState().dailyReview;
+    expect(d.date).toBe(getTodayKey());
+    expect(d.dayStart).toBe(0);
+    expect(d.cursor).toBe(0);
+  });
+
+  it('advancing the cursor persists mid-day progress', () => {
+    useAppStore.getState().rolloverDaily();
+    useAppStore.getState().advanceDailyCursor();
+    useAppStore.getState().advanceDailyCursor();
+    const d = useAppStore.getState().dailyReview;
+    expect(d.cursor - d.dayStart).toBe(2);
+    // Same-day rollover must not restart the batch.
+    useAppStore.getState().rolloverDaily();
+    expect(useAppStore.getState().dailyReview.cursor).toBe(2);
+  });
+
+  it("a new day's batch starts where the cursor left off", () => {
+    // Simulate yesterday's state: 30 words consumed.
+    useAppStore.setState({
+      dailyReview: { date: 'yesterday', dayStart: 0, cursor: 30 },
+    });
+    useAppStore.getState().rolloverDaily();
+    const d = useAppStore.getState().dailyReview;
+    expect(d.date).toBe(getTodayKey());
+    expect(d.dayStart).toBe(30); // yesterday's unfinished words are skipped past
+    expect(d.cursor).toBe(30);
+  });
+
+  it('serves 50 real, ordered words per batch', async () => {
+    const first = await getDailyBatch(0);
+    const second = await getDailyBatch(WORDS_PER_DAY);
+    expect(first.length).toBe(WORDS_PER_DAY);
+    expect(second.length).toBe(WORDS_PER_DAY);
+    // No overlap between day 1 and day 2.
+    const ids = new Set(first.map((c) => c.id));
+    for (const c of second) expect(ids.has(c.id)).toBe(false);
+    // Day 1 starts with the easiest words (A1).
+    expect(first[0].level).toBe('A1');
+    for (const c of first) {
+      expect(c.de).toBeTruthy();
+      expect(c.en).toBeTruthy();
+    }
   });
 });

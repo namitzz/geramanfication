@@ -1,6 +1,13 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { Card, Mistake, SrsRecord, UserSettings, ProgressStats } from '../types';
+import type {
+  Card,
+  DailyReview,
+  Mistake,
+  SrsRecord,
+  UserSettings,
+  ProgressStats,
+} from '../types';
 
 interface AppState {
   // SRS Records
@@ -37,6 +44,13 @@ interface AppState {
   recordMistake: (mistake: Omit<Mistake, 'ts'>) => void;
   clearMistake: (id: string) => void;
 
+  // Daily words: 50 new words per day from the frequency-ordered vocabulary
+  dailyReview: DailyReview;
+  /** Start a fresh batch if the stored one belongs to an earlier day. */
+  rolloverDaily: () => void;
+  /** One more word consumed (persists mid-session progress). */
+  advanceDailyCursor: () => void;
+
   // Reset all data
   resetAllData: () => void;
 }
@@ -65,6 +79,11 @@ const XP_PER_CORRECT = 10;
 /** Local YYYY-MM-DD for day comparisons. */
 const dayKey = (d: Date): string =>
   `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+
+/** Today's day key (exported so pages compare against the same format). */
+export const getTodayKey = (): string => dayKey(new Date());
+
+const defaultDailyReview: DailyReview = { date: '', dayStart: 0, cursor: 0 };
 
 export const useAppStore = create<AppState>()(
   persist(
@@ -166,6 +185,29 @@ export const useAppStore = create<AppState>()(
           return { mistakes: next };
         }),
 
+      // Daily words
+      dailyReview: defaultDailyReview,
+      rolloverDaily: () =>
+        set((state) => {
+          const today = getTodayKey();
+          if (state.dailyReview.date === today) return {};
+          // New day: today's batch starts wherever the cursor left off.
+          return {
+            dailyReview: {
+              date: today,
+              dayStart: state.dailyReview.cursor,
+              cursor: state.dailyReview.cursor,
+            },
+          };
+        }),
+      advanceDailyCursor: () =>
+        set((state) => ({
+          dailyReview: {
+            ...state.dailyReview,
+            cursor: state.dailyReview.cursor + 1,
+          },
+        })),
+
       // Reset all data
       resetAllData: () =>
         set({
@@ -175,6 +217,7 @@ export const useAppStore = create<AppState>()(
           reviewQueue: [],
           minedWords: {},
           mistakes: {},
+          dailyReview: defaultDailyReview,
         }),
     }),
     {

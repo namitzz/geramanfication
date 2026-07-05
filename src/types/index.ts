@@ -75,6 +75,20 @@ export interface Mistake {
   ts: number;
 }
 
+/**
+ * Progress through the daily-words program: a persistent cursor into the
+ * frequency-ordered vocabulary (A1 -> C1). Each day serves the next
+ * WORDS_PER_DAY unseen words; quitting mid-batch resumes where you left off.
+ */
+export interface DailyReview {
+  /** Day key (local YYYY-M-D) the current batch belongs to. */
+  date: string;
+  /** Cursor value at the start of today's batch. */
+  dayStart: number;
+  /** Total words consumed so far (across all days). */
+  cursor: number;
+}
+
 export interface ProgressStats {
   streak: number;
   wordsLearned: number;

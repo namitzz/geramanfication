@@ -1,16 +1,24 @@
 import { Link } from 'react-router-dom';
-import { useAppStore } from '../stores/appStore';
+import { useAppStore, getTodayKey } from '../stores/appStore';
 import { Flame, BookOpen, Layers, ArrowRight, Zap, CalendarDays, Target } from 'lucide-react';
 import { getDueCards } from '../utils/srs';
 import { allDecks } from '../content/decks';
+import { WORDS_PER_DAY } from '../content/dailyWords';
 import BoltLogo from '../components/BoltLogo';
 
 const HomePage = () => {
-  const { progress, srsRecords, mistakes } = useAppStore();
+  const { progress, srsRecords, mistakes, dailyReview } = useAppStore();
 
   const allCardIds = allDecks.flatMap((deck) => deck.cards.map((card) => card.id));
   const dueCards = getDueCards(allCardIds, srsRecords);
   const weakCount = Object.keys(mistakes).length;
+
+  // Today's 50-word progress (read-only; the Today page handles rollover).
+  const doneToday =
+    dailyReview.date === getTodayKey()
+      ? dailyReview.cursor - dailyReview.dayStart
+      : 0;
+  const todayFinished = doneToday >= WORDS_PER_DAY;
 
   // Lightweight leveling: 100 XP per level.
   const level = Math.floor(progress.xp / 100) + 1;
@@ -123,15 +131,41 @@ const HomePage = () => {
 
       {/* Primary actions */}
       <section className="space-y-3">
+        {/* Today's 50 words — the daily ritual */}
+        <Link
+          to="/today"
+          className={`btn w-full py-4 text-lg shadow-card ${
+            todayFinished
+              ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300'
+              : 'text-white bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-700 hover:to-violet-700'
+          }`}
+        >
+          {todayFinished
+            ? `Today's ${WORDS_PER_DAY} words done ✓`
+            : doneToday > 0
+              ? `Continue today's words (${doneToday}/${WORDS_PER_DAY})`
+              : `Learn today's ${WORDS_PER_DAY} words`}
+          {!todayFinished && <ArrowRight size={20} />}
+        </Link>
+
         {dueCards.length > 0 && (
           <Link
             to="/review"
-            className="btn w-full py-4 text-lg text-white shadow-card bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-700 hover:to-violet-700"
+            className="card-interactive flex items-center justify-between p-5"
           >
-            Continue Review ({dueCards.length})
-            <ArrowRight size={20} />
+            <div className="flex items-center gap-3">
+              <Layers className="text-brand-500" size={24} />
+              <div>
+                <p className="font-semibold">Review due cards</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {dueCards.length} from spaced repetition
+                </p>
+              </div>
+            </div>
+            <ArrowRight className="text-gray-400" size={20} />
           </Link>
         )}
+
         <Link
           to="/learn"
           className="card-interactive flex items-center justify-between p-5"
