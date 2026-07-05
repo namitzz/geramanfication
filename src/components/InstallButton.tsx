@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Download, X, Share, PlusSquare } from 'lucide-react';
-
-interface BeforeInstallPromptEvent extends Event {
-  prompt: () => Promise<void>;
-  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
-}
+import { Download, X, Share, PlusSquare, MoreVertical, Monitor } from 'lucide-react';
+import { clearInstallPrompt, getInstallPrompt } from '../utils/installPrompt';
 
 const isStandalone = (): boolean =>
   window.matchMedia('(display-mode: standalone)').matches ||
@@ -17,51 +13,38 @@ const isIOS = (): boolean =>
   (navigator.userAgent.includes('Mac') && 'ontouchend' in document);
 
 /**
- * "Install app" button for the top bar. Uses the native install prompt where
- * the browser offers one (Chrome/Edge/Android); on iOS shows Add-to-Home-Screen
- * instructions (Safari has no install API). Hidden once the app is installed.
+ * "Install app" button for the top bar. Uses the native install prompt when
+ * the browser captured one (see utils/installPrompt.ts — the event fires
+ * before React mounts); otherwise shows per-platform install instructions.
+ * Hidden once the app runs standalone (already installed).
  */
 const InstallButton = () => {
-  const [deferred, setDeferred] = useState<BeforeInstallPromptEvent | null>(null);
   const [installed, setInstalled] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
 
   useEffect(() => {
     setInstalled(isStandalone());
-
-    const onPrompt = (e: Event) => {
-      e.preventDefault();
-      setDeferred(e as BeforeInstallPromptEvent);
-    };
-    const onInstalled = () => {
-      setInstalled(true);
-      setDeferred(null);
-    };
-    window.addEventListener('beforeinstallprompt', onPrompt);
+    const onInstalled = () => setInstalled(true);
     window.addEventListener('appinstalled', onInstalled);
-    return () => {
-      window.removeEventListener('beforeinstallprompt', onPrompt);
-      window.removeEventListener('appinstalled', onInstalled);
-    };
+    return () => window.removeEventListener('appinstalled', onInstalled);
   }, []);
 
   if (installed) return null;
 
-  const canPrompt = deferred !== null;
-  const ios = isIOS();
-  // Nothing useful to offer (e.g. Firefox desktop): stay out of the way.
-  if (!canPrompt && !ios) return null;
-
   const install = async () => {
-    if (deferred) {
-      await deferred.prompt();
-      const { outcome } = await deferred.userChoice;
+    // Read the prompt live at click time (captured before React mounted).
+    const prompt = getInstallPrompt();
+    if (prompt) {
+      await prompt.prompt();
+      const { outcome } = await prompt.userChoice;
+      clearInstallPrompt();
       if (outcome === 'accepted') setInstalled(true);
-      setDeferred(null);
     } else {
       setShowHelp(true);
     }
   };
+
+  const ios = isIOS();
 
   return (
     <>
@@ -74,7 +57,7 @@ const InstallButton = () => {
         <span className="hidden sm:inline">Install</span>
       </button>
 
-      {/* iOS Add-to-Home-Screen instructions */}
+      {/* Install instructions when no native prompt is available */}
       {showHelp && (
         <div
           className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-black/50 p-4"
@@ -90,20 +73,37 @@ const InstallButton = () => {
                 <X size={20} className="text-gray-400" />
               </button>
             </div>
-            <ol className="space-y-3 text-sm text-gray-700 dark:text-gray-300">
-              <li className="flex items-center gap-2">
-                <Share size={18} className="text-brand-500 flex-shrink-0" />
-                Tap the <strong>Share</strong> button in Safari
-              </li>
-              <li className="flex items-center gap-2">
-                <PlusSquare size={18} className="text-brand-500 flex-shrink-0" />
-                Choose <strong>Add to Home Screen</strong>
-              </li>
-              <li className="flex items-center gap-2">
-                <Download size={18} className="text-brand-500 flex-shrink-0" />
-                Tap <strong>Add</strong> — done, works offline!
-              </li>
-            </ol>
+            {ios ? (
+              <ol className="space-y-3 text-sm text-gray-700 dark:text-gray-300">
+                <li className="flex items-center gap-2">
+                  <Share size={18} className="text-brand-500 flex-shrink-0" />
+                  Tap the <strong>Share</strong> button in Safari
+                </li>
+                <li className="flex items-center gap-2">
+                  <PlusSquare size={18} className="text-brand-500 flex-shrink-0" />
+                  Choose <strong>Add to Home Screen</strong>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Download size={18} className="text-brand-500 flex-shrink-0" />
+                  Tap <strong>Add</strong> — done, works offline!
+                </li>
+              </ol>
+            ) : (
+              <ol className="space-y-3 text-sm text-gray-700 dark:text-gray-300">
+                <li className="flex items-center gap-2">
+                  <MoreVertical size={18} className="text-brand-500 flex-shrink-0" />
+                  Open the browser <strong>menu (⋮)</strong>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Monitor size={18} className="text-brand-500 flex-shrink-0" />
+                  Choose <strong>Install app</strong> / <strong>Add to Home screen</strong>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Download size={18} className="text-brand-500 flex-shrink-0" />
+                  Confirm — DeutschSprint works offline!
+                </li>
+              </ol>
+            )}
           </div>
         </div>
       )}
