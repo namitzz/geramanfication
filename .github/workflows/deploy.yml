@@ -55,6 +55,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      # The Pages deploy step fails transiently now and then; retry once
+      # before failing the run for real.
       - name: Deploy to GitHub Pages
         id: deployment
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      - name: Retry deploy (transient Pages failures)
+        id: deployment-retry
+        if: steps.deployment.outcome == 'failure'
         uses: actions/deploy-pages@v4
