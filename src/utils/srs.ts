@@ -67,6 +67,33 @@ export const updateSrsRecordOnReview = (
   }
 };
 
+export type SrsGrade = 'again' | 'good' | 'easy';
+
+/**
+ * Three-grade Leitner update (spec): Again -> box 1, Good -> box +1,
+ * Easy -> box +2 (max 5).
+ */
+export const gradeSrsRecord = (record: SrsRecord, grade: SrsGrade): SrsRecord => {
+  const now = new Date().toISOString();
+  if (grade === 'again') {
+    return {
+      ...record,
+      box: 1,
+      lastReviewed: now,
+      nextDue: calculateNextReviewDate(1),
+      successStreak: 0,
+    };
+  }
+  const newBox = Math.min(record.box + (grade === 'easy' ? 2 : 1), 5) as LeitnerBox;
+  return {
+    ...record,
+    box: newBox,
+    lastReviewed: now,
+    nextDue: calculateNextReviewDate(newBox),
+    successStreak: record.successStreak + 1,
+  };
+};
+
 // Check if a card is due for review
 export const isCardDue = (record: SrsRecord | undefined): boolean => {
   if (!record) return true; // New cards are always due

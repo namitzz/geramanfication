@@ -87,7 +87,7 @@ const QuizRunner = ({ pool, allLessons, mode, onSpeak, onExit }: Props) => {
   if (done) {
     const pct = Math.round((score / questions.length) * 100);
     return (
-      <div className="max-w-2xl mx-auto card p-8 text-center animate-fade-in-up">
+      <div className="max-w-2xl mx-auto card p-8 text-center screen-in">
         <GraduationCap className="mx-auto text-brand-500 mb-4" size={72} />
         <h2 className="text-3xl font-bold mb-2">Quiz Complete!</h2>
         <p className="text-xl mb-6">
@@ -128,7 +128,7 @@ const QuizRunner = ({ pool, allLessons, mode, onSpeak, onExit }: Props) => {
         </span>
       </div>
 
-      <div key={index} className="card p-8 animate-fade-in-up">
+      <div key={index} className="card p-8 screen-in">
         <div className="flex items-center gap-3 mb-6">
           <h2 className="text-3xl font-bold">{current.de}</h2>
           <button
@@ -184,7 +184,7 @@ const QuizRunner = ({ pool, allLessons, mode, onSpeak, onExit }: Props) => {
         )}
 
         {revealed && (
-          <div className={`mt-4 p-4 rounded-lg animate-pop ${correct ? 'bg-green-50 dark:bg-green-900/20' : 'bg-red-50 dark:bg-red-900/20'}`}>
+          <div className={`mt-4 p-4 rounded-lg fx-snap ${correct ? 'bg-green-50 dark:bg-green-900/20' : 'bg-red-50 dark:bg-red-900/20'}`}>
             <div className="flex items-center gap-2 font-semibold">
               {correct ? (
                 <>

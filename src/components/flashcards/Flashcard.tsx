@@ -1,16 +1,24 @@
 import { useEffect, useState } from 'react';
 import type { Card } from '../../types';
-import { Volume2, RotateCw } from 'lucide-react';
+import type { SrsGrade } from '../../utils/srs';
 import { speak } from '../../utils/tts';
 import { useAppStore } from '../../stores/appStore';
 import { sfxCorrect, sfxWrong } from '../../utils/sfx';
 
 interface FlashcardProps {
   card: Card;
-  onAnswer: (correct: boolean) => void;
+  /** Three-grade SRS answer: Again (box 1) / Good (+1) / Easy (+2). */
+  onGrade: (grade: SrsGrade) => void;
 }
 
-const Flashcard = ({ card, onAnswer }: FlashcardProps) => {
+const SpeakerIcon = () => (
+  <svg width="19" height="19" viewBox="0 0 24 24" fill="none">
+    <path d="M4 9h3l4-3v12l-4-3H4z" fill="currentColor" />
+    <path d="M15 8a4 4 0 0 1 0 8" stroke="currentColor" strokeWidth="1.8" fill="none" strokeLinecap="round" />
+  </svg>
+);
+
+const Flashcard = ({ card, onGrade }: FlashcardProps) => {
   const [flipped, setFlipped] = useState(false);
   const { settings } = useAppStore();
 
@@ -24,97 +32,123 @@ const Flashcard = ({ card, onAnswer }: FlashcardProps) => {
     }
   }, [card.id, card.de, settings.ttsEnabled]);
 
-  const handleSpeak = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (settings.ttsEnabled) speak(card.de, 'de-DE');
+  const grade = (g: SrsGrade) => {
+    if (g === 'again') sfxWrong();
+    else sfxCorrect();
+    onGrade(g);
   };
 
   return (
-    <div className="w-full max-w-md mx-auto">
+    <div className="mx-auto w-full max-w-md">
+      <p className="eyebrow mb-4 text-center" style={{ color: 'var(--faint)' }}>
+        tap to flip
+      </p>
+
       {/* 3D flip card */}
       <div
-        className="flip-scene relative min-h-[300px] cursor-pointer"
+        className="flip-scene relative min-h-[290px] cursor-pointer"
         onClick={() => setFlipped((f) => !f)}
         role="button"
         aria-label={flipped ? 'Show German side' : 'Reveal translation'}
       >
-        <div className={`flip-inner relative min-h-[300px] ${flipped ? 'is-flipped' : ''}`}>
+        <div className={`flip-inner relative min-h-[290px] ${flipped ? 'is-flipped' : ''}`}>
           {/* Front: German */}
-          <div className="flip-face absolute inset-0 card p-8 flex flex-col justify-between">
-            <div className="flex-1 flex flex-col items-center justify-center text-center">
-              <h2 className="text-3xl font-bold mb-2">
-                {card.article && (
-                  <span className="text-brand-600 dark:text-brand-400 mr-2">
-                    {card.article}
-                  </span>
-                )}
-                {card.de}
-              </h2>
-              {card.partOfSpeech && (
-                <p className="text-sm text-gray-500 dark:text-gray-400 italic">
-                  {card.partOfSpeech}
-                </p>
+          <div
+            className="flip-face absolute inset-0 flex flex-col items-center justify-center rounded-3xl p-8 text-center"
+            style={{
+              background: 'var(--surface)',
+              border: '1px solid var(--line)',
+              boxShadow: '0 24px 46px -32px rgba(33,30,69,.5)',
+            }}
+          >
+            <p className="fr text-[40px] font-medium" style={{ color: 'var(--ink)' }}>
+              {card.article ? (
+                <>
+                  <span style={{ color: 'var(--primary)' }}>{card.article}</span> {card.de}
+                </>
+              ) : (
+                card.de
               )}
-              <button
-                className="mt-6 p-3 bg-brand-600 hover:bg-brand-700 text-white rounded-full transition-colors"
-                onClick={handleSpeak}
-                aria-label="Pronounce word"
-              >
-                <Volume2 size={24} />
-              </button>
-            </div>
-            <div className="flex items-center justify-center mt-4 text-gray-400 dark:text-gray-500">
-              <RotateCw size={18} className="mr-2" />
-              <span className="text-sm">Tap to flip</span>
-            </div>
+            </p>
+            {card.partOfSpeech && (
+              <p className="mt-1 text-sm italic" style={{ color: 'var(--faint)' }}>
+                {card.partOfSpeech}
+              </p>
+            )}
+            <button
+              className="press mt-5 inline-flex h-[46px] w-[46px] items-center justify-center rounded-full"
+              style={{ background: 'var(--surface2)', border: '1px solid var(--line)', color: 'var(--primary)' }}
+              onClick={(e) => {
+                e.stopPropagation();
+                if (settings.ttsEnabled) speak(card.de, 'de-DE');
+                else speak(card.de, 'de-DE');
+              }}
+              aria-label="Pronounce word"
+            >
+              <SpeakerIcon />
+            </button>
           </div>
 
           {/* Back: English */}
-          <div className="flip-face flip-back absolute inset-0 card p-8 flex flex-col justify-between">
-            <div className="flex-1 flex flex-col items-center justify-center text-center">
-              <h2 className="text-3xl font-bold mb-2 text-green-600 dark:text-green-400">
-                {card.en}
-              </h2>
-              {card.exampleDe && (
-                <p className="text-sm text-gray-600 dark:text-gray-300 mt-3">
-                  🇩🇪 {card.exampleDe}
-                </p>
-              )}
-              {card.note && (
-                <p className="text-sm text-gray-600 dark:text-gray-300 mt-3 italic">
-                  💡 {card.note}
-                </p>
-              )}
-            </div>
-            <div className="flex items-center justify-center mt-4 text-gray-400 dark:text-gray-500">
-              <RotateCw size={18} className="mr-2" />
-              <span className="text-sm">Tap to flip back</span>
-            </div>
+          <div
+            className="flip-face flip-back absolute inset-0 flex flex-col items-center justify-center rounded-3xl p-8 text-center"
+            style={{
+              background: 'var(--surface)',
+              border: '1px solid var(--line)',
+              boxShadow: '0 24px 46px -32px rgba(33,30,69,.5)',
+            }}
+          >
+            <p className="fr text-[30px] font-semibold" style={{ color: 'var(--good)' }}>
+              {card.en}
+            </p>
+            {card.exampleDe && (
+              <p className="mt-4 text-[15px] italic leading-6" style={{ color: 'var(--muted)' }}>
+                „{card.exampleDe}“
+              </p>
+            )}
+            {card.note && (
+              <p className="mt-3 text-sm italic" style={{ color: 'var(--muted)' }}>
+                {card.note}
+              </p>
+            )}
           </div>
         </div>
       </div>
 
-      {flipped && (
-        <div className="flex gap-4 mt-6 animate-fade-in-up">
-          <button
-            className="btn flex-1 py-3 bg-red-500 hover:bg-red-600 text-white"
-            onClick={() => {
-              sfxWrong();
-              onAnswer(false);
-            }}
-          >
-            Again
-          </button>
-          <button
-            className="btn flex-1 py-3 bg-green-500 hover:bg-green-600 text-white"
-            onClick={() => {
-              sfxCorrect();
-              onAnswer(true);
-            }}
-          >
-            Got it!
-          </button>
+      {/* Grades */}
+      {flipped ? (
+        <div className="fx-fade-up mt-6">
+          <p className="mb-3 text-center text-sm" style={{ color: 'var(--muted)' }}>
+            How well did you know it?
+          </p>
+          <div className="grid grid-cols-3 gap-2.5">
+            <button
+              className="press rounded-[14px] py-3.5 text-[15px] font-bold"
+              style={{ background: 'var(--bad-soft)', color: 'var(--bad)', border: '1.5px solid var(--bad)' }}
+              onClick={() => grade('again')}
+            >
+              Again
+            </button>
+            <button
+              className="press rounded-[14px] py-3.5 text-[15px] font-bold text-white"
+              style={{ background: 'var(--primary)', boxShadow: '0 14px 26px -16px var(--primary)' }}
+              onClick={() => grade('good')}
+            >
+              Good
+            </button>
+            <button
+              className="press rounded-[14px] py-3.5 text-[15px] font-bold"
+              style={{ background: 'var(--good-soft)', color: 'var(--good)', border: '1.5px solid var(--good)' }}
+              onClick={() => grade('easy')}
+            >
+              Easy
+            </button>
+          </div>
         </div>
+      ) : (
+        <button onClick={() => setFlipped(true)} className="btn-primary press mt-6 w-full py-4">
+          Reveal answer
+        </button>
       )}
     </div>
   );

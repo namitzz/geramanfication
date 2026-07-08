@@ -141,7 +141,7 @@ const SpeakPage = () => {
         <BackButton />
         <header>
           <h1 className="text-3xl font-bold mb-2 flex items-center gap-2">
-            <Mic size={30} className="text-rose-500" />
+            <Mic size={30} className="text-brand-600" />
             Speak & Score
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
@@ -159,7 +159,7 @@ const SpeakPage = () => {
                   onClick={() => setLevel(l)}
                   className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
                     level === l
-                      ? 'bg-rose-500 text-white'
+                      ? 'bg-brand-600 text-white'
                       : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
                   }`}
                 >
@@ -186,7 +186,7 @@ const SpeakPage = () => {
 
           <button
             onClick={start}
-            className="btn w-full py-4 bg-rose-500 hover:bg-rose-600 text-white text-lg"
+            className="btn w-full py-4 bg-brand-600 hover:bg-brand-700 text-white text-lg"
           >
             <Mic size={22} /> Start
           </button>
@@ -221,19 +221,19 @@ const SpeakPage = () => {
         <span className="text-gray-600 dark:text-gray-400">
           {index + 1} of {items.length}
         </span>
-        <span className="font-semibold text-rose-600 dark:text-rose-400">
+        <span className="font-semibold text-brand-600 dark:text-brand-400">
           Score: {score}
         </span>
       </div>
 
       <div className="mb-6 bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
         <div
-          className="bg-rose-500 h-full transition-all duration-300"
+          className="bg-brand-600 h-full transition-all duration-300"
           style={{ width: `${((index + 1) / items.length) * 100}%` }}
         />
       </div>
 
-      <div key={index} className="card p-6 space-y-6 animate-fade-in-up text-center">
+      <div key={index} className="card p-6 space-y-6 screen-in text-center">
         <div>
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
             Say this sentence:
@@ -273,8 +273,8 @@ const SpeakPage = () => {
             disabled={listening}
             className={`p-5 rounded-full text-white transition-all ${
               listening
-                ? 'bg-rose-600 animate-pulse scale-110'
-                : 'bg-rose-500 hover:bg-rose-600 active:scale-95'
+                ? 'bg-brand-700 animate-pulse scale-110'
+                : 'bg-brand-600 hover:bg-brand-700 active:scale-95'
             }`}
             aria-label="Speak now"
           >
@@ -286,11 +286,11 @@ const SpeakPage = () => {
         </p>
 
         {error && (
-          <p className="text-sm text-red-500 animate-pop">{error}</p>
+          <p className="text-sm text-red-500 fx-snap">{error}</p>
         )}
 
         {attempted && (
-          <div className="space-y-3 animate-pop">
+          <div className="space-y-3 fx-snap">
             <p
               className={`font-semibold ${
                 passed ? 'text-green-600 dark:text-green-400' : 'text-red-500'
@@ -311,7 +311,7 @@ const SpeakPage = () => {
               )}
               <button
                 onClick={next}
-                className="btn px-5 py-2.5 bg-rose-500 hover:bg-rose-600 text-white"
+                className="btn px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white"
               >
                 {index < items.length - 1 ? 'Next' : 'Finish'}
               </button>

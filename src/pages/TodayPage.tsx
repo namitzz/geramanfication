@@ -4,7 +4,7 @@ import { CalendarCheck, CheckCircle, Flame, Zap } from 'lucide-react';
 import type { Card } from '../types';
 import { getDailyBatch, WORDS_PER_DAY } from '../content/dailyWords';
 import { useAppStore } from '../stores/appStore';
-import { initializeSrsRecord, updateSrsRecordOnReview } from '../utils/srs';
+import { initializeSrsRecord, updateSrsRecordOnReview, gradeSrsRecord, type SrsGrade } from '../utils/srs';
 import Flashcard from '../components/flashcards/Flashcard';
 import MultipleChoiceQuiz from '../components/quiz/MultipleChoiceQuiz';
 import TypeInQuiz from '../components/quiz/TypeInQuiz';
@@ -54,6 +54,14 @@ const TodayPage = () => {
   }, [doneForToday]);
   const currentCard = batch?.[position];
 
+  const handleGrade = (grade: SrsGrade) => {
+    if (!currentCard) return;
+    let record = getSrsRecord(currentCard.id);
+    if (!record) record = initializeSrsRecord(currentCard.id);
+    updateSrsRecord(gradeSrsRecord(record, grade));
+    afterAnswer(grade !== 'again', record.box);
+  };
+
   const handleAnswer = (correct: boolean) => {
     if (!currentCard) return;
 
@@ -61,8 +69,13 @@ const TodayPage = () => {
     let record = getSrsRecord(currentCard.id);
     if (!record) record = initializeSrsRecord(currentCard.id);
     updateSrsRecord(updateSrsRecordOnReview(record, correct));
+    afterAnswer(correct, record.box);
+  };
 
-    if (correct && record.box === 1) {
+  const afterAnswer = (correct: boolean, previousBox: number) => {
+    if (!currentCard) return;
+
+    if (correct && previousBox === 1) {
       updateProgress({ wordsLearned: progress.wordsLearned + 1 });
     }
     if (!correct) {
@@ -107,7 +120,7 @@ const TodayPage = () => {
   // ----- Done for today -----
   if (doneForToday) {
     return (
-      <div className="max-w-xl mx-auto text-center py-10 space-y-6 animate-fade-in-up">
+      <div className="max-w-xl mx-auto text-center py-10 space-y-6 screen-in">
         <CheckCircle className="mx-auto text-green-500" size={72} />
         <h1 className="text-3xl font-bold">Done for today! 🎉</h1>
         <p className="text-gray-600 dark:text-gray-400">
@@ -162,7 +175,7 @@ const TodayPage = () => {
       <ModeToggle mode={mode} onChange={setMode} />
 
       {currentCard && mode === 'flashcard' && (
-        <Flashcard card={currentCard} onAnswer={handleAnswer} />
+        <Flashcard card={currentCard} onGrade={handleGrade} />
       )}
       {currentCard && mode === 'multiple-choice' && (
         <MultipleChoiceQuiz

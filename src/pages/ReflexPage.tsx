@@ -154,7 +154,7 @@ const ReflexPage = () => {
     const accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
     return (
       <div className="max-w-xl mx-auto">
-        <div className="card p-8 text-center space-y-4 animate-fade-in-up">
+        <div className="card p-8 text-center space-y-4 screen-in">
           <Flame className="mx-auto text-orange-500" size={64} />
           <h2 className="text-3xl font-bold">Time!</h2>
           <div className="grid grid-cols-3 gap-3">
@@ -211,7 +211,7 @@ const ReflexPage = () => {
         </span>
         <span className="chip bg-gray-100 dark:bg-gray-700">✓ {correct}</span>
         {combo >= 2 && (
-          <span className="chip bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-300 animate-pop">
+          <span className="chip bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-300 fx-snap">
             <Flame size={16} /> ×{combo}
           </span>
         )}
@@ -224,13 +224,13 @@ const ReflexPage = () => {
         />
       </div>
 
-      <div key={index} className="card p-8 text-center animate-pop">
+      <div key={index} className="card p-8 text-center fx-snap">
         <p className="text-4xl font-bold mb-1">{noun.de}</p>
         <p className="text-sm text-gray-500 dark:text-gray-400">{noun.en}</p>
       </div>
 
       {feedback && !feedback.ok ? (
-        <div className="p-4 rounded-lg bg-red-50 dark:bg-red-900/20 text-center animate-pop">
+        <div className="p-4 rounded-lg bg-red-50 dark:bg-red-900/20 text-center fx-snap">
           <p className="font-semibold text-red-600 dark:text-red-400">
             {noun.article} {noun.de}
           </p>

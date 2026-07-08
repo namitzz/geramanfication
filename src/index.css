@@ -2,6 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================
+   Fuchs & The Trail design tokens (from the design handoff).
+   Light = warm cream + indigo; dark = deep indigo night.
+   Amber is reserved for Fuchs's coat and the streak flame.
+   ============================================================ */
+:root {
+  --bg: #f1ede4;
+  --surface: #faf8f4;
+  --surface2: #f1ebdf;
+  --ink: #211e3b;
+  --muted: #5b5775;
+  --faint: #9491ac;
+  --line: #dedaef;
+  --primary: #4e47c9;
+  --primary-ink: #3b36a0;
+  --primary-soft: #e7e5fb;
+  --violet: #7b6ef0;
+  --indigo900: #211e45;
+  --amber: #ee9b4d;
+  --amber-deep: #dd8531;
+  --amber-soft: #fbeedd;
+  --good: #2e9e7b;
+  --good-soft: #dcefe8;
+  --bad: #d2596a;
+  --bad-soft: #f6e2e5;
+  --ring: #e4e1f1;
+  --grad: linear-gradient(135deg, #3b36a0, #4e47c9 55%, #7b6ef0);
+  --grad-soft: linear-gradient(160deg, #4e47c9, #7b6ef0);
+  --grad-deep: linear-gradient(160deg, #211e45, #3b36a0);
+}
+.dark {
+  --bg: #161428;
+  --surface: #211e3d;
+  --surface2: #2a2650;
+  --ink: #eceafb;
+  --muted: #a9a4cc;
+  --faint: #6e6a92;
+  --line: #332f55;
+  --primary: #6e67e0;
+  --primary-ink: #8a83f0;
+  --primary-soft: #2c2856;
+  --violet: #9488ff;
+  --indigo900: #12102a;
+  --amber: #f0a860;
+  --amber-deep: #e08e45;
+  --amber-soft: #33281c;
+  --good: #4fbf9e;
+  --good-soft: #173029;
+  --bad: #ee7a88;
+  --bad-soft: #33202a;
+  --ring: #2e2a50;
+  --grad: linear-gradient(135deg, #2b2870, #4e47c9 55%, #7b6ef0);
+  --grad-soft: linear-gradient(160deg, #4e47c9, #7b6ef0);
+  --grad-deep: linear-gradient(160deg, #12102a, #2b2870);
+}
+
 @layer base {
   body {
     @apply font-sans antialiased;
@@ -11,37 +67,69 @@
     @apply font-dyslexic;
   }
 
-  /* Clearer keyboard focus across the app. */
   :focus-visible {
-    @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-white dark:ring-offset-gray-900;
+    outline: none;
+    box-shadow:
+      0 0 0 2px var(--surface),
+      0 0 0 4px var(--primary);
   }
 
-  /* Smoother color changes when toggling dark mode. */
   body,
   .theme-transition {
-    @apply transition-colors duration-200;
+    @apply transition-colors duration-300;
   }
 }
 
 @layer components {
   .card {
-    @apply bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-card border border-gray-100 dark:border-gray-700/60;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    @apply rounded-[18px] shadow-card;
   }
 
   .card-interactive {
-    @apply card transition-all duration-200 hover:shadow-card-hover hover:-translate-y-0.5;
+    @apply card transition-all duration-200 hover:shadow-card-hover;
   }
 
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-all duration-150 active:scale-[0.97] disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply inline-flex items-center justify-center gap-2 rounded-[14px] font-semibold transition-all duration-150 active:scale-[0.97] disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
+  /* Primary indigo button (spec: 14px radius, soft indigo shadow). */
   .btn-primary {
-    @apply btn bg-brand-600 hover:bg-brand-700 text-white;
+    @apply btn text-white font-bold;
+    background: var(--primary);
+    box-shadow: 0 14px 26px -16px var(--primary);
   }
 
   .chip {
     @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold;
+  }
+
+  /* Eyebrow/tag: 700 uppercase letter-spaced caption. */
+  .eyebrow {
+    @apply text-[11px] font-bold uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* Exercise rule tag chip. */
+  .rule-tag {
+    @apply eyebrow self-start rounded-full px-3 py-[5px] mb-4;
+    color: var(--primary);
+    background: var(--primary-soft);
+  }
+  .rule-tag-amber {
+    @apply eyebrow self-start rounded-full px-3 py-[5px] mb-4;
+    color: var(--amber-deep);
+    background: var(--amber-soft);
+  }
+
+  /* Press feedback on every interactive element (spec). */
+  .press {
+    transition: transform 0.08s ease;
+  }
+  .press:active {
+    transform: scale(0.97);
   }
 }
 
@@ -50,22 +138,60 @@
     text-wrap: balance;
   }
 
-  /* Respect device safe areas (notches / home indicator). */
   .pb-safe {
     padding-bottom: env(safe-area-inset-bottom);
   }
 
-  /* Confetti pieces (SessionResults celebration). */
-  .confetti-piece {
-    position: absolute;
-    top: 0;
-    width: 8px;
-    height: 14px;
-    border-radius: 2px;
-    animation: confetti-fall 2.8s ease-in forwards;
+  /* Serif display face (Fraunces). */
+  .fr {
+    font-family: 'Fraunces', Georgia, serif;
+    letter-spacing: -0.01em;
   }
 
-  /* 3D card flip (scene > inner > two faces). */
+  .bg-grad {
+    background: var(--grad);
+  }
+  .bg-grad-soft {
+    background: var(--grad-soft);
+  }
+  .bg-grad-deep {
+    background: var(--grad-deep);
+  }
+
+  /* Signature motion (spec §Signature Motion). */
+  .screen-in {
+    animation: screenIn 0.34s ease;
+  }
+  .fx-breathe {
+    animation: breathe 3.4s ease-in-out infinite;
+  }
+  .fx-perk {
+    animation: fuchsPerk 0.7s cubic-bezier(0.34, 1.4, 0.5, 1);
+  }
+  .fx-snap {
+    animation: snapIn 0.34s ease;
+  }
+  .fx-shake {
+    animation: shakeX 0.4s;
+  }
+  .fx-fade-up {
+    animation: fadeUp 0.4s ease;
+  }
+  .fx-needle {
+    animation: needle 1.6s ease-in-out infinite;
+  }
+  .fx-pulse-ring {
+    animation: pulseRing 2s ease-out infinite;
+  }
+  .fx-thread-draw {
+    stroke-dashoffset: 900;
+    animation: threadDraw 2.2s ease forwards;
+  }
+  .fx-float-up {
+    animation: floatUp 1.4s ease forwards;
+  }
+
+  /* 3D card flip (kept from the existing flashcard). */
   .flip-scene {
     perspective: 1200px;
   }
@@ -83,67 +209,133 @@
   .flip-back {
     transform: rotateY(180deg);
   }
-
-  .page-enter {
-    animation: fade-in-up 0.35s ease-out;
-  }
-
-  /* Ambient color washes behind the whole app (fixed, subtle).
-     Midnight Arcade: bolt-red and gold embers over deep ink. */
-  .app-bg {
-    background-image:
-      radial-gradient(640px circle at 8% -4%, rgba(239, 33, 64, 0.10), transparent 42%),
-      radial-gradient(720px circle at 104% 12%, rgba(255, 206, 0, 0.09), transparent 46%),
-      radial-gradient(640px circle at 50% 108%, rgba(110, 118, 148, 0.12), transparent 42%);
-    background-attachment: fixed;
-  }
-  .dark .app-bg {
-    background-image:
-      radial-gradient(640px circle at 8% -4%, rgba(239, 33, 64, 0.17), transparent 42%),
-      radial-gradient(720px circle at 104% 12%, rgba(255, 206, 0, 0.09), transparent 46%),
-      radial-gradient(640px circle at 55% 112%, rgba(99, 102, 241, 0.14), transparent 44%);
-  }
-
-  /* Slow "breathing" gradient for hero surfaces. */
-  .animate-gradient {
-    background-size: 200% 200%;
-    animation: gradient-shift 8s ease infinite;
-  }
-
-  /* Staggered springy entrance for cards/lists. */
-  .stagger > * {
-    animation: spring-in 0.45s cubic-bezier(0.34, 1.4, 0.64, 1) backwards;
-  }
-  .stagger > *:nth-child(1) { animation-delay: 0.04s; }
-  .stagger > *:nth-child(2) { animation-delay: 0.08s; }
-  .stagger > *:nth-child(3) { animation-delay: 0.12s; }
-  .stagger > *:nth-child(4) { animation-delay: 0.16s; }
-  .stagger > *:nth-child(5) { animation-delay: 0.20s; }
-  .stagger > *:nth-child(6) { animation-delay: 0.24s; }
-  .stagger > *:nth-child(7) { animation-delay: 0.28s; }
-  .stagger > *:nth-child(8) { animation-delay: 0.32s; }
 }
 
-@keyframes gradient-shift {
-  0%,
+/* Spec keyframes — values copied from the prototype. */
+@keyframes screenIn {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
   100% {
-    background-position: 0% 50%;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes snapIn {
+  0% {
+    transform: scale(1.05);
+  }
+  55% {
+    transform: scale(0.975);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes shakeX {
+  10%,
+  90% {
+    transform: translateX(-2px);
+  }
+  30%,
+  70% {
+    transform: translateX(3px);
   }
   50% {
-    background-position: 100% 50%;
+    transform: translateX(-5px);
+  }
+}
+@keyframes floatUp {
+  0% {
+    transform: translate(-50%, 4px);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -42px);
+    opacity: 0;
+  }
+}
+@keyframes fadeUp {
+  0% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes threadDraw {
+  0% {
+    stroke-dashoffset: 900;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes needle {
+  0%,
+  100% {
+    transform: translateX(-1px);
+  }
+  50% {
+    transform: translateX(2px);
+  }
+}
+@keyframes pulseRing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(78, 71, 201, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(78, 71, 201, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(78, 71, 201, 0);
+  }
+}
+@keyframes breathe {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+@keyframes fuchsPerk {
+  0% {
+    transform: rotate(0) scale(1);
+  }
+  30% {
+    transform: rotate(-5deg) scale(1.05);
+  }
+  60% {
+    transform: rotate(3deg) scale(1.02);
+  }
+  100% {
+    transform: rotate(0) scale(1);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .page-enter,
-  .stagger > *,
-  .animate-fade-in-up,
-  .animate-gradient,
-  .animate-spring-in,
-  .animate-glow-pulse,
-  .confetti-piece,
-  .animate-pop {
+  .screen-in,
+  .fx-breathe,
+  .fx-perk,
+  .fx-snap,
+  .fx-shake,
+  .fx-fade-up,
+  .fx-needle,
+  .fx-pulse-ring,
+  .fx-float-up,
+  .fx-thread-draw {
     animation: none !important;
+  }
+  .fx-thread-draw {
+    stroke-dashoffset: 0 !important;
   }
   .flip-inner {
     transition: none !important;

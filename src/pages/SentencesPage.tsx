@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
   MessageSquareText,
   Volume2,
@@ -45,7 +46,14 @@ function shuffleTokens(tokens: string[]): string[] {
 
 const SentencesPage = () => {
   const [phase, setPhase] = useState<Phase>('setup');
-  const [mode, setMode] = useState<Mode>('build');
+  // Deep link support: /sentences?mode=build|listen|translate (Practice rows).
+  const [searchParams] = useSearchParams();
+  const urlMode = searchParams.get('mode');
+  const [mode, setMode] = useState<Mode>(
+    urlMode === 'listen' || urlMode === 'translate' || urlMode === 'build'
+      ? urlMode
+      : 'build'
+  );
   const [level, setLevel] = useState<CEFRLevel | 'all'>('A1');
   const [count, setCount] = useState(10);
   const [counts, setCounts] = useState<Record<string, number>>({});
@@ -145,7 +153,7 @@ const SentencesPage = () => {
         <BackButton />
         <header>
           <h1 className="text-3xl font-bold mb-2 flex items-center gap-2">
-            <MessageSquareText size={30} className="text-emerald-500" />
+            <MessageSquareText size={30} className="text-brand-600" />
             Sentence Lab
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
@@ -166,11 +174,11 @@ const SentencesPage = () => {
                     disabled={disabled}
                     className={`p-4 rounded-lg border-2 text-left transition-colors disabled:opacity-40 ${
                       mode === id
-                        ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/20'
-                        : 'border-gray-300 dark:border-gray-600 hover:border-emerald-400'
+                        ? 'border-brand-600 bg-brand-50 dark:bg-brand-800'
+                        : 'border-gray-300 dark:border-gray-600 hover:border-brand-400'
                     }`}
                   >
-                    <Icon size={22} className="text-emerald-500 mb-2" />
+                    <Icon size={22} className="text-brand-600 mb-2" />
                     <div className="font-semibold text-sm">{label}</div>
                     <div className="text-xs text-gray-500 dark:text-gray-400">
                       {disabled ? 'Audio not available' : blurb}
@@ -190,7 +198,7 @@ const SentencesPage = () => {
                   onClick={() => setLevel(l)}
                   className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
                     level === l
-                      ? 'bg-emerald-500 text-white'
+                      ? 'bg-brand-600 text-white'
                       : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
                   }`}
                 >
@@ -220,7 +228,7 @@ const SentencesPage = () => {
 
           <button
             onClick={start}
-            className="w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-semibold text-lg transition-colors"
+            className="w-full py-4 bg-brand-600 hover:bg-brand-700 text-white rounded-lg font-semibold text-lg transition-colors"
           >
             Start
           </button>
@@ -235,7 +243,7 @@ const SentencesPage = () => {
       <SessionResults
         score={score}
         total={items.length}
-        accent="emerald"
+        accent="brand"
         xpEarned={xpEarned}
         onRetry={start}
         onExit={() => setPhase('setup')}
@@ -251,7 +259,7 @@ const SentencesPage = () => {
         <div className="mt-4">
           <button
             onClick={() => setPhase('setup')}
-            className="px-6 py-3 bg-emerald-500 text-white rounded-lg font-semibold"
+            className="px-6 py-3 bg-brand-600 text-white rounded-lg font-semibold"
           >
             Back
           </button>
@@ -270,19 +278,19 @@ const SentencesPage = () => {
         <span className="text-gray-600 dark:text-gray-400">
           {index + 1} of {items.length}
         </span>
-        <span className="font-semibold text-emerald-600 dark:text-emerald-400">
+        <span className="font-semibold text-brand-600 dark:text-brand-400">
           Score: {score}
         </span>
       </div>
 
       <div className="mb-6 bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
         <div
-          className="bg-emerald-500 h-full transition-all duration-300"
+          className="bg-brand-600 h-full transition-all duration-300"
           style={{ width: `${((index + 1) / items.length) * 100}%` }}
         />
       </div>
 
-      <div key={index} className="card p-6 space-y-5 animate-fade-in-up">
+      <div key={index} className="card p-6 space-y-5 screen-in">
         {/* Prompt */}
         {mode === 'build' && (
           <div className="text-center">
@@ -304,7 +312,7 @@ const SentencesPage = () => {
           <div className="text-center">
             <button
               onClick={() => speak(current.de).catch(() => {})}
-              className="inline-flex items-center gap-2 px-5 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-semibold"
+              className="inline-flex items-center gap-2 px-5 py-3 bg-brand-600 hover:bg-brand-700 text-white rounded-lg font-semibold"
             >
               <Volume2 size={22} />
               Play again
@@ -324,7 +332,7 @@ const SentencesPage = () => {
                   key={pos}
                   disabled={revealed}
                   onClick={() => setAssembled(assembled.filter((_, p) => p !== pos))}
-                  className="px-3 py-1.5 rounded-md bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-200 font-medium"
+                  className="px-3 py-1.5 rounded-md bg-brand-100 dark:bg-brand-800 text-brand-700 dark:text-brand-300 font-medium"
                 >
                   {bank[bankIdx]}
                 </button>
@@ -371,7 +379,7 @@ const SentencesPage = () => {
         {/* Feedback */}
         {revealed && (
           <div
-            className={`p-4 rounded-lg animate-pop ${
+            className={`p-4 rounded-lg fx-snap ${
               wasCorrect
                 ? 'bg-green-50 dark:bg-green-900/20'
                 : 'bg-red-50 dark:bg-red-900/20'
@@ -399,14 +407,14 @@ const SentencesPage = () => {
           <button
             onClick={grade}
             disabled={!canCheck}
-            className="w-full py-3 bg-emerald-500 hover:bg-emerald-600 disabled:opacity-40 text-white rounded-lg font-semibold transition-colors"
+            className="w-full py-3 bg-brand-600 hover:bg-brand-700 disabled:opacity-40 text-white rounded-lg font-semibold transition-colors"
           >
             Check
           </button>
         ) : (
           <button
             onClick={next}
-            className="w-full py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-semibold transition-colors"
+            className="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white rounded-lg font-semibold transition-colors"
           >
             {index < items.length - 1 ? 'Next' : 'See Results'}
           </button>

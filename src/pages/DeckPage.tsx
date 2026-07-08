@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import type { Deck } from '../types';
 import { getDeckById } from '../content/deckRegistry';
 import { useAppStore } from '../stores/appStore';
-import { initializeSrsRecord, updateSrsRecordOnReview } from '../utils/srs';
+import { initializeSrsRecord, updateSrsRecordOnReview, gradeSrsRecord, type SrsGrade } from '../utils/srs';
 import Flashcard from '../components/flashcards/Flashcard';
 import MultipleChoiceQuiz from '../components/quiz/MultipleChoiceQuiz';
 import TypeInQuiz from '../components/quiz/TypeInQuiz';
@@ -69,6 +69,13 @@ const DeckPage = () => {
 
   const currentCard = deck.cards[currentIndex];
 
+  const handleGrade = (grade: SrsGrade) => {
+    let record = getSrsRecord(currentCard.id);
+    if (!record) record = initializeSrsRecord(currentCard.id);
+    updateSrsRecord(gradeSrsRecord(record, grade));
+    afterAnswer(grade !== 'again', record.box);
+  };
+
   const handleAnswer = (correct: boolean) => {
     // Get or initialize SRS record
     let record = getSrsRecord(currentCard.id);
@@ -79,9 +86,13 @@ const DeckPage = () => {
     // Update SRS record
     const updatedRecord = updateSrsRecordOnReview(record, correct);
     updateSrsRecord(updatedRecord);
+    afterAnswer(correct, record.box);
+  };
+
+  const afterAnswer = (correct: boolean, previousBox: number) => {
 
     // Track newly-learned words; reviews/XP/streak are tallied once at the end.
-    if (correct && record.box === 1) {
+    if (correct && previousBox === 1) {
       updateProgress({ wordsLearned: progress.wordsLearned + 1 });
     }
     if (!correct) {
@@ -200,7 +211,7 @@ const DeckPage = () => {
 
       {/* Render based on mode */}
       {mode === 'flashcard' && (
-        <Flashcard card={currentCard} onAnswer={handleAnswer} />
+        <Flashcard card={currentCard} onGrade={handleGrade} />
       )}
       {mode === 'multiple-choice' && (
         <MultipleChoiceQuiz

@@ -79,6 +79,17 @@ export interface Mistake {
   ts: number;
 }
 
+/** First-run onboarding choices ("Fuchs & The Trail" 4-step flow). */
+export interface OnboardingState {
+  /** Index into the goal cards (Travel / Work / People / Mind), or null. */
+  goal: number | null;
+  /** Index into the CEFR track stops (A1/A2/B1/C1). */
+  level: number;
+  /** Index into the daily-habit rows (5/10/15/30 min), or null. */
+  daily: number | null;
+  done: boolean;
+}
+
 /**
  * Progress through the daily-words program: a persistent cursor into the
  * frequency-ordered vocabulary (A1 -> C1). Each day serves the next
@@ -100,4 +111,6 @@ export interface ProgressStats {
   lastReviewDate: string;
   /** Cumulative experience points earned across all practice modes. */
   xp: number;
+  /** XP earned today (drives the daily-goal bar; resets each day). */
+  xpToday: number;
 }

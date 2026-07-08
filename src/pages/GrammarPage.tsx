@@ -91,7 +91,7 @@ const GrammarPage = () => {
         <BackButton />
         <header>
           <h1 className="text-3xl font-bold mb-2 flex items-center gap-2">
-            <Dumbbell size={30} className="text-purple-500" />
+            <Dumbbell size={30} className="text-brand-600" />
             Grammar Gym
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
@@ -106,7 +106,7 @@ const GrammarPage = () => {
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full appearance-none pl-4 pr-10 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 cursor-pointer focus:border-purple-500 focus:outline-none"
+                className="w-full appearance-none pl-4 pr-10 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 cursor-pointer focus:border-brand-600 focus:outline-none"
               >
                 <option value="all">All topics</option>
                 {categories.map((c) => (
@@ -128,7 +128,7 @@ const GrammarPage = () => {
                   onClick={() => setLevel(l)}
                   className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
                     level === l
-                      ? 'bg-purple-500 text-white'
+                      ? 'bg-brand-600 text-white'
                       : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
                   }`}
                 >
@@ -155,7 +155,7 @@ const GrammarPage = () => {
 
           <button
             onClick={start}
-            className="w-full py-4 bg-purple-500 hover:bg-purple-600 text-white rounded-lg font-semibold text-lg transition-colors flex items-center justify-center gap-2"
+            className="w-full py-4 bg-brand-600 hover:bg-brand-700 text-white rounded-lg font-semibold text-lg transition-colors flex items-center justify-center gap-2"
           >
             <Dumbbell size={22} />
             Start Workout
@@ -171,7 +171,7 @@ const GrammarPage = () => {
       <SessionResults
         score={score}
         total={questions.length}
-        accent="purple"
+        accent="brand"
         xpEarned={xpEarned}
         onRetry={start}
         onExit={() => setPhase('setup')}
@@ -188,7 +188,7 @@ const GrammarPage = () => {
         <div className="mt-4">
           <button
             onClick={() => setPhase('setup')}
-            className="px-6 py-3 bg-purple-500 text-white rounded-lg font-semibold"
+            className="px-6 py-3 bg-brand-600 text-white rounded-lg font-semibold"
           >
             Back
           </button>
@@ -204,20 +204,20 @@ const GrammarPage = () => {
         <span className="text-gray-600 dark:text-gray-400">
           {index + 1} of {questions.length}
         </span>
-        <span className="font-semibold text-purple-600 dark:text-purple-400">
+        <span className="font-semibold text-brand-600 dark:text-brand-400">
           Score: {score}
         </span>
       </div>
 
       <div className="mb-6 bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
         <div
-          className="bg-purple-500 h-full transition-all duration-300"
+          className="bg-brand-600 h-full transition-all duration-300"
           style={{ width: `${((index + 1) / questions.length) * 100}%` }}
         />
       </div>
 
-      <div key={index} className="card p-6 animate-fade-in-up">
-        <span className="inline-block px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-xs font-semibold mb-3">
+      <div key={index} className="card p-6 screen-in">
+        <span className="inline-block px-3 py-1 bg-brand-100 dark:bg-brand-800 text-brand-700 dark:text-brand-300 rounded-full text-xs font-semibold mb-3">
           {q.category} · {q.level}
         </span>
         {q.promptSub && (
@@ -240,7 +240,7 @@ const GrammarPage = () => {
                 cls += ' border-gray-300 dark:border-gray-600 opacity-50';
               }
             } else {
-              cls += ' border-gray-300 dark:border-gray-600 hover:border-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/10';
+              cls += ' border-gray-300 dark:border-gray-600 hover:border-brand-400';
             }
             return (
               <button key={i} onClick={() => choose(i)} disabled={revealed} className={cls}>
@@ -260,7 +260,7 @@ const GrammarPage = () => {
 
         {revealed && (
           <>
-            <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-sm text-gray-700 dark:text-gray-300 animate-pop">
+            <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-sm text-gray-700 dark:text-gray-300 fx-snap">
               💡 {q.explanation}
             </div>
             <div className="flex gap-3 mt-4">
@@ -274,7 +274,7 @@ const GrammarPage = () => {
               )}
               <button
                 onClick={next}
-                className="btn flex-1 py-3 bg-purple-500 hover:bg-purple-600 text-white"
+                className="btn flex-1 py-3 bg-brand-600 hover:bg-brand-700 text-white"
               >
                 {index < questions.length - 1 ? 'Next' : 'See Results'}
               </button>

@@ -50,10 +50,10 @@ const InstallButton = () => {
     <>
       <button
         onClick={install}
-        className="chip bg-brand-100 dark:bg-brand-900/40 text-brand-700 dark:text-brand-300 hover:bg-brand-200 dark:hover:bg-brand-900/60 transition-colors"
+        className="press flex h-7 items-center gap-1.5 rounded-full border border-white/35 bg-white/10 px-2.5 text-xs font-semibold text-white"
         title="Install DeutschSprint on this device"
       >
-        <Download size={15} />
+        <Download size={13} />
         <span className="hidden sm:inline">Install</span>
       </button>
 
@@ -64,7 +64,7 @@ const InstallButton = () => {
           onClick={() => setShowHelp(false)}
         >
           <div
-            className="card p-6 max-w-sm w-full animate-fade-in-up"
+            className="card p-6 max-w-sm w-full screen-in"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-start justify-between mb-3">

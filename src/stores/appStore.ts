@@ -4,6 +4,7 @@ import type {
   Card,
   DailyReview,
   Mistake,
+  OnboardingState,
   SrsRecord,
   UserSettings,
   ProgressStats,
@@ -44,6 +45,15 @@ interface AppState {
   recordMistake: (mistake: Omit<Mistake, 'ts'>) => void;
   clearMistake: (id: string) => void;
 
+  // First-run onboarding (goal / level / daily habit)
+  onboarding: OnboardingState;
+  updateOnboarding: (patch: Partial<OnboardingState>) => void;
+
+  // Transient "+N XP" toast (not persisted meaningfully; cleared on show)
+  toast: string | null;
+  showToast: (msg: string) => void;
+  clearToast: () => void;
+
   // Daily words: 50 new words per day from the frequency-ordered vocabulary
   dailyReview: DailyReview;
   /** Start a fresh batch if the stored one belongs to an earlier day. */
@@ -59,7 +69,7 @@ interface AppState {
 const MISTAKE_CAP = 100;
 
 const defaultSettings: UserSettings = {
-  darkMode: true, // Midnight Arcade is the signature look
+  darkMode: false, // warm cream is the signature look; toggle lives in the header
   fontSize: 'medium',
   ttsEnabled: true,
   dailyGoal: 20,
@@ -74,6 +84,7 @@ const defaultProgress: ProgressStats = {
   totalReviews: 0,
   lastReviewDate: '',
   xp: 0,
+  xpToday: 0,
 };
 
 const XP_PER_CORRECT = 10;
@@ -86,6 +97,13 @@ const dayKey = (d: Date): string =>
 export const getTodayKey = (): string => dayKey(new Date());
 
 const defaultDailyReview: DailyReview = { date: '', dayStart: 0, cursor: 0 };
+
+const defaultOnboarding: OnboardingState = {
+  goal: null,
+  level: 0,
+  daily: null,
+  done: false,
+};
 
 export const useAppStore = create<AppState>()(
   persist(
@@ -134,14 +152,20 @@ export const useAppStore = create<AppState>()(
           streak = progress.lastReviewDate === yesterday ? streak + 1 : 1;
         }
 
+        // Daily-goal bar: today's XP resets when the day changes.
+        const xpToday =
+          (progress.lastReviewDate === today ? progress.xpToday : 0) + xpEarned;
+
         set({
           progress: {
             ...progress,
             xp: progress.xp + xpEarned,
+            xpToday,
             totalReviews: progress.totalReviews + total,
             streak,
             lastReviewDate: today,
           },
+          ...(xpEarned > 0 ? { toast: `+${xpEarned} XP` } : {}),
         });
         return xpEarned;
       },
@@ -187,6 +211,16 @@ export const useAppStore = create<AppState>()(
           return { mistakes: next };
         }),
 
+      // Onboarding
+      onboarding: defaultOnboarding,
+      updateOnboarding: (patch) =>
+        set((state) => ({ onboarding: { ...state.onboarding, ...patch } })),
+
+      // Toast
+      toast: null,
+      showToast: (msg) => set({ toast: msg }),
+      clearToast: () => set({ toast: null }),
+
       // Daily words
       dailyReview: defaultDailyReview,
       rolloverDaily: () =>
@@ -220,6 +254,7 @@ export const useAppStore = create<AppState>()(
           minedWords: {},
           mistakes: {},
           dailyReview: defaultDailyReview,
+          onboarding: defaultOnboarding,
         }),
     }),
     {

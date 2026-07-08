@@ -1,28 +1,47 @@
 import type { ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navigation from './Navigation';
-import TopBar from './TopBar';
-import ThemeOnboarding from '../ThemeOnboarding';
+import GradientHeader from './GradientHeader';
+import Toast from '../Toast';
+import OnboardingFlow from '../../pages/OnboardingPage';
 import { useAppStore } from '../../stores/appStore';
 
 interface LayoutProps {
   children: ReactNode;
 }
 
+/** The four main tabs get the gradient header + bottom nav; exercise and
+ * legacy screens render bare (they carry their own top controls). */
+const MAIN_TABS = ['/', '/practice', '/words', '/you'];
+
 const Layout = ({ children }: LayoutProps) => {
-  const { settings } = useAppStore();
+  const { settings, onboarding } = useAppStore();
   const location = useLocation();
+  const isMainTab = MAIN_TABS.includes(location.pathname);
 
   return (
     <div className={settings.darkMode ? 'dark' : ''}>
-      <div className="min-h-screen theme-transition app-bg bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 pb-24">
-        {!settings.themeChosen && <ThemeOnboarding />}
-        <TopBar />
-        {/* key by pathname so content animates in on each navigation */}
-        <main key={location.pathname} className="max-w-4xl mx-auto px-4 py-6 page-enter">
-          {children}
-        </main>
-        <Navigation />
+      <div
+        className="theme-transition min-h-screen"
+        style={{ background: 'var(--bg)', color: 'var(--ink)' }}
+      >
+        {!onboarding.done ? (
+          <OnboardingFlow />
+        ) : (
+          <>
+            {isMainTab && <GradientHeader />}
+            <main
+              key={location.pathname}
+              className={`screen-in mx-auto max-w-4xl px-[22px] ${
+                isMainTab ? 'pb-28 pt-2' : 'py-6 pb-16'
+              }`}
+            >
+              {children}
+            </main>
+            {isMainTab && <Navigation />}
+          </>
+        )}
+        <Toast />
       </div>
     </div>
   );

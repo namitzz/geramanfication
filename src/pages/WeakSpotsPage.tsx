@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
-import { Target, CheckCircle } from 'lucide-react';
+import { Target } from 'lucide-react';
+import { FuchsMini } from '../components/Fuchs';
 import type { Card, Mistake } from '../types';
 import { useAppStore } from '../stores/appStore';
 import Flashcard from '../components/flashcards/Flashcard';
@@ -100,9 +101,9 @@ const WeakSpotsPage = () => {
             style={{ width: `${((index + 1) / queue.length) * 100}%` }}
           />
         </div>
-        <Flashcard card={toCard(queue[index])} onAnswer={handleAnswer} />
+        <Flashcard card={toCard(queue[index])} onGrade={(g) => handleAnswer(g !== 'again')} />
         <p className="text-center text-xs text-gray-500 dark:text-gray-400">
-          "Got it!" removes this from your weak spots.
+          Good or Easy reels the thread in — a comeback.
         </p>
       </div>
     );
@@ -113,21 +114,25 @@ const WeakSpotsPage = () => {
     <div className="max-w-2xl mx-auto space-y-6">
       <BackButton />
       <header>
-        <h1 className="text-3xl font-bold mb-2 flex items-center gap-2">
-          <Target size={30} className="text-red-500" />
-          Weak Spots
+        <span className="rule-tag-amber">Comebacks</span>
+        <h1 className="fr text-[24px] font-semibold mb-1.5" style={{ color: 'var(--ink)' }}>
+          Chase the loose threads
         </h1>
-        <p className="text-gray-600 dark:text-gray-400">
-          Everything you got wrong, in one review.
+        <p className="text-sm leading-6" style={{ color: 'var(--muted)' }}>
+          Every slip becomes a thread Fuchs wants to catch. Reel one in to make
+          it a comeback.
         </p>
       </header>
 
       {all.length === 0 ? (
-        <div className="card p-10 text-center space-y-3">
-          <CheckCircle className="mx-auto text-green-500" size={48} />
-          <p className="font-semibold text-lg">No weak spots!</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            Mistakes from any practice mode will collect here automatically.
+        <div className="card flex flex-col items-center p-10 text-center">
+          <div className="fx-breathe">
+            <FuchsMini size={64} mood="sleep" />
+          </div>
+          <p className="fr mt-4 text-xl font-semibold" style={{ color: 'var(--ink)' }}>No loose threads</p>
+          <p className="mt-1.5 max-w-[250px] text-sm leading-6" style={{ color: 'var(--muted)' }}>
+            Fuchs is resting easy. Slip up in any drill and the thread lands
+            here to chase.
           </p>
         </div>
       ) : (
@@ -135,7 +140,7 @@ const WeakSpotsPage = () => {
           <div className="card p-6">
             <p className="text-4xl font-bold mb-1">{all.length}</p>
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-              items to fix
+              threads to chase
             </p>
             <div className="flex flex-wrap gap-2">
               {(Object.keys(bySource) as Mistake['source'][]).map((s) => (
@@ -151,9 +156,9 @@ const WeakSpotsPage = () => {
 
           <button
             onClick={start}
-            className="btn w-full py-4 bg-red-500 hover:bg-red-600 text-white text-lg"
+            className="btn-primary press w-full py-4 text-lg"
           >
-            <Target size={22} /> Fix my weak spots
+            <Target size={22} /> Chase them down
           </button>
         </>
       )}

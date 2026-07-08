@@ -1,58 +1,82 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, BookOpen, BarChart3, Settings, CalendarDays } from 'lucide-react';
+import type { ReactNode } from 'react';
+
+/* Custom identity icons (from the design handoff — not an icon library). */
+const TrailIcon = (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+    <path d="M4 19c2-7 5-10 8-10s3 5 8-3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    <circle cx="4" cy="19" r="1.6" fill="currentColor" />
+    <circle cx="20" cy="6" r="1.6" fill="currentColor" />
+  </svg>
+);
+const PracticeIcon = (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+    <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="2" />
+    <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2" />
+    <path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+  </svg>
+);
+const WordsIcon = (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+    <path d="M4 5c3-1 5-1 8 1 3-2 5-2 8-1v13c-3-1-5-1-8 1-3-2-5-2-8-1z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+    <path d="M12 6v13" stroke="currentColor" strokeWidth="2" />
+  </svg>
+);
+const YouIcon = (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+    <path d="M6 8 4 3l5 3M18 8l2-5-5 3" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+    <path d="M5 11a7 7 0 0 1 14 0c0 5-4 9-7 9s-7-4-7-9z" stroke="currentColor" strokeWidth="2" />
+    <circle cx="9.5" cy="12" r="1" fill="currentColor" />
+    <circle cx="14.5" cy="12" r="1" fill="currentColor" />
+  </svg>
+);
+
+const TABS: { path: string; icon: ReactNode; label: string }[] = [
+  { path: '/', icon: TrailIcon, label: 'Learn' },
+  { path: '/practice', icon: PracticeIcon, label: 'Practice' },
+  { path: '/words', icon: WordsIcon, label: 'Words' },
+  { path: '/you', icon: YouIcon, label: 'You' },
+];
 
 const Navigation = () => {
   const location = useLocation();
 
-  // Five core destinations = comfortable thumb targets on phones.
-  // Everything else (Vocab, Classes, MCQ, games) lives in the Learn hub.
-  const navItems = [
-    { path: '/', icon: Home, label: 'Home' },
-    { path: '/learn', icon: BookOpen, label: 'Learn' },
-    { path: '/daily', icon: CalendarDays, label: 'Daily' },
-    { path: '/progress', icon: BarChart3, label: 'Progress' },
-    { path: '/settings', icon: Settings, label: 'Settings' },
-  ];
-
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 pb-safe backdrop-blur-md bg-white/85 dark:bg-gray-900/85 border-t border-gray-200/70 dark:border-gray-700/70">
-      <div className="max-w-4xl mx-auto px-2">
-        <div className="flex justify-around items-stretch">
-          {navItems.map(({ path, icon: Icon, label }) => {
-            const isActive =
-              path === '/'
-                ? location.pathname === '/'
-                : location.pathname.startsWith(path);
-            return (
-              <Link
-                key={path}
-                to={path}
-                aria-label={label}
-                aria-current={isActive ? 'page' : undefined}
-                className="flex-1 flex flex-col items-center gap-0.5 py-2.5 px-1 min-w-[56px]"
+    <nav
+      className="pb-safe fixed bottom-0 left-0 right-0 z-50 border-t"
+      style={{ background: 'var(--surface)', borderColor: 'var(--line)' }}
+    >
+      <div className="mx-auto flex max-w-4xl px-2 pb-2 pt-2.5">
+        {TABS.map(({ path, icon, label }) => {
+          const isActive =
+            path === '/' ? location.pathname === '/' : location.pathname.startsWith(path);
+          return (
+            <Link
+              key={path}
+              to={path}
+              aria-label={label}
+              aria-current={isActive ? 'page' : undefined}
+              className="press flex flex-1 flex-col items-center gap-[5px] py-1"
+            >
+              <span
+                className="flex h-8 w-14 items-center justify-center rounded-full transition-colors"
+                style={
+                  isActive
+                    ? { color: 'var(--primary)', background: 'var(--primary-soft)' }
+                    : { color: 'var(--faint)' }
+                }
               >
-                <span
-                  className={`flex items-center justify-center w-14 h-8 rounded-full transition-all duration-200 ${
-                    isActive
-                      ? 'bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-300 scale-105'
-                      : 'text-gray-500 dark:text-gray-400'
-                  }`}
-                >
-                  <Icon size={22} />
-                </span>
-                <span
-                  className={`text-[11px] font-medium ${
-                    isActive
-                      ? 'text-brand-600 dark:text-brand-300'
-                      : 'text-gray-500 dark:text-gray-400'
-                  }`}
-                >
-                  {label}
-                </span>
-              </Link>
-            );
-          })}
-        </div>
+                {icon}
+              </span>
+              <span
+                className="text-[11px] font-semibold"
+                style={{ color: isActive ? 'var(--primary)' : 'var(--faint)' }}
+              >
+                {label}
+              </span>
+            </Link>
+          );
+        })}
       </div>
     </nav>
   );

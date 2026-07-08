@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
-import HomePage from './pages/HomePage';
+import TrailPage from './pages/TrailPage';
+import PracticePage from './pages/PracticePage';
 import LearnPage from './pages/LearnPage';
 import DeckPage from './pages/DeckPage';
 import ReviewPage from './pages/ReviewPage';
-import ProgressPage from './pages/ProgressPage';
 import SettingsPage from './pages/SettingsPage';
 import ClassesPage from './pages/ClassesPage';
 import MCQTestingPage from './pages/MCQTestingPage';
@@ -12,6 +12,8 @@ import { useAppStore } from './stores/appStore';
 import { Suspense, lazy, useEffect, type ReactNode } from 'react';
 
 // Lazy-loaded so their large datasets ship as separate chunks.
+const WordsPage = lazy(() => import('./pages/WordsPage'));
+const YouPage = lazy(() => import('./pages/YouPage'));
 const VocabularyPage = lazy(() => import('./pages/VocabularyPage'));
 const GrammarPage = lazy(() => import('./pages/GrammarPage'));
 const SentencesPage = lazy(() => import('./pages/SentencesPage'));
@@ -26,7 +28,7 @@ const TodayPage = lazy(() => import('./pages/TodayPage'));
 const lazyRoute = (node: ReactNode) => (
   <Suspense
     fallback={
-      <div className="text-center py-12 text-gray-600 dark:text-gray-400">
+      <div className="py-12 text-center" style={{ color: 'var(--muted)' }}>
         Loading…
       </div>
     }
@@ -49,7 +51,13 @@ function App() {
     <Router basename="/geramanfication">
       <Layout>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          {/* Main tabs (Fuchs & The Trail IA) */}
+          <Route path="/" element={<TrailPage />} />
+          <Route path="/practice" element={<PracticePage />} />
+          <Route path="/words" element={lazyRoute(<WordsPage />)} />
+          <Route path="/you" element={lazyRoute(<YouPage />)} />
+
+          {/* Engines + everything else (feature parity) */}
           <Route path="/learn" element={<LearnPage />} />
           <Route path="/vocabulary" element={lazyRoute(<VocabularyPage />)} />
           <Route path="/classes" element={<ClassesPage />} />
@@ -65,7 +73,6 @@ function App() {
           <Route path="/weak" element={lazyRoute(<WeakSpotsPage />)} />
           <Route path="/today" element={lazyRoute(<TodayPage />)} />
           <Route path="/mcq-testing" element={<MCQTestingPage />} />
-          <Route path="/progress" element={<ProgressPage />} />
           <Route path="/settings" element={<SettingsPage />} />
         </Routes>
       </Layout>
@@ -74,4 +81,3 @@ function App() {
 }
 
 export default App;
-

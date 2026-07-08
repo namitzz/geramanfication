@@ -90,7 +90,7 @@ const DailySprintPage = () => {
           </h1>
         </header>
 
-        <div className="card p-8 space-y-4 animate-fade-in-up">
+        <div className="card p-8 space-y-4 screen-in">
           <p className="text-4xl">{result.solved ? '🎉' : '😅'}</p>
           <p className="text-2xl">{squares}</p>
           <div className="p-4 bg-brand-50 dark:bg-brand-900/20 rounded-lg">
@@ -135,7 +135,7 @@ const DailySprintPage = () => {
         </p>
       </header>
 
-      <div className={`card p-6 space-y-5 ${wrongFlash ? 'animate-pop' : ''}`}>
+      <div className={`card p-6 space-y-5 ${wrongFlash ? 'fx-snap' : ''}`}>
         <div className="flex items-center justify-between text-sm">
           <span className="font-semibold text-brand-600 dark:text-brand-400">
             Attempt {attempt} / {MAX_ATTEMPTS}

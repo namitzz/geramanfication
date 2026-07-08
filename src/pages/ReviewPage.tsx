@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { allDecks } from '../content/decks';
 import { useAppStore } from '../stores/appStore';
-import { initializeSrsRecord, updateSrsRecordOnReview, getDueCards } from '../utils/srs';
+import { initializeSrsRecord, updateSrsRecordOnReview, getDueCards, gradeSrsRecord, type SrsGrade } from '../utils/srs';
 import Flashcard from '../components/flashcards/Flashcard';
 import MultipleChoiceQuiz from '../components/quiz/MultipleChoiceQuiz';
 import TypeInQuiz from '../components/quiz/TypeInQuiz';
@@ -61,22 +61,30 @@ const ReviewPage = () => {
 
   const currentCard = dueCards[currentIndex];
 
+  const handleGrade = (grade: SrsGrade) => {
+    let record = getSrsRecord(currentCard.id);
+    if (!record) record = initializeSrsRecord(currentCard.id);
+    updateSrsRecord(gradeSrsRecord(record, grade));
+    afterAnswer(grade !== 'again', record.box);
+  };
+
   const handleAnswer = (correct: boolean) => {
-    // Get or initialize SRS record
     let record = getSrsRecord(currentCard.id);
     if (!record) {
       record = initializeSrsRecord(currentCard.id);
     }
-
-    // Update SRS record
     const updatedRecord = updateSrsRecordOnReview(record, correct);
     updateSrsRecord(updatedRecord);
+    afterAnswer(correct, record.box);
+  };
+
+  const afterAnswer = (correct: boolean, previousBox: number) => {
 
     // Update progress
     if (correct) {
       updateProgress({
         totalReviews: progress.totalReviews + 1,
-        wordsLearned: progress.wordsLearned + (record.box === 1 ? 1 : 0),
+        wordsLearned: progress.wordsLearned + (previousBox === 1 ? 1 : 0),
       });
     } else {
       recordMistake({
@@ -150,7 +158,7 @@ const ReviewPage = () => {
 
       {/* Render based on mode */}
       {mode === 'flashcard' && (
-        <Flashcard card={currentCard} onAnswer={handleAnswer} />
+        <Flashcard card={currentCard} onGrade={handleGrade} />
       )}
       {mode === 'multiple-choice' && (
         <MultipleChoiceQuiz

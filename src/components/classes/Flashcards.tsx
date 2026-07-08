@@ -82,7 +82,7 @@ const Flashcards = ({ lessons, starredIds, onToggleStar, onSpeak }: Props) => {
       <div
         key={index}
         onClick={() => setFlipped((f) => !f)}
-        className="card p-8 min-h-[280px] flex flex-col justify-between cursor-pointer animate-fade-in-up"
+        className="card p-8 min-h-[280px] flex flex-col justify-between cursor-pointer screen-in"
       >
         <div className="flex-1 flex flex-col items-center justify-center text-center">
           {!flipped ? (

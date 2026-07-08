@@ -197,7 +197,7 @@ const AnalyzerPage = () => {
 
           {/* Selected word detail */}
           {selected?.entry && (
-            <div className="card p-5 animate-fade-in-up">
+            <div className="card p-5 screen-in">
               <div className="flex items-start justify-between">
                 <div>
                   <div className="flex items-center gap-2">
@@ -259,7 +259,7 @@ const AnalyzerPage = () => {
 
           {/* Compound word breakdown */}
           {compound && (
-            <div className="card p-5 animate-fade-in-up">
+            <div className="card p-5 screen-in">
               <p className="text-xs font-semibold uppercase tracking-wide text-amber-600 dark:text-amber-400 mb-2">
                 Compound word
               </p>

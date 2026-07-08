@@ -83,7 +83,7 @@ const ClozePage = () => {
         <BackButton />
         <header>
           <h1 className="text-3xl font-bold mb-2 flex items-center gap-2">
-            <TextCursorInput size={30} className="text-amber-500" />
+            <TextCursorInput size={30} className="text-brand-600" />
             Cloze
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
@@ -101,7 +101,7 @@ const ClozePage = () => {
                   onClick={() => setLevel(l)}
                   className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
                     level === l
-                      ? 'bg-amber-500 text-white'
+                      ? 'bg-brand-600 text-white'
                       : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
                   }`}
                 >
@@ -128,7 +128,7 @@ const ClozePage = () => {
 
           <button
             onClick={start}
-            className="btn w-full py-4 bg-amber-500 hover:bg-amber-600 text-white text-lg"
+            className="btn w-full py-4 bg-brand-600 hover:bg-brand-700 text-white text-lg"
           >
             Start
           </button>
@@ -157,7 +157,7 @@ const ClozePage = () => {
         <div className="mt-4">
           <button
             onClick={() => setPhase('setup')}
-            className="btn px-6 py-3 bg-amber-500 text-white"
+            className="btn px-6 py-3 bg-brand-600 text-white"
           >
             Back
           </button>
@@ -173,20 +173,20 @@ const ClozePage = () => {
         <span className="text-gray-600 dark:text-gray-400">
           {index + 1} of {items.length}
         </span>
-        <span className="font-semibold text-amber-600 dark:text-amber-400">
+        <span className="font-semibold text-brand-600 dark:text-brand-400">
           Score: {score}
         </span>
       </div>
 
       <div className="mb-6 bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
         <div
-          className="bg-amber-500 h-full transition-all duration-300"
+          className="bg-brand-600 h-full transition-all duration-300"
           style={{ width: `${((index + 1) / items.length) * 100}%` }}
         />
       </div>
 
-      <div key={index} className="card p-6 space-y-6 animate-fade-in-up">
-        <span className="chip text-xs bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300">
+      <div key={index} className="card p-6 space-y-6 screen-in">
+        <span className="chip text-xs bg-brand-100 dark:bg-brand-800 text-brand-700 dark:text-brand-300">
           {current.level}
         </span>
 
@@ -199,7 +199,7 @@ const ClozePage = () => {
                 className={`inline-block min-w-[80px] border-b-4 mx-1 text-center ${
                   revealed
                     ? 'border-green-500 text-green-600 dark:text-green-400'
-                    : 'border-amber-400 text-transparent'
+                    : 'border-brand-400 text-transparent'
                 }`}
               >
                 {revealed ? current.answer : '____'}
@@ -224,7 +224,7 @@ const ClozePage = () => {
                 cls += ' border-gray-300 dark:border-gray-600 opacity-50';
               }
             } else {
-              cls += ' border-gray-300 dark:border-gray-600 hover:border-amber-400';
+              cls += ' border-gray-300 dark:border-gray-600 hover:border-brand-400';
             }
             return (
               <button key={i} onClick={() => choose(option)} disabled={revealed} className={cls}>
@@ -243,7 +243,7 @@ const ClozePage = () => {
         </div>
 
         {revealed && (
-          <div className="animate-pop space-y-3">
+          <div className="fx-snap space-y-3">
             <p className="text-sm text-center text-gray-600 dark:text-gray-400">
               🇬🇧 {current.en}
             </p>
@@ -258,7 +258,7 @@ const ClozePage = () => {
               )}
               <button
                 onClick={next}
-                className="btn flex-1 py-3 bg-amber-500 hover:bg-amber-600 text-white"
+                className="btn flex-1 py-3 bg-brand-600 hover:bg-brand-700 text-white"
               >
                 {index < items.length - 1 ? 'Next' : 'See Results'}
               </button>
