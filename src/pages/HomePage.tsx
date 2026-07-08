@@ -48,7 +48,7 @@ const HomePage = () => {
   return (
     <div className="space-y-6">
       {/* Hero / level card */}
-      <section className="relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-brand-600 via-violet-600 to-fuchsia-600 animate-gradient text-white shadow-card">
+      <section className="relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-gray-900 via-brand-800 to-brand-600 animate-gradient text-white shadow-card">
         {/* Bolt watermark */}
         <BoltLogo
           size={190}
@@ -60,14 +60,14 @@ const HomePage = () => {
             <p className="text-white/80 text-sm">Willkommen zurück 👋</p>
             <h1 className="text-2xl font-bold">Level {level}</h1>
           </div>
-          <div className="chip bg-yellow-400 text-gray-900">
+          <div className="chip bg-gold-500 text-gray-900 shadow-glow-gold">
             <Zap size={16} />
             {progress.xp} XP
           </div>
         </div>
         <div className="relative h-2.5 rounded-full bg-white/25 overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-yellow-300 to-yellow-400 rounded-full transition-all duration-500"
+            className="h-full bg-gradient-to-r from-gold-400 to-gold-500 rounded-full transition-all duration-500"
             style={{ width: `${xpIntoLevel}%` }}
           />
         </div>
@@ -137,7 +137,7 @@ const HomePage = () => {
           className={`btn w-full py-4 text-lg shadow-card ${
             todayFinished
               ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300'
-              : 'text-white bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-700 hover:to-violet-700'
+              : 'text-white shadow-glow-red bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-700 hover:to-brand-600'
           }`}
         >
           {todayFinished

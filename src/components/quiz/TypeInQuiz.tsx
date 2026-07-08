@@ -4,6 +4,7 @@ import { isAnswerCorrect } from '../../utils/stringMatch';
 import { speak } from '../../utils/tts';
 import { useAppStore } from '../../stores/appStore';
 import { Check, X } from 'lucide-react';
+import { sfxAnswer } from '../../utils/sfx';
 
 interface TypeInQuizProps {
   card: Card;
@@ -29,6 +30,7 @@ const TypeInQuiz = ({ card, onAnswer }: TypeInQuizProps) => {
     if (!userAnswer.trim()) return;
 
     const correct = isAnswerCorrect(userAnswer, card.en);
+    sfxAnswer(correct);
     setIsCorrect(correct);
     setShowResult(true);
 

@@ -59,11 +59,13 @@ interface AppState {
 const MISTAKE_CAP = 100;
 
 const defaultSettings: UserSettings = {
-  darkMode: false,
+  darkMode: true, // Midnight Arcade is the signature look
   fontSize: 'medium',
   ttsEnabled: true,
   dailyGoal: 20,
   dyslexicFont: false,
+  sfxEnabled: true,
+  themeChosen: false,
 };
 
 const defaultProgress: ProgressStats = {

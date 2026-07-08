@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { useAppStore } from '../stores/appStore';
-import { Moon, Sun, Type, Volume2, Target, RotateCcw } from 'lucide-react';
+import { Moon, Sun, Type, Volume2, Music, Target, RotateCcw } from 'lucide-react';
 
 /** A pill toggle switch in the brand color. */
 const Toggle = ({ on, onClick }: { on: boolean; onClick: () => void }) => (
@@ -91,6 +91,18 @@ const SettingsPage = () => {
             <Toggle
               on={settings.ttsEnabled}
               onClick={() => updateSettings({ ttsEnabled: !settings.ttsEnabled })}
+            />
+          }
+        />
+
+        <Row
+          icon={<Music size={22} />}
+          title="Sound Effects"
+          subtitle="Right/wrong dings and finish chimes"
+          control={
+            <Toggle
+              on={settings.sfxEnabled}
+              onClick={() => updateSettings({ sfxEnabled: !settings.sfxEnabled })}
             />
           }
         />

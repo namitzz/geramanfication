@@ -9,6 +9,7 @@ import {
 import { useAppStore } from '../stores/appStore';
 import SessionResults from '../components/practice/SessionResults';
 import BackButton from '../components/BackButton';
+import { sfxAnswer } from '../utils/sfx';
 
 const LEVELS: (CEFRLevel | 'all')[] = ['all', 'A1', 'A2', 'B1', 'B2', 'C1'];
 
@@ -55,6 +56,7 @@ const GrammarPage = () => {
       return next;
     });
     const q = questions[index];
+    sfxAnswer(i === q.correctIndex);
     if (i === q.correctIndex) {
       setScore((s) => s + 1);
     } else {

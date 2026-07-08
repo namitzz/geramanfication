@@ -4,6 +4,7 @@ import type { Article, CEFRLevel } from '../types';
 import { genderHint, loadGenderNouns, type GenderNoun } from '../content/gender';
 import { useAppStore } from '../stores/appStore';
 import BackButton from '../components/BackButton';
+import { sfxAnswer } from '../utils/sfx';
 
 const ROUND_SECONDS = 45;
 const ARTICLES: Article[] = ['der', 'die', 'das'];
@@ -77,6 +78,7 @@ const ReflexPage = () => {
     const noun = queue[index];
     const ok = a === noun.article;
     lockRef.current = true;
+    sfxAnswer(ok);
     setTotal((t) => t + 1);
     if (ok) {
       setCorrect((c) => c + 1);

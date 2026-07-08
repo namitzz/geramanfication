@@ -3,6 +3,7 @@ import { Volume2, Check, X, ArrowLeft, GraduationCap, RotateCw } from 'lucide-re
 import { isAnswerCorrect } from '../../utils/stringMatch';
 import type { Lesson } from '../../content/classes/types';
 import { useAppStore } from '../../stores/appStore';
+import { sfxAnswer } from '../../utils/sfx';
 
 export type ClassQuizMode = 'multiple-choice' | 'type-in';
 
@@ -53,6 +54,7 @@ const QuizRunner = ({ pool, allLessons, mode, onSpeak, onExit }: Props) => {
   }, [current, mode, allLessons]);
 
   const grade = (isRight: boolean) => {
+    sfxAnswer(isRight);
     setCorrect(isRight);
     setRevealed(true);
     if (isRight) setScore((s) => s + 1);

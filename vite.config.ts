@@ -14,8 +14,8 @@ export default defineConfig({
         name: 'DeutschSprint - Learn German',
         short_name: 'DeutschSprint',
         description: 'Offline German-learning PWA: 8,000+ words (A1–C1), Grammar Gym, Sentence Lab, spaced repetition, and downloadable audio.',
-        theme_color: '#ffffff',
-        background_color: '#ffffff',
+        theme_color: '#10142a',
+        background_color: '#10142a',
         display: 'standalone',
         icons: [
           {

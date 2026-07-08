@@ -3,6 +3,7 @@ import type { Card } from '../../types';
 import { Volume2, RotateCw } from 'lucide-react';
 import { speak } from '../../utils/tts';
 import { useAppStore } from '../../stores/appStore';
+import { sfxCorrect, sfxWrong } from '../../utils/sfx';
 
 interface FlashcardProps {
   card: Card;
@@ -97,13 +98,19 @@ const Flashcard = ({ card, onAnswer }: FlashcardProps) => {
         <div className="flex gap-4 mt-6 animate-fade-in-up">
           <button
             className="btn flex-1 py-3 bg-red-500 hover:bg-red-600 text-white"
-            onClick={() => onAnswer(false)}
+            onClick={() => {
+              sfxWrong();
+              onAnswer(false);
+            }}
           >
             Again
           </button>
           <button
             className="btn flex-1 py-3 bg-green-500 hover:bg-green-600 text-white"
-            onClick={() => onAnswer(true)}
+            onClick={() => {
+              sfxCorrect();
+              onAnswer(true);
+            }}
           >
             Got it!
           </button>

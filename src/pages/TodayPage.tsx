@@ -10,6 +10,7 @@ import MultipleChoiceQuiz from '../components/quiz/MultipleChoiceQuiz';
 import TypeInQuiz from '../components/quiz/TypeInQuiz';
 import ModeToggle, { type QuizMode } from '../components/quiz/ModeToggle';
 import BackButton from '../components/BackButton';
+import { sfxComplete } from '../utils/sfx';
 
 /**
  * Today's words: 50 new words per day, resuming mid-batch across visits.
@@ -47,6 +48,10 @@ const TodayPage = () => {
   const position = dailyReview.cursor - dailyReview.dayStart;
   const total = batch?.length ?? WORDS_PER_DAY;
   const doneForToday = batch !== null && position >= total;
+
+  useEffect(() => {
+    if (doneForToday) sfxComplete();
+  }, [doneForToday]);
   const currentCard = batch?.[position];
 
   const handleAnswer = (correct: boolean) => {
@@ -114,7 +119,7 @@ const TodayPage = () => {
             <Flame size={16} /> {progress.streak}-day streak
           </span>
           {xpToday > 0 && (
-            <span className="chip bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300">
+            <span className="chip bg-gold-500/15 text-gold-600 dark:text-gold-400">
               <Zap size={16} /> +{xpToday} XP
             </span>
           )}
@@ -149,7 +154,7 @@ const TodayPage = () => {
 
       <div className="bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
         <div
-          className="bg-gradient-to-r from-brand-500 to-violet-500 h-full transition-all duration-300"
+          className="bg-gradient-to-r from-brand-500 to-gold-500 h-full transition-all duration-300"
           style={{ width: `${(position / total) * 100}%` }}
         />
       </div>

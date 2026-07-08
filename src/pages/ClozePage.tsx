@@ -6,6 +6,7 @@ import { speak } from '../utils/tts';
 import { useAppStore } from '../stores/appStore';
 import SessionResults from '../components/practice/SessionResults';
 import BackButton from '../components/BackButton';
+import { sfxAnswer } from '../utils/sfx';
 
 type Phase = 'setup' | 'playing' | 'done';
 
@@ -48,6 +49,7 @@ const ClozePage = () => {
       return next;
     });
     const correct = option === current.answer;
+    sfxAnswer(correct);
     if (correct) {
       setScore((s) => s + 1);
     } else {

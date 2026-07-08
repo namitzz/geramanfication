@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import type { Card } from '../../types';
 import { speak } from '../../utils/tts';
 import { useAppStore } from '../../stores/appStore';
+import { sfxAnswer } from '../../utils/sfx';
 
 interface MultipleChoiceQuizProps {
   card: Card;
@@ -29,6 +30,7 @@ const MultipleChoiceQuiz = ({ card, options, onAnswer }: MultipleChoiceQuizProps
     setShowResult(true);
     
     const isCorrect = option === card.en;
+    sfxAnswer(isCorrect);
     setTimeout(() => {
       onAnswer(isCorrect);
       setSelected(null);

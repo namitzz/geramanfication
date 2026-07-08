@@ -55,6 +55,10 @@ export interface UserSettings {
   ttsEnabled: boolean;
   dailyGoal: number;
   dyslexicFont: boolean;
+  /** Tactile right/wrong/finish sounds (separate from German speech audio). */
+  sfxEnabled: boolean;
+  /** Whether the user has picked a theme in the first-visit chooser. */
+  themeChosen: boolean;
 }
 
 export type MistakeSource =

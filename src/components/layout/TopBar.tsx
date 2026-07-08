@@ -13,7 +13,7 @@ const TopBar = () => {
         <div className="flex items-center gap-2">
           <Link to="/" className="flex items-center gap-2 font-bold text-lg">
             <BoltLogo size={26} className="rounded-md" />
-            <span className="bg-gradient-to-r from-brand-600 to-violet-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-brand-500 to-gold-500 bg-clip-text text-transparent">
               DeutschSprint
             </span>
           </Link>
@@ -25,11 +25,11 @@ const TopBar = () => {
             className="chip bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-300"
             title={`${progress.streak}-day streak`}
           >
-            <Flame size={16} />
+            <Flame size={16} className={progress.streak > 0 ? 'animate-glow-pulse' : ''} />
             {progress.streak}
           </span>
           <span
-            className="chip bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300"
+            className="chip bg-gold-500/15 text-gold-600 dark:text-gold-400"
             title={`${progress.xp} total XP`}
           >
             <Zap size={16} />

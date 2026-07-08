@@ -19,6 +19,7 @@ import { isAnswerCorrect } from '../utils/stringMatch';
 import { useAppStore } from '../stores/appStore';
 import SessionResults from '../components/practice/SessionResults';
 import BackButton from '../components/BackButton';
+import { sfxAnswer } from '../utils/sfx';
 
 type Mode = 'build' | 'listen' | 'translate';
 type Phase = 'setup' | 'playing' | 'done';
@@ -108,6 +109,7 @@ const SentencesPage = () => {
       correct = isAnswerCorrect(text, current.en, 3);
     }
     setWasCorrect(correct);
+    sfxAnswer(correct);
     if (correct) {
       setScore((s) => s + 1);
     } else {

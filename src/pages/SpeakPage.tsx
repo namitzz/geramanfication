@@ -8,6 +8,7 @@ import { levenshteinDistance } from '../utils/stringMatch';
 import { useAppStore } from '../stores/appStore';
 import SessionResults from '../components/practice/SessionResults';
 import BackButton from '../components/BackButton';
+import { sfxAnswer } from '../utils/sfx';
 
 type Phase = 'setup' | 'playing' | 'done';
 
@@ -83,6 +84,7 @@ const SpeakPage = () => {
       const words = scoreAttempt(current.de, transcript);
       const ratio = words.filter((w) => w.hit).length / words.length;
       setResult(words);
+      sfxAnswer(ratio >= PASS_RATIO);
       if (ratio >= PASS_RATIO) {
         setScore((s) => s + 1);
       } else {
