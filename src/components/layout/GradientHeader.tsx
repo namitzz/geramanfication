@@ -35,7 +35,7 @@ const GradientHeader = () => {
 
   return (
     <header className="bg-grad relative z-20 px-[22px] pt-4 text-white">
-      <div className="mx-auto flex max-w-4xl items-center justify-between">
+      <div className="flex items-center justify-between">
         <Link to="/" className="press flex items-center gap-2">
           <FuchsMark size={22} />
           <span className="fr text-[19px] font-semibold">DeutschSprint</span>
@@ -60,7 +60,7 @@ const GradientHeader = () => {
       </div>
 
       {isHome && (
-        <div className="mx-auto max-w-4xl">
+        <div>
           <p className="mt-4 text-[13px] font-medium" style={{ color: '#D9D6FA' }}>
             {greeting()}
           </p>
