@@ -305,7 +305,7 @@ const SentencesPage = () => {
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">
               Translate to English:
             </p>
-            <p className="text-2xl font-bold">{current.de}</p>
+            <p lang="de" className="text-2xl font-bold">{current.de}</p>
           </div>
         )}
         {mode === 'listen' && (

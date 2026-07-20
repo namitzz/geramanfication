@@ -165,10 +165,10 @@ const DeckPage = () => {
             Review Again
           </button>
           <button
-            onClick={() => navigate('/learn')}
+            onClick={() => navigate('/')}
             className="block w-full max-w-md mx-auto py-3 px-6 bg-gray-500 hover:bg-gray-600 text-white rounded-lg font-semibold transition-colors"
           >
-            Back to Decks
+            Back to the Trail
           </button>
         </div>
       </div>
@@ -179,7 +179,7 @@ const DeckPage = () => {
     <div className="space-y-6">
       <header className="flex items-center justify-between">
         <button
-          onClick={() => navigate('/learn')}
+          onClick={() => navigate('/')}
           className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
         >
           <ArrowLeft size={20} />

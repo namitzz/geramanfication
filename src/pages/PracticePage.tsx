@@ -99,6 +99,7 @@ const MORE = [
   { title: 'Text Analyzer', sub: 'Break down any German text', to: '/analyzer' },
   { title: 'Classes', sub: 'Course flashcards & quizzes', to: '/classes' },
   { title: 'MCQ Test', sub: '110 hard questions', to: '/mcq-testing' },
+  { title: 'Vocabulary sets', sub: 'Browse 8,000+ words by CEFR level', to: '/vocabulary' },
 ];
 
 const PracticePage = () => {
@@ -135,7 +136,7 @@ const PracticePage = () => {
           className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold"
           style={{ color: 'var(--primary-ink)' }}
         >
-          Start review →
+          {dueCount > 0 ? 'Start review →' : "Start today's words →"}
         </span>
       </button>
 

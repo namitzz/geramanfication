@@ -239,7 +239,7 @@ const SpeakPage = () => {
             Say this sentence:
           </p>
           {/* Word-by-word coloring after an attempt */}
-          <p className="text-2xl font-bold leading-relaxed">
+          <p lang="de" className="text-2xl font-bold leading-relaxed">
             {attempted
               ? result.map((w, i) => (
                   <span

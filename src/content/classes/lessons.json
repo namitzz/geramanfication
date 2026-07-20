@@ -145,8 +145,8 @@
   },
   {
     "id": "intro_ich_bin",
-    "de": "Ich bin",
-    "en": "I am",
+    "de": "Ich bin Anna.",
+    "en": "I am Anna. (introducing yourself)",
     "topic": "week1_introductions",
     "notes": "Basic introduction phrase using the verb 'sein'.",
     "type": "phrase"

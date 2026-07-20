@@ -32,7 +32,7 @@ const TodayPage = () => {
 
   const [batch, setBatch] = useState<Card[] | null>(null);
   const [mode, setMode] = useState<QuizMode>('flashcard');
-  const [xpToday, setXpToday] = useState(0);
+  const [sessionXp, setSessionXp] = useState(0);
 
   // Start a fresh batch when the stored one belongs to an earlier day.
   useEffect(() => {
@@ -90,7 +90,7 @@ const TodayPage = () => {
     }
 
     // Per-card XP/streak so partial sessions still count for the day.
-    setXpToday((xp) => xp + recordSession(correct ? 1 : 0, 1));
+    setSessionXp((xp) => xp + recordSession(correct ? 1 : 0, 1));
     advanceDailyCursor();
   };
 
@@ -122,18 +122,21 @@ const TodayPage = () => {
     return (
       <div className="max-w-xl mx-auto text-center py-10 space-y-6 screen-in">
         <CheckCircle className="mx-auto text-green-500" size={72} />
-        <h1 className="text-3xl font-bold">Done for today! 🎉</h1>
+        <h1 className="text-3xl font-bold">
+          {total === 0 ? 'Course complete! 🏆' : 'Done for today! 🎉'}
+        </h1>
         <p className="text-gray-600 dark:text-gray-400">
-          You went through {total} words. Come back tomorrow for the next{' '}
-          {WORDS_PER_DAY}.
+          {total === 0
+            ? "You've worked through the entire vocabulary course — every word, A1 to C1."
+            : `You went through ${total} words. Come back tomorrow for the next ${WORDS_PER_DAY}.`}
         </p>
         <div className="flex justify-center gap-3">
           <span className="chip bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-300">
             <Flame size={16} /> {progress.streak}-day streak
           </span>
-          {xpToday > 0 && (
+          {sessionXp > 0 && (
             <span className="chip bg-gold-500/15 text-gold-600 dark:text-gold-400">
-              <Zap size={16} /> +{xpToday} XP
+              <Zap size={16} /> +{sessionXp} XP
             </span>
           )}
         </div>

@@ -32,6 +32,7 @@ const QuizRunner = ({ pool, allLessons, mode, onSpeak, onExit }: Props) => {
   const current = questions[index];
   const ttsEnabled = useAppStore((s) => s.settings.ttsEnabled);
   const recordMistake = useAppStore((s) => s.recordMistake);
+  const recordSession = useAppStore((s) => s.recordSession);
 
   // Pronounce each new question's German automatically.
   useEffect(() => {
@@ -68,7 +69,9 @@ const QuizRunner = ({ pool, allLessons, mode, onSpeak, onExit }: Props) => {
       });
     }
     setTimeout(() => {
-      setIndex((i) => i + 1);
+      const next = index + 1;
+      if (next >= questions.length) recordSession(score + (isRight ? 1 : 0), questions.length);
+      setIndex(next);
       setAnswer('');
       setRevealed(false);
     }, 1400);
@@ -130,7 +133,7 @@ const QuizRunner = ({ pool, allLessons, mode, onSpeak, onExit }: Props) => {
 
       <div key={index} className="card p-8 screen-in">
         <div className="flex items-center gap-3 mb-6">
-          <h2 className="text-3xl font-bold">{current.de}</h2>
+          <h2 lang="de" className="text-3xl font-bold">{current.de}</h2>
           <button
             onClick={() => onSpeak(current.de)}
             className="p-2 bg-brand-600 hover:bg-brand-700 text-white rounded-full"

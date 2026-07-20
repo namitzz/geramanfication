@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import TrailPage from './pages/TrailPage';
 import PracticePage from './pages/PracticePage';
-import LearnPage from './pages/LearnPage';
 import DeckPage from './pages/DeckPage';
 import ReviewPage from './pages/ReviewPage';
 import SettingsPage from './pages/SettingsPage';
@@ -58,7 +57,6 @@ function App() {
           <Route path="/you" element={lazyRoute(<YouPage />)} />
 
           {/* Engines + everything else (feature parity) */}
-          <Route path="/learn" element={<LearnPage />} />
           <Route path="/vocabulary" element={lazyRoute(<VocabularyPage />)} />
           <Route path="/classes" element={<ClassesPage />} />
           <Route path="/deck/:deckId" element={<DeckPage />} />

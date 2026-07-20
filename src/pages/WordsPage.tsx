@@ -122,7 +122,7 @@ const WordsPage = () => {
                     </svg>
                   </button>
                   <div className="min-w-0 flex-1">
-                    <p className="fr text-[17px] font-medium" style={{ color: 'var(--ink)' }}>
+                    <p lang="de" className="fr text-[17px] font-medium" style={{ color: 'var(--ink)' }}>
                       {w.article ? `${w.article} ${w.de}` : w.de}
                     </p>
                     <p className="mt-px truncate text-[13px]" style={{ color: 'var(--muted)' }}>

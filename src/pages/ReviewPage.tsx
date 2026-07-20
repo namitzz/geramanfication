@@ -46,13 +46,7 @@ const ReviewPage = () => {
             onClick={() => navigate('/')}
             className="btn-primary block w-full max-w-md mx-auto py-3 px-6"
           >
-            Back to Home
-          </button>
-          <button
-            onClick={() => navigate('/learn')}
-            className="block w-full max-w-md mx-auto py-3 px-6 bg-gray-500 hover:bg-gray-600 text-white rounded-lg font-semibold transition-colors"
-          >
-            Browse Decks
+            Back to the Trail
           </button>
         </div>
       </div>

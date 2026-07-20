@@ -61,7 +61,7 @@ const Flashcard = ({ card, onGrade }: FlashcardProps) => {
               boxShadow: '0 24px 46px -32px rgba(33,30,69,.5)',
             }}
           >
-            <p className="fr text-[40px] font-medium" style={{ color: 'var(--ink)' }}>
+            <p lang="de" className="fr text-[40px] font-medium" style={{ color: 'var(--ink)' }}>
               {card.article ? (
                 <>
                   <span style={{ color: 'var(--primary)' }}>{card.article}</span> {card.de}
@@ -102,7 +102,7 @@ const Flashcard = ({ card, onGrade }: FlashcardProps) => {
               {card.en}
             </p>
             {card.exampleDe && (
-              <p className="mt-4 text-[15px] italic leading-6" style={{ color: 'var(--muted)' }}>
+              <p lang="de" className="mt-4 text-[15px] italic leading-6" style={{ color: 'var(--muted)' }}>
                 „{card.exampleDe}“
               </p>
             )}

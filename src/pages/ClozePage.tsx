@@ -191,7 +191,7 @@ const ClozePage = () => {
         </span>
 
         {/* Sentence with the gap */}
-        <p className="text-2xl font-bold text-center leading-relaxed">
+        <p lang="de" className="text-2xl font-bold text-center leading-relaxed">
           {current.tokens.map((t, i) =>
             i === current.blankIndex ? (
               <span
