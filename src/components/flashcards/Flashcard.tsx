@@ -41,7 +41,7 @@ const Flashcard = ({ card, onAnswer }: FlashcardProps) => {
           {/* Front: German */}
           <div className="flip-face absolute inset-0 card p-8 flex flex-col justify-between">
             <div className="flex-1 flex flex-col items-center justify-center text-center">
-              <h2 className="text-3xl font-bold mb-2">
+              <h2 lang="de" className="text-3xl font-bold mb-2">
                 {card.article && (
                   <span className="text-brand-600 dark:text-brand-400 mr-2">
                     {card.article}

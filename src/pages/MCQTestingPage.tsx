@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { CheckCircle, XCircle, RotateCw, Trophy, Brain, ChevronDown } from 'lucide-react';
 import mcqData from '../content/mcq-hard.json';
 import BackButton from '../components/BackButton';
+import { useAppStore } from '../stores/appStore';
 
 interface MCQ {
   id: string;
@@ -24,6 +25,8 @@ const MCQTestingPage = () => {
   const [filteredQuestions, setFilteredQuestions] = useState<MCQ[]>([]);
   const [numberOfQuestions, setNumberOfQuestions] = useState(20);
   const [wrongAnswers, setWrongAnswers] = useState<Array<{ question: MCQ; userAnswer: number }>>([]);
+
+  const { recordSession, recordMistake } = useAppStore();
 
   // Get unique categories
   const categories = ['all', ...Array.from(new Set(questions.map(q => q.category)))].sort();
@@ -65,6 +68,13 @@ const MCQTestingPage = () => {
       setScore(score + 1);
     } else {
       setWrongAnswers([...wrongAnswers, { question: currentQuestion, userAnswer: answerIndex }]);
+      // Route the miss into Smart Review as a grammar item.
+      recordMistake({
+        id: `grammar-${currentQuestion.id}`,
+        de: currentQuestion.question,
+        en: currentQuestion.options[currentQuestion.correct],
+        source: 'grammar',
+      });
     }
   };
 
@@ -74,6 +84,8 @@ const MCQTestingPage = () => {
       setSelectedAnswer(null);
       setShowFeedback(false);
     } else {
+      // Award XP and advance the daily streak on completion.
+      recordSession(score, answeredQuestions);
       setQuizCompleted(true);
     }
   };
@@ -97,7 +109,7 @@ const MCQTestingPage = () => {
         <div className="mb-4"><BackButton /></div>
         <div className="mb-6">
           <h1 className="text-3xl font-bold mb-2 flex items-center gap-2">
-            <Brain size={32} className="text-purple-500" />
+            <Brain size={32} className="text-brand-500" />
             MCQ Testing (Hard)
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
@@ -152,7 +164,7 @@ const MCQTestingPage = () => {
           <button
             onClick={startQuiz}
             disabled={filteredQuestions.length === 0}
-            className="w-full mt-6 py-4 bg-purple-500 hover:bg-purple-600 disabled:bg-gray-400 text-white rounded-lg font-semibold text-lg transition-colors flex items-center justify-center gap-2"
+            className="w-full mt-6 py-4 bg-brand-500 hover:bg-brand-600 disabled:bg-gray-400 text-white rounded-lg font-semibold text-lg transition-colors flex items-center justify-center gap-2"
           >
             <Brain size={24} />
             Start Quiz
@@ -207,8 +219,8 @@ const MCQTestingPage = () => {
             {emoji} {message}
           </p>
           
-          <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-6 mb-6">
-            <div className="text-5xl font-bold text-purple-600 dark:text-purple-400 mb-2">
+          <div className="bg-brand-50 dark:bg-brand-900/20 rounded-lg p-6 mb-6">
+            <div className="text-5xl font-bold text-brand-600 dark:text-brand-400 mb-2">
               {score} / {answeredQuestions}
             </div>
             <div className="text-xl text-gray-700 dark:text-gray-300">
@@ -243,7 +255,7 @@ const MCQTestingPage = () => {
           <div className="flex gap-4 justify-center">
             <button
               onClick={startQuiz}
-              className="px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white rounded-lg font-semibold transition-colors flex items-center gap-2"
+              className="px-6 py-3 bg-brand-500 hover:bg-brand-600 text-white rounded-lg font-semibold transition-colors flex items-center gap-2"
             >
               <RotateCw size={20} />
               Try Again
@@ -266,7 +278,7 @@ const MCQTestingPage = () => {
         <div className="text-sm text-gray-600 dark:text-gray-400">
           Question {currentQuestionIndex + 1} of {filteredQuestions.length}
         </div>
-        <div className="text-sm font-semibold text-purple-600 dark:text-purple-400">
+        <div className="text-sm font-semibold text-brand-600 dark:text-brand-400">
           Score: {score}/{answeredQuestions}
         </div>
       </div>
@@ -274,14 +286,14 @@ const MCQTestingPage = () => {
       {/* Progress Bar */}
       <div className="mb-6 bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
         <div
-          className="bg-purple-500 h-full transition-all duration-300"
+          className="bg-brand-500 h-full transition-all duration-300"
           style={{ width: `${((currentQuestionIndex + 1) / filteredQuestions.length) * 100}%` }}
         />
       </div>
 
       <div className="card p-6">
         <div className="mb-4">
-          <span className="inline-block px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-xs font-semibold mb-3">
+          <span className="inline-block px-3 py-1 bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 rounded-full text-xs font-semibold mb-3">
             {currentQuestion.category}
           </span>
           <h2 className="text-2xl font-bold mb-6">{currentQuestion.question}</h2>
@@ -301,9 +313,9 @@ const MCQTestingPage = () => {
               }
             } else {
               if (index === selectedAnswer) {
-                buttonClass += ' border-purple-500 bg-purple-50 dark:bg-purple-900/20';
+                buttonClass += ' border-brand-500 bg-brand-50 dark:bg-brand-900/20';
               } else {
-                buttonClass += ' border-gray-300 dark:border-gray-600 hover:border-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/10';
+                buttonClass += ' border-gray-300 dark:border-gray-600 hover:border-brand-400 hover:bg-brand-50 dark:hover:bg-brand-900/10';
               }
             }
 
@@ -335,7 +347,7 @@ const MCQTestingPage = () => {
           <div className="mt-6">
             <button
               onClick={handleNext}
-              className="w-full py-3 bg-purple-500 hover:bg-purple-600 text-white rounded-lg font-semibold transition-colors"
+              className="w-full py-3 bg-brand-500 hover:bg-brand-600 text-white rounded-lg font-semibold transition-colors"
             >
               {currentQuestionIndex < filteredQuestions.length - 1 ? 'Next Question' : 'See Results'}
             </button>

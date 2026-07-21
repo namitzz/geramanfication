@@ -506,7 +506,7 @@
   {
     "id": "mcq73",
     "question": "Was ist das Partizip II von 'fahren'?",
-    "options": ["gefahren", "gefahrt", "gefahrt", "gefährt"],
+    "options": ["gefahren", "gefahrt", "geführt", "gefährt"],
     "correct": 0,
     "category": "Grammar - Past Participle"
   },

@@ -223,7 +223,7 @@ const GrammarPage = () => {
             {q.promptSub}
           </p>
         )}
-        <h2 className="text-xl font-bold mb-6">{q.prompt}</h2>
+        <h2 lang="de" className="text-xl font-bold mb-6">{q.prompt}</h2>
 
         <div className="space-y-3">
           {q.options.map((option, i) => {

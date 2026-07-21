@@ -47,7 +47,7 @@ const TypeInQuiz = ({ card, onAnswer }: TypeInQuizProps) => {
         </h3>
 
         <div className="mb-6 p-4 bg-brand-50 dark:bg-brand-900/20 rounded-lg text-center">
-          <p className="text-2xl font-bold">
+          <p lang="de" className="text-2xl font-bold">
             {card.article && (
               <span className="text-brand-600 dark:text-brand-400 mr-2">
                 {card.article}

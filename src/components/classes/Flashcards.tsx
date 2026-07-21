@@ -87,7 +87,7 @@ const Flashcards = ({ lessons, starredIds, onToggleStar, onSpeak }: Props) => {
         <div className="flex-1 flex flex-col items-center justify-center text-center">
           {!flipped ? (
             <>
-              <h2 className="text-3xl font-bold mb-2">{lesson.de}</h2>
+              <h2 lang="de" className="text-3xl font-bold mb-2">{lesson.de}</h2>
               <p className="text-sm text-gray-500 dark:text-gray-400 italic">
                 {formatTopic(lesson.topic)} • {lesson.type}
               </p>
