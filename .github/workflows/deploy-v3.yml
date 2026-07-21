@@ -1,0 +1,93 @@
+name: Deploy v3 Preview
+
+# Publishes a combined GitHub Pages site so both versions are viewable:
+#   /geramanfication/      -> main (the live app, rebuilt unchanged)
+#   /geramanfication/v3/   -> version3.0 (the redesign preview)
+# It uses the same official Pages artifact mechanism as deploy.yml, so no
+# repo settings change is needed and the live site is unaffected.
+#
+# Note: a push to `main` runs deploy.yml, which deploys root only and so
+# temporarily drops /v3/ until the next push to version3.0 (or a manual
+# run of this workflow via "Run workflow").
+
+on:
+  push:
+    branches:
+      - version3.0
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main (live site)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main-src
+
+      - name: Checkout version3.0 (preview)
+        uses: actions/checkout@v4
+        with:
+          ref: version3.0
+          path: v3-src
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build main (site root)
+        working-directory: main-src
+        run: |
+          npm ci
+          npm run build
+
+      - name: Build version3.0 (/v3/ subpath)
+        working-directory: v3-src
+        run: |
+          npm ci
+          npm run lint
+          npm run test
+          npm run build -- --base=/geramanfication/v3/
+
+      - name: Assemble combined site
+        run: |
+          mkdir -p site
+          cp -r main-src/dist/. site/
+          mkdir -p site/v3
+          cp -r v3-src/dist/. site/v3/
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './site'
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      - name: Retry deploy (transient Pages failures)
+        id: deployment-retry
+        if: steps.deployment.outcome == 'failure'
+        uses: actions/deploy-pages@v4

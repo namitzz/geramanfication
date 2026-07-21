@@ -47,7 +47,7 @@ function App() {
   }, [settings.dyslexicFont]);
 
   return (
-    <Router basename="/geramanfication">
+    <Router basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
       <Layout>
         <Routes>
           {/* Main tabs (Fuchs & The Trail IA) */}
