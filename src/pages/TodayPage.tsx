@@ -10,6 +10,7 @@ import MultipleChoiceQuiz from '../components/quiz/MultipleChoiceQuiz';
 import TypeInQuiz from '../components/quiz/TypeInQuiz';
 import ModeToggle, { type QuizMode } from '../components/quiz/ModeToggle';
 import BackButton from '../components/BackButton';
+import { buildChoiceOptions } from '../utils/quizOptions';
 
 /**
  * Today's words: 50 new words per day, resuming mid-batch across visits.
@@ -78,17 +79,7 @@ const TodayPage = () => {
 
   const mcOptions = (): string[] => {
     if (!batch || !currentCard) return [];
-    const shuffled = <T,>(arr: T[]): T[] => [...arr].sort(() => Math.random() - 0.5);
-    const samePos = currentCard.partOfSpeech
-      ? batch.filter((c) => c.partOfSpeech === currentCard.partOfSpeech)
-      : [];
-    const pool = [...shuffled(samePos), ...shuffled(batch)];
-    const out: string[] = [];
-    for (const c of pool) {
-      if (out.length >= 3) break;
-      if (c.en !== currentCard.en && !out.includes(c.en)) out.push(c.en);
-    }
-    return [currentCard.en, ...out].sort(() => Math.random() - 0.5);
+    return buildChoiceOptions(currentCard, batch);
   };
 
   if (!batch) {

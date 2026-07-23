@@ -8,6 +8,7 @@ import MultipleChoiceQuiz from '../components/quiz/MultipleChoiceQuiz';
 import TypeInQuiz from '../components/quiz/TypeInQuiz';
 import ModeToggle, { type QuizMode } from '../components/quiz/ModeToggle';
 import { ArrowLeft, CheckCircle } from 'lucide-react';
+import { buildChoiceOptions } from '../utils/quizOptions';
 
 type Mode = QuizMode;
 
@@ -97,25 +98,8 @@ const ReviewPage = () => {
     }
   };
 
-  const generateMultipleChoiceOptions = (): string[] => {
-    const correct = currentCard.en;
-
-    // Prefer same-part-of-speech distractors so options feel related.
-    const shuffled = <T,>(arr: T[]): T[] => [...arr].sort(() => Math.random() - 0.5);
-    const samePos = currentCard.partOfSpeech
-      ? allCards.filter((c) => c.partOfSpeech === currentCard.partOfSpeech)
-      : [];
-    const pool = [...shuffled(samePos), ...shuffled(allCards)];
-    const distractors: string[] = [];
-    for (const c of pool) {
-      if (distractors.length >= 3) break;
-      if (c.en !== correct && !distractors.includes(c.en)) {
-        distractors.push(c.en);
-      }
-    }
-
-    return [correct, ...distractors].sort(() => Math.random() - 0.5);
-  };
+  const generateMultipleChoiceOptions = (): string[] =>
+    buildChoiceOptions(currentCard, allCards);
 
   return (
     <div className="space-y-6">

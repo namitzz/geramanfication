@@ -10,6 +10,7 @@ import TypeInQuiz from '../components/quiz/TypeInQuiz';
 import ModeToggle, { type QuizMode } from '../components/quiz/ModeToggle';
 import { ArrowLeft, CheckCircle, Zap } from 'lucide-react';
 import AudioDownloadButton from '../components/AudioDownloadButton';
+import { buildChoiceOptions } from '../utils/quizOptions';
 
 type Mode = QuizMode;
 
@@ -106,27 +107,8 @@ const DeckPage = () => {
     }
   };
 
-  const generateMultipleChoiceOptions = (): string[] => {
-    const correct = currentCard.en;
-
-    // Prefer distractors of the same part of speech so the options feel
-    // related (a noun among nouns, not "seven" next to "goodbye"); fall back
-    // to the rest of the deck. Always distinct and never the correct answer.
-    const shuffled = <T,>(arr: T[]): T[] => [...arr].sort(() => Math.random() - 0.5);
-    const samePos = currentCard.partOfSpeech
-      ? deck.cards.filter((c) => c.partOfSpeech === currentCard.partOfSpeech)
-      : [];
-    const pool = [...shuffled(samePos), ...shuffled(deck.cards)];
-    const distractors: string[] = [];
-    for (const c of pool) {
-      if (distractors.length >= 3) break;
-      if (c.en !== correct && !distractors.includes(c.en)) {
-        distractors.push(c.en);
-      }
-    }
-
-    return [correct, ...distractors].sort(() => Math.random() - 0.5);
-  };
+  const generateMultipleChoiceOptions = (): string[] =>
+    buildChoiceOptions(currentCard, deck.cards);
 
   if (isComplete) {
     return (
