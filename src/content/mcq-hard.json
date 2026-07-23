@@ -2,7 +2,7 @@
   {
     "id": "mcq1",
     "question": "Was ist die korrekte Pluralform von 'das Buch'?",
-    "options": ["die Büche", "die Buchen", "die Bücher", "die Books"],
+    "options": ["die Büche", "die Buchen", "die Bücher", "die Bucher"],
     "correct": 2,
     "category": "Grammar - Plural Forms"
   },
@@ -492,7 +492,7 @@
   {
     "id": "mcq71",
     "question": "Was bedeutet 'jedenfalls'?",
-    "options": ["anyway", "every fall", "every time", "in case"],
+    "options": ["anyway", "otherwise", "every time", "in case"],
     "correct": 0,
     "category": "Vocabulary - Adverbs"
   },
@@ -520,7 +520,7 @@
   {
     "id": "mcq75",
     "question": "Was bedeutet 'währenddessen'?",
-    "options": ["during that", "meanwhile", "before that", "after that"],
+    "options": ["beforehand", "meanwhile", "before that", "after that"],
     "correct": 1,
     "category": "Vocabulary - Adverbs"
   },
@@ -576,15 +576,15 @@
   {
     "id": "mcq83",
     "question": "Was bedeutet 'wiederum'?",
-    "options": ["again", "in turn", "once more", "backward"],
+    "options": ["otherwise", "in turn", "meanwhile", "instead"],
     "correct": 1,
     "category": "Vocabulary - Adverbs"
   },
   {
     "id": "mcq84",
     "question": "Welcher Satz ist korrekt im Perfekt?",
-    "options": ["Ich habe gelesen ein Buch", "Ich habe ein Buch gelesen", "Ein Buch habe ich gelesen", "beide b und c"],
-    "correct": 3,
+    "options": ["Ich habe gelesen ein Buch", "Ich habe ein Buch gelesen", "Ich habe ein Buch gelest", "Ich bin ein Buch gelesen"],
+    "correct": 1,
     "category": "Grammar - Word Order"
   },
   {
@@ -646,7 +646,7 @@
   {
     "id": "mcq93",
     "question": "Was bedeutet 'demnach'?",
-    "options": ["then", "accordingly", "afterwards", "therefore"],
+    "options": ["then", "accordingly", "afterwards", "nevertheless"],
     "correct": 1,
     "category": "Vocabulary - Adverbs"
   },
@@ -737,7 +737,7 @@
   {
     "id": "mcq106",
     "question": "Welcher Satz verwendet den Imperativ richtig?",
-    "options": ["Du kommst hier!", "Komm hier!", "Kommen hier!", "Kommst hier!"],
+    "options": ["Du kommst her!", "Komm her!", "Kommen her!", "Kommst her!"],
     "correct": 1,
     "category": "Grammar - Imperative"
   },
