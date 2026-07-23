@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import type { Card } from '../types';
-import { buildChoiceOptions } from '../utils/quizOptions';
+import { buildChoiceOptions, buildOptions } from '../utils/quizOptions';
 
 const card = (id: string, en: string, extra: Partial<Card> = {}): Card => ({
   id,
@@ -73,5 +73,28 @@ describe('buildChoiceOptions', () => {
     expect(opts).toContain('car');
     expect(opts).toContain('house');
     expect(new Set(opts).size).toBe(opts.length);
+  });
+});
+
+describe('buildOptions (generic, used by the Classes quiz)', () => {
+  it('draws from the first non-empty tier before widening', () => {
+    const opts = buildOptions('hello', [
+      ['hi there', 'good morning', 'good evening'], // same-topic tier
+      ['the dog', 'to run'], // wider tier — should not be needed
+    ]);
+    expect(opts).toContain('hello');
+    for (const o of opts.filter((x) => x !== 'hello')) {
+      expect(['hi there', 'good morning', 'good evening']).toContain(o);
+    }
+  });
+
+  it('rejects distractors that share a meaning with the answer', () => {
+    // Exact duplicate and a comma-overlapping gloss must both be filtered.
+    const opts = buildOptions('please', [
+      ['please', 'please, go ahead', 'thank you', 'sorry'],
+    ]);
+    const distractors = opts.filter((o) => o !== 'please');
+    expect(distractors).not.toContain('please');
+    expect(distractors).not.toContain('please, go ahead');
   });
 });

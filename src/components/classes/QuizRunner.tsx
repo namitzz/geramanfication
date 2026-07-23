@@ -3,6 +3,7 @@ import { Volume2, Check, X, ArrowLeft, GraduationCap, RotateCw } from 'lucide-re
 import { isAnswerCorrect } from '../../utils/stringMatch';
 import type { Lesson } from '../../content/classes/types';
 import { useAppStore } from '../../stores/appStore';
+import { buildOptions } from '../../utils/quizOptions';
 
 export type ClassQuizMode = 'multiple-choice' | 'type-in';
 
@@ -43,13 +44,16 @@ const QuizRunner = ({ pool, allLessons, mode, onSpeak, onExit }: Props) => {
 
   const options = useMemo(() => {
     if (mode !== 'multiple-choice' || !current) return [];
-    const opts = [current.en];
+    // Prefer distractors from the same topic/type so options feel related
+    // (greetings among greetings), and never one that means the same thing.
     const others = allLessons.filter((l) => l.id !== current.id);
-    while (opts.length < 4 && others.length) {
-      const r = others.splice(Math.floor(Math.random() * others.length), 1)[0];
-      if (!opts.includes(r.en)) opts.push(r.en);
-    }
-    return opts.sort(() => Math.random() - 0.5);
+    const rankedPools = [
+      others.filter((l) => l.topic === current.topic && l.type === current.type).map((l) => l.en),
+      others.filter((l) => l.topic === current.topic).map((l) => l.en),
+      others.filter((l) => l.type === current.type).map((l) => l.en),
+      others.map((l) => l.en),
+    ];
+    return buildOptions(current.en, rankedPools);
     // Re-roll only when the question changes.
   }, [current, mode, allLessons]);
 
