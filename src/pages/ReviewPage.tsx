@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { allDecks } from '../content/decks';
+import { loadVocabularyDecks } from '../content/vocabulary';
+import type { Card } from '../types';
 import { useAppStore } from '../stores/appStore';
-import { initializeSrsRecord, updateSrsRecordOnReview, getDueCards } from '../utils/srs';
+import { initializeSrsRecord, updateSrsRecordOnReview, isCardDue } from '../utils/srs';
 import Flashcard from '../components/flashcards/Flashcard';
 import MultipleChoiceQuiz from '../components/quiz/MultipleChoiceQuiz';
 import TypeInQuiz from '../components/quiz/TypeInQuiz';
@@ -14,25 +16,41 @@ type Mode = QuizMode;
 
 const ReviewPage = () => {
   const navigate = useNavigate();
-  const { updateSrsRecord, getSrsRecord, progress, updateProgress, srsRecords, recordMistake } =
+  const { updateSrsRecord, getSrsRecord, progress, updateProgress, recordMistake } =
     useAppStore();
 
-  // Get all cards and filter for due cards
-  const allCards = allDecks.flatMap(deck => deck.cards);
-  const allCardIds = allCards.map(card => card.id);
-  const dueCardIds = getDueCards(allCardIds, srsRecords);
-  const dueCards = allCards.filter(card => dueCardIds.includes(card.id));
-
+  // Full card pool (curated decks + vocabulary corpus) and a snapshot of the
+  // due queue taken once on entry so the session length stays stable as cards
+  // are answered.
+  const [allCards, setAllCards] = useState<Card[]>([]);
+  const [dueCards, setDueCards] = useState<Card[] | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [mode, setMode] = useState<Mode>('flashcard');
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
-    // If no due cards, mark as complete
-    if (dueCards.length === 0) {
-      setIsComplete(true);
-    }
-  }, [dueCards.length]);
+    loadVocabularyDecks().then((decks) => {
+      const byId = new Map<string, Card>();
+      for (const c of allDecks.flatMap((d) => d.cards)) byId.set(c.id, c);
+      for (const c of decks.flatMap((d) => d.cards)) byId.set(c.id, c);
+      setAllCards([...byId.values()]);
+      // Only cards the learner has actually studied and that are now due.
+      const records = useAppStore.getState().srsRecords;
+      const due = Object.keys(records)
+        .filter((id) => isCardDue(records[id]))
+        .map((id) => byId.get(id))
+        .filter((c): c is Card => Boolean(c));
+      setDueCards(due);
+    });
+  }, []);
+
+  if (dueCards === null) {
+    return (
+      <div className="text-center py-12 text-gray-600 dark:text-gray-400">
+        Loading review…
+      </div>
+    );
+  }
 
   if (dueCards.length === 0 || isComplete) {
     return (

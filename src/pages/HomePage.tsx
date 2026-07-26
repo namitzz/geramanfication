@@ -1,16 +1,19 @@
 import { Link } from 'react-router-dom';
 import { useAppStore, getTodayKey } from '../stores/appStore';
-import { Flame, BookOpen, Layers, ArrowRight, Zap, CalendarDays, Target } from 'lucide-react';
-import { getDueCards } from '../utils/srs';
-import { allDecks } from '../content/decks';
+import { Flame, BookOpen, Layers, ArrowRight, Zap, CalendarDays, Target, Award } from 'lucide-react';
+import { isCardDue } from '../utils/srs';
 import { WORDS_PER_DAY } from '../content/dailyWords';
 import BoltLogo from '../components/BoltLogo';
+import LevelJumper from '../components/LevelJumper';
 
 const HomePage = () => {
   const { progress, srsRecords, mistakes, dailyReview } = useAppStore();
 
-  const allCardIds = allDecks.flatMap((deck) => deck.cards.map((card) => card.id));
-  const dueCards = getDueCards(allCardIds, srsRecords);
+  // Count across everything the learner has actually studied (daily words
+  // included), not just the curated decks.
+  const records = Object.values(srsRecords);
+  const dueCount = records.filter(isCardDue).length;
+  const masteredCount = records.filter((r) => r.box === 5).length;
   const weakCount = Object.keys(mistakes).length;
 
   // Today's 50-word progress (read-only; the Today page handles rollover).
@@ -34,12 +37,18 @@ const HomePage = () => {
     {
       icon: BookOpen,
       value: progress.wordsLearned,
-      label: 'words learned',
+      label: 'words started',
       chip: 'bg-green-100 dark:bg-green-900/30 text-green-500',
     },
     {
+      icon: Award,
+      value: masteredCount,
+      label: 'mastered',
+      chip: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-500',
+    },
+    {
       icon: Layers,
-      value: dueCards.length,
+      value: dueCount,
       label: 'due to review',
       chip: 'bg-brand-100 dark:bg-brand-900/30 text-brand-500',
     },
@@ -77,7 +86,7 @@ const HomePage = () => {
       </section>
 
       {/* Stat chips */}
-      <section className="grid grid-cols-3 gap-3 stagger">
+      <section className="grid grid-cols-2 sm:grid-cols-4 gap-3 stagger">
         {stats.map(({ icon: Icon, value, label, chip }) => (
           <div key={label} className="card p-4 text-center">
             <span className={`mx-auto mb-1.5 flex items-center justify-center w-9 h-9 rounded-xl ${chip}`}>
@@ -148,7 +157,12 @@ const HomePage = () => {
           {!todayFinished && <ArrowRight size={20} />}
         </Link>
 
-        {dueCards.length > 0 && (
+        {/* Smart start: begin the daily program at your level */}
+        <div className="card p-3">
+          <LevelJumper />
+        </div>
+
+        {dueCount > 0 && (
           <Link
             to="/review"
             className="card-interactive flex items-center justify-between p-5"
@@ -158,7 +172,7 @@ const HomePage = () => {
               <div>
                 <p className="font-semibold">Review due cards</p>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {dueCards.length} from spaced repetition
+                  {dueCount} from spaced repetition
                 </p>
               </div>
             </div>

@@ -11,6 +11,7 @@ import TypeInQuiz from '../components/quiz/TypeInQuiz';
 import ModeToggle, { type QuizMode } from '../components/quiz/ModeToggle';
 import BackButton from '../components/BackButton';
 import { buildChoiceOptions } from '../utils/quizOptions';
+import LevelJumper from '../components/LevelJumper';
 
 /**
  * Today's words: 50 new words per day, resuming mid-batch across visits.
@@ -109,6 +110,9 @@ const TodayPage = () => {
               <Zap size={16} /> +{xpToday} XP
             </span>
           )}
+        </div>
+        <div className="pt-2">
+          <LevelJumper />
         </div>
         <div className="space-y-3">
           <Link to="/weak" className="btn-primary block w-full max-w-sm mx-auto py-3">

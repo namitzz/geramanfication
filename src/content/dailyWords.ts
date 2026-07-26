@@ -4,10 +4,18 @@
  * driven by the persistent cursor in the app store's `dailyReview` slice.
  */
 
-import type { Card } from '../types';
-import { loadVocabularyDecks } from './vocabulary';
+import type { Card, CEFRLevel } from '../types';
+import { loadVocabularyDecks, CEFR_LEVELS } from './vocabulary';
 
 export const WORDS_PER_DAY = 50;
+
+export interface LevelOffset {
+  level: CEFRLevel;
+  /** Cursor index where this level's words begin in learning order. */
+  offset: number;
+  /** Number of words in this level. */
+  count: number;
+}
 
 let orderedPromise: Promise<Card[]> | null = null;
 
@@ -30,4 +38,20 @@ export async function getDailyBatch(dayStart: number): Promise<Card[]> {
 /** Total words available in the program (for an all-done screen someday). */
 export async function getTotalWordCount(): Promise<number> {
   return (await loadOrderedWords()).length;
+}
+
+/**
+ * Where each CEFR level starts in the ordered word list, so a learner can jump
+ * the daily program to their level instead of always starting at word #1.
+ */
+export async function getLevelOffsets(): Promise<LevelOffset[]> {
+  const all = await loadOrderedWords();
+  const result: LevelOffset[] = [];
+  for (const level of CEFR_LEVELS) {
+    const offset = all.findIndex((c) => c.level === level);
+    if (offset === -1) continue;
+    const count = all.filter((c) => c.level === level).length;
+    result.push({ level, offset, count });
+  }
+  return result;
 }

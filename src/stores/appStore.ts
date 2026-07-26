@@ -50,6 +50,8 @@ interface AppState {
   rolloverDaily: () => void;
   /** One more word consumed (persists mid-session progress). */
   advanceDailyCursor: () => void;
+  /** Jump the daily program to a given word index (e.g. the start of a level). */
+  jumpDailyTo: (cursor: number) => void;
 
   // Reset all data
   resetAllData: () => void;
@@ -207,6 +209,10 @@ export const useAppStore = create<AppState>()(
             cursor: state.dailyReview.cursor + 1,
           },
         })),
+      jumpDailyTo: (cursor) =>
+        set({
+          dailyReview: { date: getTodayKey(), dayStart: cursor, cursor },
+        }),
 
       // Reset all data
       resetAllData: () =>
