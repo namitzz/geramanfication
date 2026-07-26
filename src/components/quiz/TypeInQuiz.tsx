@@ -3,6 +3,7 @@ import type { Card } from '../../types';
 import { isAnswerCorrect } from '../../utils/stringMatch';
 import { speak } from '../../utils/tts';
 import { useAppStore } from '../../stores/appStore';
+import { genderColorClass } from '../../utils/genderColor';
 import { Check, X } from 'lucide-react';
 
 interface TypeInQuizProps {
@@ -49,7 +50,7 @@ const TypeInQuiz = ({ card, onAnswer }: TypeInQuizProps) => {
         <div className="mb-6 p-4 bg-brand-50 dark:bg-brand-900/20 rounded-lg text-center">
           <p lang="de" className="text-2xl font-bold">
             {card.article && (
-              <span className="text-brand-600 dark:text-brand-400 mr-2">
+              <span className={`${genderColorClass(card.article)} mr-2`}>
                 {card.article}
               </span>
             )}

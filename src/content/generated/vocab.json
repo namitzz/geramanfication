@@ -259,8 +259,8 @@
   "gender": "",
   "pos": "pronoun",
   "frequency_rank": 24,
-  "example_de": "",
-  "example_en": "",
+  "example_de": "Deine/Ihre Frage ist nicht einfach zu beantworten.",
+  "example_en": "Answering your question is not easy",
   "level": "A1"
  },
  {
@@ -930,8 +930,8 @@
   "gender": "die",
   "pos": "noun",
   "frequency_rank": 85,
-  "example_de": "",
-  "example_en": "",
+  "example_de": "die einfachen Leute",
+  "example_en": "the common people",
   "level": "A1"
  },
  {
@@ -2316,8 +2316,8 @@
   "gender": "die",
   "pos": "noun",
   "frequency_rank": 211,
-  "example_de": "",
-  "example_en": "",
+  "example_de": "Teenager-Eltern",
+  "example_en": "teenage parents",
   "level": "A1"
  },
  {
@@ -4164,8 +4164,8 @@
   "gender": "der",
   "pos": "noun",
   "frequency_rank": 379,
-  "example_de": "",
-  "example_en": "",
+  "example_de": "bis zu einem gewissen Grad",
+  "example_en": "a certain degree",
   "level": "A1"
  },
  {
@@ -5781,8 +5781,8 @@
   "gender": "die",
   "pos": "noun",
   "frequency_rank": 526,
-  "example_de": "",
-  "example_en": "",
+  "example_de": "neue Möbel kaufen",
+  "example_en": "buy new furniture",
   "level": "A1"
  },
  {
@@ -5836,8 +5836,8 @@
   "gender": "die",
   "pos": "noun",
   "frequency_rank": 531,
-  "example_de": "",
-  "example_en": "",
+  "example_de": "ein(e) flüchtige(r) Bekannte(r) (von jdm.) sein",
+  "example_en": "be a passing acquaintance (of sb.)",
   "level": "A1"
  },
  {
@@ -5935,8 +5935,8 @@
   "gender": "die",
   "pos": "noun",
   "frequency_rank": 540,
-  "example_de": "",
-  "example_en": "",
+  "example_de": "Zahlung mit Kreditkarte",
+  "example_en": "payment by credit card",
   "level": "A1"
  },
  {
@@ -6078,8 +6078,8 @@
   "gender": "die",
   "pos": "noun",
   "frequency_rank": 553,
-  "example_de": "",
-  "example_en": "",
+  "example_de": "Bio-Lebensmittel",
+  "example_en": "organic food",
   "level": "A1"
  },
  {
@@ -6760,8 +6760,8 @@
   "gender": "",
   "pos": "verb",
   "frequency_rank": 615,
-  "example_de": "",
-  "example_en": "",
+  "example_de": "einen Patienten an einen Facharzt überweisen",
+  "example_en": "refer a patient to a specialist",
   "level": "A1"
  },
  {
@@ -9059,8 +9059,8 @@
   "gender": "",
   "pos": "",
   "frequency_rank": 824,
-  "example_de": "",
-  "example_en": "",
+  "example_de": "Die Farbgebung erinnert fast an El Greco.",
+  "example_en": "The choice of colours almost suggests El Greco",
   "level": "A2"
  },
  {
@@ -9466,8 +9466,8 @@
   "gender": "",
   "pos": "",
   "frequency_rank": 861,
-  "example_de": "",
-  "example_en": "",
+  "example_de": "Diese Art von Koniferen erreicht eine Höhe von 6 Metern.",
+  "example_en": "This kind of conifer can attain / attains a height of 20 feet",
   "level": "A2"
  },
  {
@@ -11056,8 +11056,8 @@
  },
  {
   "german": "Verspätung",
-  "english": "late arrival",
-  "all_translations": "late arrival",
+  "english": "delay",
+  "all_translations": "delay",
   "gender": "die",
   "pos": "noun",
   "frequency_rank": 1006,
@@ -12359,8 +12359,8 @@
   "gender": "die",
   "pos": "noun",
   "frequency_rank": 1124,
-  "example_de": "",
-  "example_en": "",
+  "example_de": "eine aussagekräftige Bewerbung",
+  "example_en": "an application detailing (sb.'s) qualifications and experience",
   "level": "A2"
  },
  {
@@ -12706,8 +12706,8 @@
  },
  {
   "german": "Mobiltelefon",
-  "english": "mobile",
-  "all_translations": "mobile",
+  "english": "mobile phone",
+  "all_translations": "mobile phone",
   "gender": "das",
   "pos": "noun",
   "frequency_rank": 1156,
@@ -26434,8 +26434,8 @@
  },
  {
   "german": "Wiederholung",
-  "english": "retake",
-  "all_translations": "retake",
+  "english": "repetition",
+  "all_translations": "repetition",
   "gender": "die",
   "pos": "noun",
   "frequency_rank": 2404,
@@ -29811,8 +29811,8 @@
  },
  {
   "german": "grillieren",
-  "english": "to barbecue",
-  "all_translations": "to barbecue",
+  "english": "to grill",
+  "all_translations": "to grill",
   "gender": "",
   "pos": "verb",
   "frequency_rank": 2711,
@@ -30185,8 +30185,8 @@
  },
  {
   "german": "Poulet",
-  "english": "roast chicken",
-  "all_translations": "roast chicken",
+  "english": "chicken",
+  "all_translations": "chicken",
   "gender": "das",
   "pos": "noun",
   "frequency_rank": 2745,
@@ -36779,8 +36779,8 @@
   "gender": "die",
   "pos": "noun",
   "frequency_rank": 3344,
-  "example_de": "",
-  "example_en": "",
+  "example_de": "Freispruch im Zweifel",
+  "example_en": "not-proven verdict, bastard verdict",
   "level": "B2"
  },
  {
@@ -38781,8 +38781,8 @@
   "gender": "die",
   "pos": "noun",
   "frequency_rank": 3526,
-  "example_de": "",
-  "example_en": "",
+  "example_de": "Abnahme der Liquidität",
+  "example_en": "decrease in liquidity",
   "level": "B2"
  },
  {
@@ -38979,8 +38979,8 @@
   "gender": "die",
   "pos": "noun",
   "frequency_rank": 3544,
-  "example_de": "",
-  "example_en": "",
+  "example_de": "Automatisierung technischer Prozesse",
+  "example_en": "automation of technical processes",
   "level": "B2"
  },
  {
@@ -39012,8 +39012,8 @@
   "gender": "die",
   "pos": "noun",
   "frequency_rank": 3547,
-  "example_de": "",
-  "example_en": "",
+  "example_de": "Erhöhung der Dividenden",
+  "example_en": "increase of dividends",
   "level": "B2"
  },
  {
@@ -39089,8 +39089,8 @@
   "gender": "das",
   "pos": "noun",
   "frequency_rank": 3554,
-  "example_de": "",
-  "example_en": "",
+  "example_de": "Charta der Grundrechte der Europäischen Union",
+  "example_en": "Charter of Fundamental Rights of the European Union",
   "level": "B2"
  },
  {
@@ -43126,8 +43126,8 @@
   "gender": "",
   "pos": "",
   "frequency_rank": 3921,
-  "example_de": "",
-  "example_en": "",
+  "example_de": "unkonventionell zubereitetes Essen",
+  "example_en": "unconventionally prepared food",
   "level": "C1"
  },
  {
@@ -43225,8 +43225,8 @@
   "gender": "die",
   "pos": "noun",
   "frequency_rank": 3930,
-  "example_de": "",
-  "example_en": "",
+  "example_de": "bei der Sozialversicherung angemeldet sein",
+  "example_en": "be registered with the social security institution",
   "level": "C1"
  },
  {
@@ -44017,8 +44017,8 @@
   "gender": "",
   "pos": "",
   "frequency_rank": 4002,
-  "example_de": "",
-  "example_en": "",
+  "example_de": "eine adäquate Reaktion",
+  "example_en": "a matching reaction",
   "level": "C1"
  },
  {
@@ -44193,8 +44193,8 @@
   "gender": "",
   "pos": "",
   "frequency_rank": 4018,
-  "example_de": "",
-  "example_en": "",
+  "example_de": "nur eine rudimentäre Ausbildung erhalten",
+  "example_en": "receive only a rudimentary education",
   "level": "C1"
  },
  {
@@ -44303,8 +44303,8 @@
   "gender": "",
   "pos": "",
   "frequency_rank": 4028,
-  "example_de": "",
-  "example_en": "",
+  "example_de": "Das tangiert mich nur peripher.",
+  "example_en": "My interest is rather peripheral",
   "level": "C1"
  },
  {
@@ -44347,8 +44347,8 @@
   "gender": "die",
   "pos": "noun",
   "frequency_rank": 4032,
-  "example_de": "",
-  "example_en": "",
+  "example_de": "als Prämisse vorausschicken",
+  "example_en": "subsume",
   "level": "C1"
  },
  {
@@ -44468,8 +44468,8 @@
   "gender": "die",
   "pos": "noun",
   "frequency_rank": 4043,
-  "example_de": "",
-  "example_en": "",
+  "example_de": "aus Gründen der Verhältnismäßigkeit",
+  "example_en": "for reasons of proportionality",
   "level": "C1"
  },
  {

@@ -68,6 +68,19 @@ def entry_candidates(text):
             out.append(c)
     return [(c, tags, is_v, n_ex) for c in out[:4]]
 
+def fd_example(word):
+    """First "German" - English example pair from FreeDict for a word, if any."""
+    for off, ln in FD.get(word.lower(), []):
+        txt = raw[off:off + ln].decode('utf-8', errors='replace')
+        for line in txt.split('\n'):
+            m = re.match(r'\s*"([^"]{4,})"\s*-\s*(.+)', line)
+            if m:
+                de = m.group(1).strip()
+                en = re.sub(r'\s*\[[^\]]*\]', '', m.group(2)).strip().strip('.')
+                if 3 <= len(de) <= 60 and en:
+                    return de, en
+    return '', ''
+
 def fd_gloss(word, article, prefer_verb, ex_en):
     want_g = GENDER.get(article); exl = (ex_en or '').lower()
     cands = []
@@ -163,6 +176,8 @@ OVERRIDES = {
  'anleitung':'instructions','kampf':'fight, battle','inhaltlich':'in terms of content',
  'takt':'beat, rhythm','konstatieren':'to state','krimi':'crime novel, thriller',
  'verehren':'to worship','rationalisieren':'to rationalize','park':'park','parken':'to park',
+ 'verspätung':'delay','poulet':'chicken','grillieren':'to grill','mobiltelefon':'mobile phone',
+ 'einkaufszentrum':'shopping centre','poulet ':'chicken','wiederholung':'repetition',
 }
 
 # Words on the Goethe list that FreeDict can't gloss (reflexive/plural/phrases).
@@ -269,6 +284,10 @@ def make_card(word_disp, article, english, pos, level, freq, ex_de='', ex_en='')
     # german is the BARE word; the article lives in the `gender` field and the
     # UI renders them together (matching the existing data convention).
     german = re.sub(r'^(der|die|das)\s+', '', word_disp).strip()
+    if not ex_de:                                   # fall back to a FreeDict example
+        fde, fen = fd_example(german)
+        if fde:
+            ex_de, ex_en = fde, fen
     return {
         'german': german, 'english': english, 'all_translations': english,
         'gender': article or '', 'pos': pos or '', 'frequency_rank': freq,

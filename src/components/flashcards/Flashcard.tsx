@@ -3,6 +3,7 @@ import type { Card } from '../../types';
 import { Volume2, RotateCw } from 'lucide-react';
 import { speak } from '../../utils/tts';
 import { useAppStore } from '../../stores/appStore';
+import { genderColorClass } from '../../utils/genderColor';
 
 interface FlashcardProps {
   card: Card;
@@ -43,7 +44,7 @@ const Flashcard = ({ card, onAnswer }: FlashcardProps) => {
             <div className="flex-1 flex flex-col items-center justify-center text-center">
               <h2 lang="de" className="text-3xl font-bold mb-2">
                 {card.article && (
-                  <span className="text-brand-600 dark:text-brand-400 mr-2">
+                  <span className={`${genderColorClass(card.article)} mr-2`}>
                     {card.article}
                   </span>
                 )}

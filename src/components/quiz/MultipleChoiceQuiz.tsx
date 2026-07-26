@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import type { Card } from '../../types';
 import { speak } from '../../utils/tts';
 import { useAppStore } from '../../stores/appStore';
+import { genderColorClass } from '../../utils/genderColor';
 
 interface MultipleChoiceQuizProps {
   card: Card;
@@ -46,7 +47,7 @@ const MultipleChoiceQuiz = ({ card, options, onAnswer }: MultipleChoiceQuizProps
         <div className="mb-6 p-4 bg-brand-50 dark:bg-brand-900/20 rounded-lg text-center">
           <p lang="de" className="text-2xl font-bold">
             {card.article && (
-              <span className="text-brand-600 dark:text-brand-400 mr-2">
+              <span className={`${genderColorClass(card.article)} mr-2`}>
                 {card.article}
               </span>
             )}
