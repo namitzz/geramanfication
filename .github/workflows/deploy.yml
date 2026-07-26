@@ -40,6 +40,26 @@ jobs:
       - name: Build
         run: npm run build
 
+      # ---- version3.0 preview at /v3/ (non-blocking) ----
+      # Built here because the github-pages environment only permits
+      # deployments from main. Every step is continue-on-error, so a broken
+      # preview can never block or alter the live site at the root.
+      - name: Checkout version3.0 (preview)
+        uses: actions/checkout@v4
+        continue-on-error: true
+        with:
+          ref: version3.0
+          path: v3-src
+
+      - name: Build version3.0 preview
+        continue-on-error: true
+        working-directory: v3-src
+        run: |
+          npm ci
+          npm run build -- --base=/geramanfication/v3/
+          mkdir -p ../dist/v3
+          cp -r dist/. ../dist/v3/
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
