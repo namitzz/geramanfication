@@ -8,7 +8,7 @@ A fast, mobile-first **Progressive Web App** for learning German — from beginn
 
 ## ✨ Features
 
-- **📚 8,000+ words (A1–C1)** — CEFR-leveled vocabulary, ordered by frequency
+- **📚 4,000+ curated words (A1–C1)** — built from the official Goethe-Institut wordlists (correct articles + example sentences), glossed via FreeDict and ordered by real frequency so the most useful words come first ([sources](src/content/generated/ATTRIBUTION.md))
 - **🏋️ Grammar Gym** — learn 365 grammar rules through gamified quizzes (match rule ↔ meaning, spot the example) instead of walls of text
 - **🧪 Sentence Lab** — practice 2,300 real sentences three ways: **build** the word order, **listen & type** (dictation), or **translate**
 - **🎤 Speak & Score** — say sentences aloud; browser speech recognition grades you word by word
