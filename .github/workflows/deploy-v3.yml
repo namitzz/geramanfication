@@ -1,14 +1,12 @@
 name: Deploy v3 Preview
 
-# Publishes a combined GitHub Pages site so both versions are viewable:
+# Publishes a combined GitHub Pages site so both versions stay viewable:
 #   /geramanfication/      -> main (the live app, rebuilt unchanged)
-#   /geramanfication/v3/   -> version3.0 (the redesign preview)
-# It uses the same official Pages artifact mechanism as deploy.yml, so no
-# repo settings change is needed and the live site is unaffected.
-#
-# Note: a push to `main` runs deploy.yml, which deploys root only and so
-# temporarily drops /v3/ until the next push to version3.0 (or a manual
-# run of this workflow via "Run workflow").
+#   /geramanfication/v3/   -> version3.0 (this redesign preview)
+# Runs on every push to version3.0 (version3.0 is an allowed deployment
+# branch for the github-pages environment). main's own deploy.yml also
+# rebuilds /v3/, so the preview stays live no matter which branch is pushed;
+# pushing version3.0 just refreshes it fastest.
 
 on:
   push:
