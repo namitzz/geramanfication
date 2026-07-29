@@ -1,77 +1,64 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Layout from './components/layout/Layout';
-import HomePage from './pages/HomePage';
-import LearnPage from './pages/LearnPage';
-import DeckPage from './pages/DeckPage';
-import ReviewPage from './pages/ReviewPage';
-import ProgressPage from './pages/ProgressPage';
-import SettingsPage from './pages/SettingsPage';
-import ClassesPage from './pages/ClassesPage';
-import MCQTestingPage from './pages/MCQTestingPage';
-import { useAppStore } from './stores/appStore';
-import { Suspense, lazy, useEffect, type ReactNode } from 'react';
+import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+import PageTransition from './motion/PageTransition';
+import TabBar from './ui/TabBar';
+import { useApp } from './store/app';
 
-// Lazy-loaded so their large datasets ship as separate chunks.
-const VocabularyPage = lazy(() => import('./pages/VocabularyPage'));
-const GrammarPage = lazy(() => import('./pages/GrammarPage'));
-const SentencesPage = lazy(() => import('./pages/SentencesPage'));
-const AnalyzerPage = lazy(() => import('./pages/AnalyzerPage'));
-const DailySprintPage = lazy(() => import('./pages/DailySprintPage'));
-const ReflexPage = lazy(() => import('./pages/ReflexPage'));
-const SpeakPage = lazy(() => import('./pages/SpeakPage'));
-const ClozePage = lazy(() => import('./pages/ClozePage'));
-const WeakSpotsPage = lazy(() => import('./pages/WeakSpotsPage'));
-const TodayPage = lazy(() => import('./pages/TodayPage'));
+import Today from './screens/Today';
+import Practice from './screens/Practice';
+import Library from './screens/Library';
+import You from './screens/You';
+import Onboarding from './screens/Onboarding';
+import Session from './screens/Session';
+import Results from './screens/Results';
 
-const lazyRoute = (node: ReactNode) => (
-  <Suspense
-    fallback={
-      <div className="text-center py-12 text-gray-600 dark:text-gray-400">
-        Loading…
-      </div>
-    }
-  >
-    {node}
-  </Suspense>
-);
+const wrap = (node: React.ReactNode) => <PageTransition>{node}</PageTransition>;
 
-function App() {
-  const { settings } = useAppStore();
+function Shell() {
+  const location = useLocation();
+  const onboarded = useApp((s) => s.onboarded);
+  const fullscreen = ['/onboarding', '/session', '/results'].some((p) =>
+    location.pathname.startsWith(p),
+  );
 
-  useEffect(() => {
-    // Apply dyslexic font setting on mount
-    if (settings.dyslexicFont) {
-      document.body.classList.add('dyslexic-font');
-    }
-  }, [settings.dyslexicFont]);
+  if (!onboarded && location.pathname !== '/onboarding') {
+    return <Navigate to="/onboarding" replace />;
+  }
 
   return (
-    <Router basename="/geramanfication">
-      <Layout>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/learn" element={<LearnPage />} />
-          <Route path="/vocabulary" element={lazyRoute(<VocabularyPage />)} />
-          <Route path="/classes" element={<ClassesPage />} />
-          <Route path="/deck/:deckId" element={<DeckPage />} />
-          <Route path="/review" element={<ReviewPage />} />
-          <Route path="/grammar" element={lazyRoute(<GrammarPage />)} />
-          <Route path="/sentences" element={lazyRoute(<SentencesPage />)} />
-          <Route path="/analyzer" element={lazyRoute(<AnalyzerPage />)} />
-          <Route path="/daily" element={lazyRoute(<DailySprintPage />)} />
-          <Route path="/reflex" element={lazyRoute(<ReflexPage />)} />
-          <Route path="/speak" element={lazyRoute(<SpeakPage />)} />
-          <Route path="/cloze" element={lazyRoute(<ClozePage />)} />
-          <Route path="/weak" element={lazyRoute(<WeakSpotsPage />)} />
-          <Route path="/today" element={lazyRoute(<TodayPage />)} />
-          <Route path="/mcq-testing" element={<MCQTestingPage />} />
-          <Route path="/progress" element={<ProgressPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-        </Routes>
-      </Layout>
-    </Router>
+    <div className="aurora relative mx-auto min-h-screen w-full max-w-app">
+      <div className="relative z-10 px-5 pt-[max(20px,env(safe-area-inset-top))] pb-32">
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={wrap(<Today />)} />
+            <Route path="/practice" element={wrap(<Practice />)} />
+            <Route path="/library" element={wrap(<Library />)} />
+            <Route path="/you" element={wrap(<You />)} />
+            <Route path="/onboarding" element={wrap(<Onboarding />)} />
+            <Route path="/session" element={wrap(<Session mode="daily" />)} />
+            <Route path="/review" element={wrap(<Session mode="review" />)} />
+            <Route path="/results" element={wrap(<Results />)} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </AnimatePresence>
+      </div>
+      {!fullscreen && <TabBar />}
+    </div>
   );
 }
 
-export default App;
+export default function App() {
+  const theme = useApp((s) => s.settings.theme);
+  useEffect(() => {
+    document.documentElement.classList.toggle('light', theme === 'light');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'light' ? '#f5f5f6' : '#0a0a0b');
+  }, [theme]);
 
+  return (
+    <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
+      <Shell />
+    </BrowserRouter>
+  );
+}
