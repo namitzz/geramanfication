@@ -11,11 +11,11 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
-        name: 'DeutschSprint - Learn German',
-        short_name: 'DeutschSprint',
-        description: 'Offline German-learning PWA: 8,000+ words (A1–C1), Grammar Gym, Sentence Lab, spaced repetition, and downloadable audio.',
-        theme_color: '#ffffff',
-        background_color: '#ffffff',
+        name: 'inim — Learn German',
+        short_name: 'inim',
+        description: 'A premium, offline German-learning app: 4,000 curated words (A1–C1), grammar, sentences, and spaced repetition.',
+        theme_color: '#0c0a10',
+        background_color: '#0c0a10',
         display: 'standalone',
         icons: [
           {

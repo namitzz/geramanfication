@@ -3,6 +3,7 @@ import { useApp } from '../store/app';
 import { isCardDue } from '../utils/srs';
 import Counter from '../motion/Counter';
 import Pressable from '../motion/Pressable';
+import Avatar from '../ui/Avatar';
 import { Stagger, Item } from '../motion/Reveal';
 
 export default function You() {
@@ -25,8 +26,13 @@ export default function You() {
   return (
     <Stagger className="space-y-6">
       <Item>
-        <h1 className="display text-[30px]">You</h1>
-        <p className="mono text-faint mt-1">Level {level}</p>
+        <div className="flex items-center gap-4">
+          <Avatar name={settings.name} size={56} />
+          <div>
+            <h1 className="display text-[26px]">{settings.name || 'You'}</h1>
+            <p className="mono text-faint mt-0.5">Level {level}</p>
+          </div>
+        </div>
       </Item>
 
       <Item>

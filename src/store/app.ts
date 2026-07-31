@@ -5,6 +5,7 @@ import type { SrsRecord } from '../types';
 export type Theme = 'dark' | 'light';
 
 export interface Settings {
+  name: string;
   theme: Theme;
   dailyGoal: number;
   ttsEnabled: boolean;
@@ -62,7 +63,7 @@ const MISTAKE_CAP = 120;
 const dayKey = (d: Date) => `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
 export const getTodayKey = () => dayKey(new Date());
 
-const defaultSettings: Settings = { theme: 'dark', dailyGoal: 20, ttsEnabled: true };
+const defaultSettings: Settings = { name: '', theme: 'dark', dailyGoal: 20, ttsEnabled: true };
 const defaultProgress: Progress = {
   xp: 0,
   streak: 0,

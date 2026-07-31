@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-route
 import { AnimatePresence } from 'framer-motion';
 import PageTransition from './motion/PageTransition';
 import TabBar from './ui/TabBar';
+import BrandHeader from './ui/BrandHeader';
 import { useApp } from './store/app';
 
 import Today from './screens/Today';
@@ -30,7 +31,8 @@ function Shell() {
 
   return (
     <div className="aurora relative mx-auto min-h-screen w-full max-w-app">
-      <div className="relative z-10 px-5 pt-[max(20px,env(safe-area-inset-top))] pb-32">
+      <div className="relative z-10 px-5 pt-[max(18px,env(safe-area-inset-top))] pb-32">
+        {!fullscreen && <BrandHeader />}
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={wrap(<Today />)} />
