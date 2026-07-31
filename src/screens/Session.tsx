@@ -1,10 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import type { Card } from '../types';
-import { getDailyBatch, WORDS_PER_DAY } from '../content/dailyWords';
 import { loadVocabularyDecks } from '../content/vocabulary';
+import { buildAdaptiveSession } from '../lib/adaptive';
 import { initializeSrsRecord, updateSrsRecordOnReview, isCardDue } from '../utils/srs';
 import { useApp } from '../store/app';
 import Flashcard from '../features/study/Flashcard';
@@ -13,18 +13,16 @@ import { spring } from '../motion/springs';
 export default function Session({ mode }: { mode: 'daily' | 'review' }) {
   const navigate = useNavigate();
   const {
-    daily,
     rolloverDaily,
     advanceDailyCursor,
     getSrsRecord,
     updateSrsRecord,
     recordSession,
     recordMistake,
-    progress,
   } = useApp();
 
   const [queue, setQueue] = useState<Card[] | null>(null);
-  const [index, setIndex] = useState(0); // used by review mode
+  const [index, setIndex] = useState(0);
   const tally = useRef({ correct: 0, total: 0, xp: 0 });
 
   useEffect(() => {
@@ -32,42 +30,40 @@ export default function Session({ mode }: { mode: 'daily' | 'review' }) {
   }, [mode, rolloverDaily]);
 
   useEffect(() => {
+    const { srsRecords, mistakes, settings } = useApp.getState();
     if (mode === 'daily') {
-      getDailyBatch(daily.dayStart).then(setQueue);
+      // Adaptive: due reviews → weak spots → new frontier, capped at the goal.
+      buildAdaptiveSession(settings.dailyGoal, srsRecords, mistakes).then((s) => setQueue(s.cards));
     } else {
       loadVocabularyDecks().then((decks) => {
         const byId = new Map<string, Card>();
         for (const c of decks.flatMap((d) => d.cards)) byId.set(c.id, c);
-        const records = useApp.getState().srsRecords;
-        const due = Object.keys(records)
-          .filter((id) => isCardDue(records[id]))
+        const due = Object.keys(srsRecords)
+          .filter((id) => isCardDue(srsRecords[id]))
           .map((id) => byId.get(id))
           .filter((c): c is Card => Boolean(c));
         setQueue(due);
       });
     }
-  }, [mode, daily.dayStart]);
+  }, [mode]);
 
-  const position = mode === 'daily' ? daily.cursor - daily.dayStart : index;
-  const total = queue?.length ?? (mode === 'daily' ? WORDS_PER_DAY : 0);
-  const current = queue?.[position];
+  const total = queue?.length ?? 0;
+  const current = queue?.[index];
 
-  const finish = useMemo(
-    () => () =>
-      navigate('/results', {
-        replace: true,
-        state: { ...tally.current, mode, streak: useApp.getState().progress.streak },
-      }),
-    [navigate, mode],
-  );
+  const finish = () =>
+    navigate('/results', {
+      replace: true,
+      state: { ...tally.current, mode, streak: useApp.getState().progress.streak },
+    });
 
   const grade = (correct: boolean) => {
     if (!current) return;
-    const record = getSrsRecord(current.id) ?? initializeSrsRecord(current.id);
-    const wasNew = record.box === 1;
+    const existing = getSrsRecord(current.id);
+    const record = existing ?? initializeSrsRecord(current.id);
     updateSrsRecord(updateSrsRecordOnReview(record, correct));
-    if (correct && wasNew) {
-      useApp.setState({ progress: { ...progress, wordsLearned: progress.wordsLearned + 1 } });
+    if (correct && !existing) {
+      const p = useApp.getState().progress;
+      useApp.setState({ progress: { ...p, wordsLearned: p.wordsLearned + 1 } });
     }
     if (!correct) {
       recordMistake({
@@ -79,19 +75,18 @@ export default function Session({ mode }: { mode: 'daily' | 'review' }) {
     tally.current.correct += correct ? 1 : 0;
     tally.current.total += 1;
     tally.current.xp += recordSession(correct ? 1 : 0, 1);
-
-    const next = position + 1;
     if (mode === 'daily') advanceDailyCursor();
-    else setIndex(next);
-    if (next >= (queue?.length ?? 0)) setTimeout(finish, 260);
+
+    const next = index + 1;
+    setIndex(next);
+    if (next >= total) setTimeout(finish, 260);
   };
 
   if (!queue) {
     return <div className="py-24 text-center text-muted">Loading…</div>;
   }
 
-  if (queue.length === 0 || position >= queue.length) {
-    // review with nothing due, or daily already complete
+  if (queue.length === 0 || index >= queue.length) {
     return (
       <div className="flex min-h-[70vh] flex-col items-center justify-center text-center">
         <p className="display text-3xl mb-2">All caught up</p>
@@ -103,7 +98,7 @@ export default function Session({ mode }: { mode: 'daily' | 'review' }) {
     );
   }
 
-  const pct = total ? position / total : 0;
+  const pct = total ? index / total : 0;
 
   return (
     <div className="min-h-[80vh]">
@@ -114,13 +109,13 @@ export default function Session({ mode }: { mode: 'daily' | 'review' }) {
         <div className="h-1.5 flex-1 overflow-hidden rounded-full" style={{ background: 'var(--line)' }}>
           <motion.div
             className="h-full rounded-full"
-            style={{ background: 'var(--accent)' }}
+            style={{ background: 'var(--flame-gradient)' }}
             animate={{ width: `${pct * 100}%` }}
             transition={spring.gentle}
           />
         </div>
         <span className="mono text-faint text-sm">
-          {position + 1}/{total}
+          {index + 1}/{total}
         </span>
       </div>
 

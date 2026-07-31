@@ -15,6 +15,7 @@ import Session from './screens/Session';
 import Results from './screens/Results';
 import Quiz from './screens/Quiz';
 import TypeQuiz from './screens/TypeQuiz';
+import Fluency from './screens/Fluency';
 
 const wrap = (node: React.ReactNode) => <PageTransition>{node}</PageTransition>;
 
@@ -48,6 +49,7 @@ function Shell() {
             <Route path="/quiz/cloze" element={wrap(<Quiz mode="cloze" title="Cloze" />)} />
             <Route path="/quiz/hard" element={wrap(<Quiz mode="hard" title="Hard MCQ" />)} />
             <Route path="/quiz/type" element={wrap(<TypeQuiz />)} />
+            <Route path="/fluency" element={wrap(<Fluency />)} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </AnimatePresence>

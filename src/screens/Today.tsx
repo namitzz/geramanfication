@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Flame, Award, Layers, ArrowRight, Volume2 } from 'lucide-react';
-import type { Card } from '../types';
+import { Flame, Award, Layers, ArrowRight, Volume2, Target } from 'lucide-react';
+import type { Card, CEFRLevel } from '../types';
 import { useApp, getTodayKey } from '../store/app';
 import { isCardDue } from '../utils/srs';
 import { WORDS_PER_DAY, loadOrderedWords } from '../content/dailyWords';
 import { dayNumber } from '../content/daily';
+import { computeFluency, getLevelTotals } from '../lib/adaptive';
 import { speak } from '../utils/tts';
 import ProgressRing from '../motion/ProgressRing';
 import Counter from '../motion/Counter';
@@ -22,19 +23,29 @@ function greeting() {
 
 export default function Today() {
   const navigate = useNavigate();
-  const { progress, srsRecords, daily, settings } = useApp();
+  const { progress, srsRecords, mistakes, daily, settings } = useApp();
   const name = settings.name;
 
   const [wotd, setWotd] = useState<Card | null>(null);
+  const [totals, setTotals] = useState<Record<CEFRLevel, number> | null>(null);
   useEffect(() => {
     loadOrderedWords().then((words) => {
       if (words.length) setWotd(words[dayNumber() % Math.min(words.length, 1500)]);
     });
+    getLevelTotals().then(setTotals);
   }, []);
 
   const records = Object.values(srsRecords);
   const dueCount = records.filter(isCardDue).length;
   const mastered = records.filter((r) => r.box === 5).length;
+
+  // Adaptive session mix preview (due → weak → new, capped at the goal).
+  const goal = settings.dailyGoal;
+  const weakVocab = Object.keys(mistakes).filter((id) => id.startsWith('vocab-')).length;
+  const dueInSession = Math.min(dueCount, goal);
+  const weakInSession = Math.min(weakVocab, goal - dueInSession);
+  const freshInSession = Math.max(0, goal - dueInSession - weakInSession);
+  const fluency = totals ? computeFluency(srsRecords, mistakes, totals) : null;
 
   const doneToday = daily.date === getTodayKey() ? daily.cursor - daily.dayStart : 0;
   const target = WORDS_PER_DAY;
@@ -133,15 +144,41 @@ export default function Today() {
         >
           <span>
             <span className="block text-lg">
-              {finished ? 'Done for today ✓' : doneToday > 0 ? 'Continue' : "Today's words"}
+              {finished ? 'Done for today ✓' : doneToday > 0 ? 'Continue focus' : 'Start your focus'}
             </span>
             <span className="text-sm opacity-80">
-              {finished ? 'Come back tomorrow' : `${target - doneToday} to go`}
+              {finished
+                ? 'Come back tomorrow'
+                : `${dueInSession} due · ${weakInSession} weak · ${freshInSession} new`}
             </span>
           </span>
           <ArrowRight size={22} />
         </MagneticButton>
       </Item>
+
+      {/* Fluency — proof of progress (the USP) */}
+      {fluency && (
+        <Item>
+          <button
+            onClick={() => navigate('/fluency')}
+            className="card flex w-full items-center gap-4 px-5 py-4"
+          >
+            <span
+              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl"
+              style={{ background: 'var(--accent-soft)', color: 'var(--accent)' }}
+            >
+              <Target size={22} />
+            </span>
+            <span className="min-w-0 flex-1 text-left">
+              <span className="block font-semibold">Fluency</span>
+              <span className="text-faint text-sm">
+                {fluency.conversationalPct}% to conversational · {fluency.masteredTotal} mastered
+              </span>
+            </span>
+            <ArrowRight size={18} className="text-faint" />
+          </button>
+        </Item>
+      )}
 
       {dueCount > 0 && (
         <Item>

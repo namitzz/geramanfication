@@ -1,4 +1,5 @@
-import { Moon, Sun, Volume2, VolumeX, RotateCcw } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Moon, Sun, Volume2, VolumeX, RotateCcw, Target, ArrowRight } from 'lucide-react';
 import { useApp } from '../store/app';
 import { isCardDue } from '../utils/srs';
 import Counter from '../motion/Counter';
@@ -7,6 +8,7 @@ import Avatar from '../ui/Avatar';
 import { Stagger, Item } from '../motion/Reveal';
 
 export default function You() {
+  const navigate = useNavigate();
   const { progress, srsRecords, settings, toggleTheme, updateSettings, reset } = useApp();
   const records = Object.values(srsRecords);
   const mastered = records.filter((r) => r.box === 5).length;
@@ -46,6 +48,22 @@ export default function You() {
             </div>
           ))}
         </div>
+      </Item>
+
+      <Item>
+        <Pressable
+          onClick={() => navigate('/fluency')}
+          className="card flex w-full items-center gap-4 px-5 py-4"
+        >
+          <span
+            className="flex h-11 w-11 items-center justify-center rounded-2xl"
+            style={{ background: 'var(--accent-soft)', color: 'var(--accent)' }}
+          >
+            <Target size={20} />
+          </span>
+          <span className="flex-1 text-left font-semibold">Fluency map</span>
+          <ArrowRight size={18} className="text-faint" />
+        </Pressable>
       </Item>
 
       <Item>
