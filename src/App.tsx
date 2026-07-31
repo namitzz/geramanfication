@@ -12,6 +12,8 @@ import You from './screens/You';
 import Onboarding from './screens/Onboarding';
 import Session from './screens/Session';
 import Results from './screens/Results';
+import Quiz from './screens/Quiz';
+import TypeQuiz from './screens/TypeQuiz';
 
 const wrap = (node: React.ReactNode) => <PageTransition>{node}</PageTransition>;
 
@@ -39,6 +41,11 @@ function Shell() {
             <Route path="/session" element={wrap(<Session mode="daily" />)} />
             <Route path="/review" element={wrap(<Session mode="review" />)} />
             <Route path="/results" element={wrap(<Results />)} />
+            <Route path="/quiz/mcq" element={wrap(<Quiz mode="mcq" title="Multiple choice" />)} />
+            <Route path="/quiz/grammar" element={wrap(<Quiz mode="grammar" title="Grammar Gym" />)} />
+            <Route path="/quiz/cloze" element={wrap(<Quiz mode="cloze" title="Cloze" />)} />
+            <Route path="/quiz/hard" element={wrap(<Quiz mode="hard" title="Hard MCQ" />)} />
+            <Route path="/quiz/type" element={wrap(<TypeQuiz />)} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </AnimatePresence>

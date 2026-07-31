@@ -28,7 +28,7 @@ export default function Today() {
   const level = Math.floor(progress.xp / 100) + 1;
 
   const stats = [
-    { icon: Flame, value: progress.streak, label: 'streak', tint: '#ff9f43' },
+    { icon: Flame, value: progress.streak, label: 'streak', tint: 'var(--flame-3)' },
     { icon: Award, value: mastered, label: 'mastered', tint: 'var(--good)' },
     { icon: Layers, value: dueCount, label: 'due', tint: 'var(--accent)' },
   ];
@@ -45,7 +45,7 @@ export default function Today() {
 
       {/* Daily ring */}
       <Item className="flex flex-col items-center py-2">
-        <ProgressRing progress={ringProgress} size={190} stroke={13}>
+        <ProgressRing progress={ringProgress} size={190} stroke={13} gradient>
           <span className="mono text-4xl font-semibold">
             <Counter value={doneToday} />
             <span className="text-faint text-2xl">/{target}</span>

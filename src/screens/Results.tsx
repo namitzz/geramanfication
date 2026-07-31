@@ -32,7 +32,7 @@ export default function Results() {
       <p className="eyebrow text-faint mb-6">session complete</p>
 
       <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={spring.bouncy}>
-        <ProgressRing progress={acc} size={188} stroke={14}>
+        <ProgressRing progress={acc} size={188} stroke={14} gradient>
           <span className="display text-5xl">
             <Counter value={pct} />%
           </span>

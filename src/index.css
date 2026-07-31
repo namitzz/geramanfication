@@ -3,50 +3,63 @@
 @tailwind utilities;
 
 /* ------------------------------------------------------------------ tokens */
-/* Dark-first. Near-monochrome canvas + subtle glass; one vibrant accent.
-   Green/red are reserved strictly for correct/incorrect feedback. */
+/* Fiery Red Sunset. Warm near-black canvas + glass; warm-orange accent, with
+   the red→gold ramp used as a flame gradient. Green + pink-red stay reserved
+   for correct/incorrect feedback (kept clearly distinct from the accent). */
 :root {
   color-scheme: dark;
-  --canvas: #0a0a0b;
-  --surface: rgba(255, 255, 255, 0.045);
-  --surface-solid: #141417;
-  --elevated: rgba(255, 255, 255, 0.07);
-  --ink: #f5f5f6;
-  --muted: #a2a2ab;
-  --faint: #6a6a73;
-  --line: rgba(255, 255, 255, 0.09);
-  --line-strong: rgba(255, 255, 255, 0.16);
-  --accent: #6d5efc;
-  --accent-2: #a78bfa;
-  --accent-ink: #ffffff;
-  --accent-soft: rgba(109, 94, 252, 0.16);
+  --canvas: #0c0a10;
+  --surface: rgba(255, 244, 235, 0.05);
+  --surface-solid: #17131a;
+  --elevated: rgba(255, 244, 235, 0.08);
+  --ink: #f7f3f0;
+  --muted: #a9a3a0;
+  --faint: #6f6a70;
+  --line: rgba(255, 240, 230, 0.10);
+  --line-strong: rgba(255, 240, 230, 0.18);
+  --accent: #ff6a2b;
+  --accent-2: #f5a623;
+  --accent-ink: #1a0d05;
+  --accent-soft: rgba(255, 106, 43, 0.16);
+  --flame-1: #8b0000;
+  --flame-2: #e4340c;
+  --flame-3: #ff6a2b;
+  --flame-4: #f5a623;
+  --flame-5: #ffc93d;
+  --flame-gradient: linear-gradient(135deg, #e4340c 0%, #ff6a2b 45%, #f5a623 75%, #ffc93d 100%);
   --good: #35d29a;
   --good-soft: rgba(53, 210, 154, 0.15);
-  --bad: #ff5c78;
-  --bad-soft: rgba(255, 92, 120, 0.15);
+  --bad: #ff4d6d;
+  --bad-soft: rgba(255, 77, 109, 0.16);
   --shadow: 0 30px 70px -34px rgba(0, 0, 0, 0.85);
 }
 
 :root.light {
   color-scheme: light;
-  --canvas: #f5f5f6;
-  --surface: rgba(20, 20, 30, 0.028);
+  --canvas: #f7f4f1;
+  --surface: rgba(60, 30, 10, 0.03);
   --surface-solid: #ffffff;
   --elevated: #ffffff;
-  --ink: #15151a;
-  --muted: #55555f;
-  --faint: #9a9aa4;
-  --line: rgba(20, 20, 40, 0.08);
-  --line-strong: rgba(20, 20, 40, 0.15);
-  --accent: #5b4ef0;
-  --accent-2: #7c6cf5;
+  --ink: #1b1512;
+  --muted: #5c534e;
+  --faint: #9a908a;
+  --line: rgba(60, 30, 10, 0.09);
+  --line-strong: rgba(60, 30, 10, 0.16);
+  --accent: #ef5a12;
+  --accent-2: #e08a0a;
   --accent-ink: #ffffff;
-  --accent-soft: rgba(91, 78, 240, 0.12);
-  --good: #10b981;
-  --good-soft: rgba(16, 185, 129, 0.13);
-  --bad: #f43f5e;
-  --bad-soft: rgba(244, 63, 94, 0.12);
-  --shadow: 0 26px 60px -36px rgba(20, 20, 40, 0.3);
+  --accent-soft: rgba(239, 90, 18, 0.12);
+  --flame-1: #8b0000;
+  --flame-2: #e4340c;
+  --flame-3: #ef5a12;
+  --flame-4: #e8930c;
+  --flame-5: #f5b301;
+  --flame-gradient: linear-gradient(135deg, #e4340c 0%, #ef5a12 45%, #e8930c 75%, #f5b301 100%);
+  --good: #0ea371;
+  --good-soft: rgba(14, 163, 113, 0.13);
+  --bad: #e23a5e;
+  --bad-soft: rgba(226, 58, 94, 0.12);
+  --shadow: 0 26px 60px -36px rgba(40, 20, 10, 0.3);
 }
 
 * {
