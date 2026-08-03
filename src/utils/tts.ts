@@ -1,115 +1,155 @@
-// High-quality German voices to prefer, in rough quality order. These span
-// both genders — voice gender is a device/OS choice, not something we filter.
-const PREFERRED_DE_VOICES = [
-  'Google Deutsch',
-  'Microsoft', // Katja, Conrad, Hedda, etc. — whichever the OS provides
-  'Anna', // macOS/iOS German
-];
+/**
+ * Robust German text-to-speech for the browser.
+ *
+ * Priority: a real on-device German voice (offline, correct accent). If none
+ * exists, best-effort stream German audio. Everything is non-throwing and
+ * handles the common failure modes: async voice loading, the iOS autoplay
+ * lock (needs priming inside a user gesture), and the cancel→speak race.
+ */
 
-// Get the best available German voice (any gender).
-export const getGermanVoice = (): SpeechSynthesisVoice | null => {
-  if (!isTTSAvailable()) return null;
+const isAvailable = typeof window !== 'undefined' && 'speechSynthesis' in window;
 
-  const germanVoices = speechSynthesis
-    .getVoices()
-    .filter((v) => v.lang.toLowerCase().startsWith('de'));
-  if (germanVoices.length === 0) return null;
+// Voices load asynchronously; cache them and refresh on change.
+let voices: SpeechSynthesisVoice[] = [];
+function refreshVoices() {
+  if (isAvailable) voices = window.speechSynthesis.getVoices();
+}
+if (isAvailable) {
+  refreshVoices();
+  window.speechSynthesis.addEventListener?.('voiceschanged', refreshVoices);
+}
 
-  // Prefer a known high-quality voice, otherwise fall back to any German voice.
-  for (const name of PREFERRED_DE_VOICES) {
-    const match = germanVoices.find((v) =>
-      v.name.toLowerCase().includes(name.toLowerCase())
-    );
+export const isTTSAvailable = (): boolean => isAvailable;
+
+// Preferred German voices across platforms (any gender).
+const PREFERRED_DE = ['google', 'microsoft', 'anna', 'petra', 'markus', 'katja', 'conrad', 'yannick'];
+
+export function getGermanVoice(): SpeechSynthesisVoice | null {
+  if (!isAvailable) return null;
+  if (voices.length === 0) refreshVoices();
+  const de = voices.filter((v) => v.lang.toLowerCase().startsWith('de'));
+  if (de.length === 0) return null;
+  for (const name of PREFERRED_DE) {
+    const match = de.find((v) => v.name.toLowerCase().includes(name));
     if (match) return match;
   }
+  return de[0];
+}
 
-  return germanVoices[0];
-};
-
-// Speak `text` with a genuine German browser voice, if one exists.
-const speakWithWebSpeech = (
-  text: string,
-  lang: string,
-  voice: SpeechSynthesisVoice
-): Promise<void> =>
-  new Promise((resolve, reject) => {
-    speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = lang;
-    utterance.rate = 0.9; // Slightly slower for learning
-    utterance.voice = voice;
-    utterance.onend = () => resolve();
-    utterance.onerror = (e) => reject(e);
-    speechSynthesis.speak(utterance);
-  });
-
-let currentAudio: HTMLAudioElement | null = null;
-
-// A German MP3 stream, so audio is German even when the browser/OS has no
-// German voice installed (e.g. Brave, which blocks network voices). Returns
-// real German neural audio; playback works cross-origin (no CORS needed).
-const germanAudioUrl = (text: string): string => {
-  const q = encodeURIComponent(text.slice(0, 200));
-  return `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=de&q=${q}`;
-};
-
-const speakWithAudioStream = (text: string): Promise<void> =>
-  new Promise((resolve, reject) => {
-    if (currentAudio) {
-      currentAudio.pause();
-      currentAudio = null;
-    }
-    const audio = new Audio(germanAudioUrl(text));
-    currentAudio = audio;
-    audio.onended = () => resolve();
-    audio.onerror = () => reject(new Error('German audio stream failed'));
-    audio.play().catch(reject);
-  });
+export const getVoicesForLanguage = (lang: string): SpeechSynthesisVoice[] =>
+  isAvailable ? window.speechSynthesis.getVoices().filter((v) => v.lang.startsWith(lang)) : [];
 
 /**
- * Speak German text so that ALL users actually hear German:
- * 1. If the browser has a real German voice, use it (works offline).
- * 2. Otherwise stream German audio (fixes Brave / OS without a German voice).
- * 3. Fall back to whatever speech is available as a last resort.
+ * Unlock speech synthesis — must be called once from inside a real user
+ * gesture (Safari/iOS blocks speech that isn't). Speaks a silent utterance.
  */
-export const speak = (text: string, lang: string = 'de-DE'): Promise<void> => {
-  const run = (): Promise<void> => {
-    const germanVoice = getGermanVoice();
-    if (germanVoice) {
-      return speakWithWebSpeech(text, lang, germanVoice).catch(() =>
-        speakWithAudioStream(text)
-      );
-    }
-    // No German voice available — stream German audio instead of reading it
-    // aloud with an English voice. If the stream fails, stay silent rather than
-    // mispronouncing German with a non-German voice.
-    return speakWithAudioStream(text).catch(() => {});
-  };
-
-  // Voices can load asynchronously; wait briefly if the list is still empty.
-  if (isTTSAvailable() && speechSynthesis.getVoices().length === 0) {
-    return new Promise((resolve) => {
-      let settled = false;
-      const go = () => {
-        if (settled) return;
-        settled = true;
-        run().then(resolve).catch(() => resolve());
-      };
-      speechSynthesis.addEventListener('voiceschanged', go, { once: true });
-      setTimeout(go, 600); // fallback if the event never fires
-    });
+let primed = false;
+export function primeSpeech(): void {
+  if (!isAvailable || primed) return;
+  primed = true;
+  try {
+    const u = new SpeechSynthesisUtterance(' ');
+    u.volume = 0;
+    window.speechSynthesis.speak(u);
+    window.speechSynthesis.cancel();
+  } catch {
+    /* ignore */
   }
+}
 
-  return run().catch(() => {});
-};
+let currentAudio: HTMLAudioElement | null = null;
+function stopAudio() {
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio = null;
+  }
+}
 
-// Check if TTS is available
-export const isTTSAvailable = (): boolean => {
-  return 'speechSynthesis' in window;
-};
+/** Last-resort German audio stream (best-effort; never throws or hangs). */
+function streamGerman(text: string): Promise<void> {
+  return new Promise((resolve) => {
+    stopAudio();
+    try {
+      const url = `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=de&q=${encodeURIComponent(
+        text.slice(0, 200),
+      )}`;
+      const audio = new Audio(url);
+      currentAudio = audio;
+      const done = () => resolve();
+      audio.onended = done;
+      audio.onerror = done;
+      setTimeout(done, 6000);
+      audio.play().catch(done);
+    } catch {
+      resolve();
+    }
+  });
+}
 
-// Get available voices for a language
-export const getVoicesForLanguage = (lang: string): SpeechSynthesisVoice[] => {
-  if (!isTTSAvailable()) return [];
-  return speechSynthesis.getVoices().filter(voice => voice.lang.startsWith(lang));
-};
+async function waitForVoices(ms = 1000): Promise<void> {
+  if (!isAvailable || voices.length > 0) return;
+  await new Promise<void>((resolve) => {
+    const done = () => {
+      refreshVoices();
+      resolve();
+    };
+    window.speechSynthesis.addEventListener?.('voiceschanged', done, { once: true });
+    setTimeout(done, ms);
+  });
+}
+
+/**
+ * Speak German `text`. Uses a native German voice when available, else streams
+ * German audio, else stays silent (never mispronounces German with an English
+ * voice). Safe to call repeatedly — cancels any in-flight speech first.
+ */
+export async function speak(text: string, lang = 'de-DE'): Promise<void> {
+  if (!text) return;
+  if (!isAvailable) return streamGerman(text);
+
+  try {
+    await waitForVoices();
+    const voice = getGermanVoice();
+    const synth = window.speechSynthesis;
+
+    stopAudio();
+    synth.cancel();
+    try {
+      synth.resume(); // clears a "stuck speaking" state seen on iOS
+    } catch {
+      /* ignore */
+    }
+
+    if (!voice) {
+      await streamGerman(text);
+      return;
+    }
+
+    await new Promise<void>((resolve) => {
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = lang;
+      u.voice = voice;
+      u.rate = 0.9; // a touch slower for learners
+      let settled = false;
+      const finish = () => {
+        if (!settled) {
+          settled = true;
+          resolve();
+        }
+      };
+      u.onend = finish;
+      u.onerror = finish;
+      // A small delay avoids the cancel→speak race that swallows audio on iOS.
+      setTimeout(() => {
+        try {
+          synth.speak(u);
+        } catch {
+          finish();
+        }
+      }, 40);
+      setTimeout(finish, 8000); // safety net
+    });
+  } catch {
+    /* stay silent */
+  }
+}

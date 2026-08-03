@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion';
 import PageTransition from './motion/PageTransition';
 import TabBar from './ui/TabBar';
 import BrandHeader from './ui/BrandHeader';
+import { primeSpeech } from './utils/tts';
 import { useApp } from './store/app';
 
 import Today from './screens/Today';
@@ -64,8 +65,19 @@ export default function App() {
   useEffect(() => {
     document.documentElement.classList.toggle('light', theme === 'light');
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', theme === 'light' ? '#f5f5f6' : '#0a0a0b');
+    if (meta) meta.setAttribute('content', theme === 'light' ? '#f7f4f1' : '#0c0a10');
   }, [theme]);
+
+  // Unlock speech synthesis on the first user gesture (needed by iOS/Safari).
+  useEffect(() => {
+    const prime = () => primeSpeech();
+    window.addEventListener('pointerdown', prime, { once: true });
+    window.addEventListener('keydown', prime, { once: true });
+    return () => {
+      window.removeEventListener('pointerdown', prime);
+      window.removeEventListener('keydown', prime);
+    };
+  }, []);
 
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
