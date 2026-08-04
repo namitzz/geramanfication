@@ -11,8 +11,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
-        name: 'inim — Learn German',
-        short_name: 'inim',
+        name: 'Tovo — Learn German',
+        short_name: 'Tovo',
         description: 'A premium, offline German-learning app: 4,000 curated words (A1–C1), grammar, sentences, and spaced repetition.',
         theme_color: '#0c0a10',
         background_color: '#0c0a10',

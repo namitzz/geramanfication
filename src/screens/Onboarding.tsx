@@ -55,7 +55,9 @@ export default function Onboarding() {
       <div className="pt-6">
         <span className="inline-flex items-center gap-2">
           <LogoMark size={22} />
-          <span className="text-sm font-semibold lowercase" style={{ color: 'var(--ink)' }}>
+          <span
+            style={{ fontFamily: "'Sora', system-ui, sans-serif", fontWeight: 800, fontSize: 15, color: 'var(--ink)' }}
+          >
             {APP_NAME}
           </span>
         </span>

@@ -1,30 +1,41 @@
+import { useId } from 'react';
 import { APP_NAME } from '../brand';
 
-/** Flame glyph filled with the fiery gradient — the inim mark. */
+/**
+ * Tovo mark — two overlapping lenses (one language coming into focus through
+ * another); the overlap darkens where they meet. Tinted in the fiery palette.
+ */
 export function LogoMark({ size = 24 }: { size?: number }) {
+  const raw = useId().replace(/[^a-zA-Z0-9]/g, '');
+  const clip = `lens-${raw}`;
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg width={size} height={size} viewBox="0 0 96 96" fill="none" aria-hidden="true">
       <defs>
-        <linearGradient id="inimFlame" x1="4" y1="23" x2="20" y2="2" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="var(--flame-2)" />
-          <stop offset="52%" stopColor="var(--flame-3)" />
-          <stop offset="100%" stopColor="var(--flame-5)" />
-        </linearGradient>
+        <clipPath id={clip}>
+          <circle cx="62" cy="48" r="27" />
+        </clipPath>
       </defs>
-      <path
-        d="M12 23c-3.9 0-7-2.6-7-6.4 0-2.4 1.3-4.3 2.6-6C9 8.9 10.4 7.1 10 4c2.5 1.6 4.2 4 4.2 6.3 0 .9-.3 1.7-.8 2.4 1-.4 1.7-1.4 1.9-2.7 1.3 1.5 1.9 3.4 1.9 5.6 0 3.8-3.2 6.4-7.1 6.4Z"
-        fill="url(#inimFlame)"
-      />
+      <circle cx="34" cy="48" r="27" fill="var(--flame-3)" />
+      <circle cx="62" cy="48" r="27" fill="var(--flame-4)" />
+      <circle cx="34" cy="48" r="27" clipPath={`url(#${clip})`} fill="var(--flame-2)" />
     </svg>
   );
 }
 
-/** Full lockup: mark + lowercase wordmark. */
+/** Full lockup: mark + Sora wordmark. */
 export default function Logo({ size = 22 }: { size?: number }) {
   return (
     <span className="inline-flex items-center gap-2 select-none">
       <LogoMark size={size + 6} />
-      <span className="text-[20px] font-semibold lowercase" style={{ color: 'var(--ink)', letterSpacing: '-0.02em' }}>
+      <span
+        style={{
+          fontFamily: "'Sora', system-ui, sans-serif",
+          fontWeight: 800,
+          fontSize: size,
+          letterSpacing: '-0.01em',
+          color: 'var(--ink)',
+        }}
+      >
         {APP_NAME}
       </span>
     </span>
