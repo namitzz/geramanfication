@@ -1,4 +1,4 @@
-export type QuizMode = 'mcq' | 'grammar' | 'cloze' | 'hard';
+export type QuizMode = 'mcq' | 'grammar' | 'cloze' | 'hard' | 'classes';
 
 export interface QuizItem {
   prompt: string;

@@ -2,8 +2,10 @@ import type { CEFRLevel } from '../../types';
 import { buildGrammarQuestions } from '../../content/grammar';
 import { buildClozeSet } from '../../content/sentences';
 import { loadVocabularyDecks } from '../../content/vocabulary';
-import { buildChoiceOptions } from '../../utils/quizOptions';
+import { buildChoiceOptions, buildOptions } from '../../utils/quizOptions';
 import mcqData from '../../content/mcq-hard.json';
+import lessonsData from '../../content/classes/lessons.json';
+import { formatTopic, type Lesson } from '../../content/classes/types';
 import type { QuizItem, QuizMode } from './types';
 
 interface HardMCQ {
@@ -73,6 +75,26 @@ export async function buildQuiz(
         optionsDe: true,
         miss: { id: `grammar-${q.id}`, de: q.question, en: q.options[q.correct] },
       }));
+  }
+
+  if (mode === 'classes') {
+    const lessons = lessonsData as Lesson[];
+    const allEn = lessons.map((l) => l.en);
+    return shuffle(lessons)
+      .slice(0, count)
+      .map((l) => {
+        const options = buildOptions(l.en, [allEn]);
+        return {
+          prompt: l.de,
+          promptDe: true,
+          promptSub: formatTopic(l.topic),
+          speak: l.de,
+          options,
+          correctIndex: options.indexOf(l.en),
+          optionsDe: false,
+          miss: { id: `classes-${l.id}`, de: l.de, en: l.en },
+        };
+      });
   }
 
   // vocab multiple choice

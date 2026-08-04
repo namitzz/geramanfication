@@ -11,6 +11,8 @@ import {
   Mic,
   Zap,
   GraduationCap,
+  Target,
+  CalendarClock,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { useApp } from '../store/app';
@@ -36,7 +38,8 @@ export default function Practice() {
       label: 'study',
       modes: [
         { icon: Layers, title: 'Flashcards', sub: "Today's words · swipe to grade", to: '/session' },
-        { icon: RotateCcw, title: 'Review', sub: `${dueCount} due · ${mistakes} weak spots`, to: '/review' },
+        { icon: RotateCcw, title: 'Review', sub: `${dueCount} due · spaced repetition`, to: '/review' },
+        { icon: Target, title: 'Weak spots', sub: `${mistakes} to fix`, to: '/weak' },
       ],
     },
     {
@@ -52,10 +55,11 @@ export default function Practice() {
     {
       label: 'more',
       modes: [
-        { icon: Blocks, title: 'Sentence Lab', sub: 'Build · dictate · translate', to: '', soon: true },
-        { icon: Mic, title: 'Speak & Score', sub: 'Say it out loud', to: '', soon: true },
-        { icon: Zap, title: 'Reflex', sub: 'Gender speed game', to: '', soon: true },
-        { icon: GraduationCap, title: 'Classes', sub: 'Guided lessons', to: '', soon: true },
+        { icon: Blocks, title: 'Sentence Lab', sub: 'Build · dictate · translate', to: '/sentence' },
+        { icon: Mic, title: 'Speak & Score', sub: 'Say it out loud', to: '/speak' },
+        { icon: Zap, title: 'Reflex', sub: 'Gender speed game', to: '/reflex' },
+        { icon: CalendarClock, title: 'Daily puzzle', sub: 'One sentence, 3 tries', to: '/puzzle' },
+        { icon: GraduationCap, title: 'Classes', sub: 'Guided lesson phrases', to: '/quiz/classes' },
       ],
     },
   ];

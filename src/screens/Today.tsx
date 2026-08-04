@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Flame, Award, Layers, ArrowRight, Volume2, Target } from 'lucide-react';
+import { Flame, Award, Layers, ArrowRight, Volume2, Target, CalendarClock } from 'lucide-react';
 import type { Card, CEFRLevel } from '../types';
 import { useApp, getTodayKey } from '../store/app';
 import { isCardDue } from '../utils/srs';
@@ -179,6 +179,23 @@ export default function Today() {
           </button>
         </Item>
       )}
+
+      {/* Daily puzzle */}
+      <Item>
+        <button onClick={() => navigate('/puzzle')} className="card flex w-full items-center gap-4 px-5 py-4">
+          <span
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl"
+            style={{ background: 'var(--accent-soft)', color: 'var(--accent)' }}
+          >
+            <CalendarClock size={22} />
+          </span>
+          <span className="min-w-0 flex-1 text-left">
+            <span className="block font-semibold">Daily puzzle</span>
+            <span className="text-faint text-sm">One sentence, three tries — shareable</span>
+          </span>
+          <ArrowRight size={18} className="text-faint" />
+        </button>
+      </Item>
 
       {dueCount > 0 && (
         <Item>

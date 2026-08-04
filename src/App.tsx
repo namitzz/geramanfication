@@ -17,6 +17,11 @@ import Results from './screens/Results';
 import Quiz from './screens/Quiz';
 import TypeQuiz from './screens/TypeQuiz';
 import Fluency from './screens/Fluency';
+import Sentence from './screens/Sentence';
+import WeakSpots from './screens/WeakSpots';
+import Speak from './screens/Speak';
+import Reflex from './screens/Reflex';
+import Puzzle from './screens/Puzzle';
 
 const wrap = (node: React.ReactNode) => <PageTransition>{node}</PageTransition>;
 
@@ -49,8 +54,14 @@ function Shell() {
             <Route path="/quiz/grammar" element={wrap(<Quiz mode="grammar" title="Grammar Gym" />)} />
             <Route path="/quiz/cloze" element={wrap(<Quiz mode="cloze" title="Cloze" />)} />
             <Route path="/quiz/hard" element={wrap(<Quiz mode="hard" title="Hard MCQ" />)} />
+            <Route path="/quiz/classes" element={wrap(<Quiz mode="classes" title="Classes" />)} />
             <Route path="/quiz/type" element={wrap(<TypeQuiz />)} />
             <Route path="/fluency" element={wrap(<Fluency />)} />
+            <Route path="/sentence" element={wrap(<Sentence />)} />
+            <Route path="/weak" element={wrap(<WeakSpots />)} />
+            <Route path="/speak" element={wrap(<Speak />)} />
+            <Route path="/reflex" element={wrap(<Reflex />)} />
+            <Route path="/puzzle" element={wrap(<Puzzle />)} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </AnimatePresence>
