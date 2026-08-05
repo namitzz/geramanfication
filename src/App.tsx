@@ -5,7 +5,14 @@ import PageTransition from './motion/PageTransition';
 import TabBar from './ui/TabBar';
 import BrandHeader from './ui/BrandHeader';
 import { primeSpeech } from './utils/tts';
-import { useApp } from './store/app';
+import {
+  scheduleWhileOpen,
+  scheduleTrigger,
+  showReminder,
+  notificationPermission,
+  passedToday,
+} from './utils/notifications';
+import { useApp, getTodayKey } from './store/app';
 
 import Today from './screens/Today';
 import Practice from './screens/Practice';
@@ -73,11 +80,38 @@ function Shell() {
 
 export default function App() {
   const theme = useApp((s) => s.settings.theme);
+  const reminderEnabled = useApp((s) => s.settings.reminderEnabled);
+  const reminderTime = useApp((s) => s.settings.reminderTime);
   useEffect(() => {
     document.documentElement.classList.toggle('light', theme === 'light');
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.setAttribute('content', theme === 'light' ? '#f7f4f1' : '#0c0a10');
   }, [theme]);
+
+  // Daily reminder: fire while open, catch up on open, and (where supported)
+  // schedule an OS-level trigger that can fire when the app is closed.
+  useEffect(() => {
+    const fire = () => {
+      const st = useApp.getState();
+      if (st.lastReminded === getTodayKey()) return;
+      showReminder(st.progress.streak);
+      st.markReminded();
+    };
+
+    scheduleWhileOpen(reminderTime, reminderEnabled, fire);
+
+    if (reminderEnabled && notificationPermission() === 'granted') {
+      const st = useApp.getState();
+      // Catch-up: past the time today, goal not met, and not already reminded.
+      const goalMet = st.progress.lastReviewDate === getTodayKey();
+      if (passedToday(reminderTime) && !goalMet && st.lastReminded !== getTodayKey()) {
+        fire();
+      }
+      scheduleTrigger(reminderTime, st.progress.streak);
+    }
+
+    return () => scheduleWhileOpen('', false, () => {});
+  }, [reminderEnabled, reminderTime]);
 
   // Unlock speech synthesis on the first user gesture (needed by iOS/Safari).
   useEffect(() => {

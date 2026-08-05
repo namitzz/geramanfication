@@ -54,6 +54,7 @@ function WordsPanel() {
             setLimit(PAGE);
           }}
           placeholder="Search German or English…"
+          aria-label="Search words"
           className="flex-1 bg-transparent text-[15px] outline-none placeholder:text-faint"
         />
       </div>
@@ -128,7 +129,7 @@ function GrammarPanel() {
     <div className="space-y-4">
       <div className="glass flex items-center gap-3 rounded-2xl px-4 py-3">
         <Search size={18} className="text-faint" />
-        <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search grammar rules…" className="flex-1 bg-transparent text-[15px] outline-none placeholder:text-faint" />
+        <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search grammar rules…" aria-label="Search grammar rules" className="flex-1 bg-transparent text-[15px] outline-none placeholder:text-faint" />
       </div>
       {!rules ? (
         <p className="text-muted py-10 text-center text-sm">Loading…</p>
@@ -192,6 +193,7 @@ function AnalyzerPanel() {
         lang="de"
         className="glass w-full rounded-2xl px-4 py-3 outline-none placeholder:text-faint"
         placeholder="Paste German text…"
+        aria-label="German text to analyze"
       />
       <button onClick={run} disabled={!lexicon} className="flex w-full items-center justify-center gap-2 rounded-2xl bg-accent py-3 font-semibold text-accent-ink">
         <Sparkles size={18} /> Analyze

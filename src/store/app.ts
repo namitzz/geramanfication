@@ -9,6 +9,8 @@ export interface Settings {
   theme: Theme;
   dailyGoal: number;
   ttsEnabled: boolean;
+  reminderEnabled: boolean;
+  reminderTime: string; // "HH:MM"
 }
 export interface Progress {
   xp: number;
@@ -37,6 +39,10 @@ interface AppState {
   updateSettings: (s: Partial<Settings>) => void;
   toggleTheme: () => void;
 
+  /** Date of the last daily reminder shown (dedupe). */
+  lastReminded: string;
+  markReminded: () => void;
+
   progress: Progress;
   /** Award XP + advance the daily streak; returns XP earned. */
   recordSession: (correct: number, total: number) => number;
@@ -63,7 +69,14 @@ const MISTAKE_CAP = 120;
 const dayKey = (d: Date) => `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
 export const getTodayKey = () => dayKey(new Date());
 
-const defaultSettings: Settings = { name: '', theme: 'dark', dailyGoal: 20, ttsEnabled: true };
+const defaultSettings: Settings = {
+  name: '',
+  theme: 'dark',
+  dailyGoal: 20,
+  ttsEnabled: true,
+  reminderEnabled: false,
+  reminderTime: '19:00',
+};
 const defaultProgress: Progress = {
   xp: 0,
   streak: 0,
@@ -85,6 +98,9 @@ export const useApp = create<AppState>()(
         set((st) => ({
           settings: { ...st.settings, theme: st.settings.theme === 'dark' ? 'light' : 'dark' },
         })),
+
+      lastReminded: '',
+      markReminded: () => set({ lastReminded: getTodayKey() }),
 
       progress: defaultProgress,
       recordSession: (correct, total) => {

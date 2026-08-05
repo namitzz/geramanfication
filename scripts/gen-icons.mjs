@@ -39,3 +39,27 @@ const ico16 = await render(icon(true), 16).toBuffer();
 const ico32 = await render(icon(true), 32).toBuffer();
 await writeFile(join(pub, 'favicon.ico'), await pngToIco([ico16, ico32]));
 console.log('wrote favicon.ico');
+
+// Social share card (og-image, 1200x630): mark + wordmark + tagline on the
+// warm-dark canvas with a soft flame glow.
+const og = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="glow" cx="26%" cy="42%" r="55%">
+      <stop offset="0%" stop-color="#ff6a2b" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#0c0a10" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="ogl"><circle cx="62" cy="48" r="27"/></clipPath>
+  </defs>
+  <rect width="1200" height="630" fill="#0c0a10"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <g transform="translate(150 232) scale(1.9) translate(-48 -48)">
+    <circle cx="34" cy="48" r="27" fill="#ff6a2b"/>
+    <circle cx="62" cy="48" r="27" fill="#f5a623"/>
+    <circle cx="34" cy="48" r="27" clip-path="url(#ogl)" fill="#e4340c"/>
+  </g>
+  <text x="330" y="330" font-family="Sora, Geist Sans, sans-serif" font-weight="800" font-size="112" fill="#f6f2ee">Tovo</text>
+  <text x="334" y="404" font-family="Geist Sans, sans-serif" font-weight="500" font-size="40" fill="#a89fb0">Learn German, daily.</text>
+</svg>`;
+await sharp(Buffer.from(og)).png().toFile(join(pub, 'og-image.png'));
+console.log('wrote og-image.png');
