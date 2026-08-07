@@ -29,6 +29,8 @@ import WeakSpots from './screens/WeakSpots';
 import Speak from './screens/Speak';
 import Reflex from './screens/Reflex';
 import Puzzle from './screens/Puzzle';
+import Privacy from './screens/Privacy';
+import { trackPageview } from './utils/analytics';
 
 const wrap = (node: React.ReactNode) => <PageTransition>{node}</PageTransition>;
 
@@ -38,6 +40,12 @@ function Shell() {
   const fullscreen = ['/onboarding', '/session', '/results'].some((p) =>
     location.pathname.startsWith(p),
   );
+
+  // Count an (anonymous) pageview on each route change; no-op unless analytics
+  // is configured.
+  useEffect(() => {
+    trackPageview();
+  }, [location.pathname]);
 
   if (!onboarded && location.pathname !== '/onboarding') {
     return <Navigate to="/onboarding" replace />;
@@ -69,6 +77,7 @@ function Shell() {
             <Route path="/speak" element={wrap(<Speak />)} />
             <Route path="/reflex" element={wrap(<Reflex />)} />
             <Route path="/puzzle" element={wrap(<Puzzle />)} />
+            <Route path="/privacy" element={wrap(<Privacy />)} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </AnimatePresence>

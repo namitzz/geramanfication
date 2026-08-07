@@ -224,6 +224,12 @@ export default function You() {
         >
           <RotateCcw size={16} /> Reset all progress
         </button>
+        <button
+          onClick={() => navigate('/privacy')}
+          className="text-faint mt-1 w-full py-2 text-center text-[13px] underline"
+        >
+          Privacy
+        </button>
       </Item>
     </Stagger>
   );

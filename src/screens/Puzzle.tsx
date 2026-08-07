@@ -11,7 +11,7 @@ const norm = (s: string) => s.toLowerCase().replace(/[.,!?;:„"»«]/g, '').rep
 
 function share(number: number, attemptsUsed: number, solved: boolean) {
   const squares = '🟧'.repeat(solved ? attemptsUsed - 1 : attemptsUsed) + (solved ? '🟩' : '⬛');
-  const text = `Tovo Daily #${number} 🔥 ${solved ? `${attemptsUsed}/${MAX_ATTEMPTS}` : `X/${MAX_ATTEMPTS}`}\n${squares}\nhttps://namitzz.github.io/geramanfication/v4/`;
+  const text = `Tovo Daily #${number} 🔥 ${solved ? `${attemptsUsed}/${MAX_ATTEMPTS}` : `X/${MAX_ATTEMPTS}`}\n${squares}\nhttps://namitzz.github.io/Tovo/`;
   if (navigator.share) navigator.share({ text }).catch(() => {});
   else navigator.clipboard?.writeText(text);
 }

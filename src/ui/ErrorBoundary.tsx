@@ -1,4 +1,5 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
+import { captureError } from '../utils/monitoring';
 
 /** Catches render errors and shows a recoverable screen; progress is in localStorage. */
 export default class ErrorBoundary extends Component<
@@ -12,6 +13,7 @@ export default class ErrorBoundary extends Component<
   }
   componentDidCatch(error: Error, info: ErrorInfo) {
     console.error('Unhandled error:', error, info.componentStack);
+    captureError(error);
   }
 
   render() {

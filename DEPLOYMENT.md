@@ -22,7 +22,7 @@ To enable GitHub Pages deployment for this project:
 
 3. **Access Your App**
    - After successful deployment, your app will be available at:
-   - `https://namitzz.github.io/geramanfication/`
+   - `https://namitzz.github.io/Tovo/`
 
 ## Manual Deployment (Alternative)
 
@@ -46,7 +46,7 @@ npm run build
 ## Environment Configuration
 
 The app is configured with:
-- Base URL: `/geramanfication/` (for GitHub Pages)
+- Base URL: `/Tovo/` (for GitHub Pages)
 - This is set in `vite.config.ts`
 
 If deploying to a different platform or root domain:

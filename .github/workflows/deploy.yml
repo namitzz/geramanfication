@@ -39,6 +39,12 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          # Optional, privacy-conscious integrations. Absent -> app ships
+          # inert (no tracking). Add a repo Secret / Variable to enable.
+          VITE_SENTRY_DSN: ${{ secrets.VITE_SENTRY_DSN }}
+          VITE_PLAUSIBLE_DOMAIN: ${{ vars.VITE_PLAUSIBLE_DOMAIN }}
+          VITE_PLAUSIBLE_SRC: ${{ vars.VITE_PLAUSIBLE_SRC }}
 
       # ---- version3.0 preview at /v3/ (non-blocking) ----
       # Built here because the github-pages environment only permits
@@ -56,7 +62,7 @@ jobs:
         working-directory: v3-src
         run: |
           npm ci
-          npm run build -- --base=/geramanfication/v3/
+          npm run build -- --base=/Tovo/v3/
           mkdir -p ../dist/v3
           cp -r dist/. ../dist/v3/
 

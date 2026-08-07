@@ -111,7 +111,7 @@ export function shareText(
   const squares =
     '🟥'.repeat(solved ? attemptsUsed - 1 : attemptsUsed) + (solved ? '🟩' : '⬛');
   const score = solved ? `${attemptsUsed}/${MAX_ATTEMPTS}` : `X/${MAX_ATTEMPTS}`;
-  return `Daily Sprint #${number} ⚡ ${score}\n${squares}\nhttps://namitzz.github.io/geramanfication/`;
+  return `Daily Sprint #${number} ⚡ ${score}\n${squares}\nhttps://namitzz.github.io/Tovo/`;
 }
 
 // ---- Result persistence (local, per-day) ----

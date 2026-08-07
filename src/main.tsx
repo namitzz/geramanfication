@@ -13,6 +13,12 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App';
 import ErrorBoundary from './ui/ErrorBoundary';
+import { initMonitoring } from './utils/monitoring';
+import { initAnalytics } from './utils/analytics';
+
+// Optional, env-gated, privacy-conscious — both are no-ops unless configured.
+initMonitoring();
+initAnalytics();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

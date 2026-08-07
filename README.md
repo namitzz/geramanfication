@@ -1,8 +1,8 @@
-# 🇩🇪 DeutschSprint — Learn German (A1–C1), Offline
+# 🔥 Tovo — Learn German (A1–C1), Offline
 
 A fast, mobile-first **Progressive Web App** for learning German — from beginner (A1) to advanced (C1). Practice by **doing**, not reading: interactive vocabulary, grammar drills, sentence building, listening dictation, spaced repetition, and **downloadable audio**. Free, offline-first, and no sign-in.
 
-**▶ Live demo: https://namitzz.github.io/geramanfication/**
+**▶ Live demo: https://namitzz.github.io/Tovo/**
 
 ![DeutschSprint](public/og-image.png)
 
@@ -37,10 +37,10 @@ React 19 · TypeScript · Vite · Tailwind CSS · Zustand · React Router · Rec
 ## 🚀 Getting started
 
 ```bash
-git clone https://github.com/namitzz/geramanfication.git
-cd geramanfication
+git clone https://github.com/namitzz/Tovo.git
+cd Tovo
 npm install
-npm run dev        # http://localhost:5173/geramanfication/
+npm run dev        # http://localhost:5173/Tovo/
 ```
 
 ```bash
