@@ -1,77 +1,132 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Layout from './components/layout/Layout';
-import HomePage from './pages/HomePage';
-import LearnPage from './pages/LearnPage';
-import DeckPage from './pages/DeckPage';
-import ReviewPage from './pages/ReviewPage';
-import ProgressPage from './pages/ProgressPage';
-import SettingsPage from './pages/SettingsPage';
-import ClassesPage from './pages/ClassesPage';
-import MCQTestingPage from './pages/MCQTestingPage';
-import { useAppStore } from './stores/appStore';
-import { Suspense, lazy, useEffect, type ReactNode } from 'react';
+import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+import PageTransition from './motion/PageTransition';
+import TabBar from './ui/TabBar';
+import BrandHeader from './ui/BrandHeader';
+import { primeSpeech } from './utils/tts';
+import {
+  scheduleWhileOpen,
+  scheduleTrigger,
+  showReminder,
+  notificationPermission,
+  passedToday,
+} from './utils/notifications';
+import { useApp, getTodayKey } from './store/app';
 
-// Lazy-loaded so their large datasets ship as separate chunks.
-const VocabularyPage = lazy(() => import('./pages/VocabularyPage'));
-const GrammarPage = lazy(() => import('./pages/GrammarPage'));
-const SentencesPage = lazy(() => import('./pages/SentencesPage'));
-const AnalyzerPage = lazy(() => import('./pages/AnalyzerPage'));
-const DailySprintPage = lazy(() => import('./pages/DailySprintPage'));
-const ReflexPage = lazy(() => import('./pages/ReflexPage'));
-const SpeakPage = lazy(() => import('./pages/SpeakPage'));
-const ClozePage = lazy(() => import('./pages/ClozePage'));
-const WeakSpotsPage = lazy(() => import('./pages/WeakSpotsPage'));
-const TodayPage = lazy(() => import('./pages/TodayPage'));
+import Today from './screens/Today';
+import Practice from './screens/Practice';
+import Library from './screens/Library';
+import You from './screens/You';
+import Onboarding from './screens/Onboarding';
+import Session from './screens/Session';
+import Results from './screens/Results';
+import Quiz from './screens/Quiz';
+import TypeQuiz from './screens/TypeQuiz';
+import Fluency from './screens/Fluency';
+import Sentence from './screens/Sentence';
+import WeakSpots from './screens/WeakSpots';
+import Speak from './screens/Speak';
+import Reflex from './screens/Reflex';
+import Puzzle from './screens/Puzzle';
 
-const lazyRoute = (node: ReactNode) => (
-  <Suspense
-    fallback={
-      <div className="text-center py-12 text-gray-600 dark:text-gray-400">
-        Loading…
-      </div>
-    }
-  >
-    {node}
-  </Suspense>
-);
+const wrap = (node: React.ReactNode) => <PageTransition>{node}</PageTransition>;
 
-function App() {
-  const { settings } = useAppStore();
+function Shell() {
+  const location = useLocation();
+  const onboarded = useApp((s) => s.onboarded);
+  const fullscreen = ['/onboarding', '/session', '/results'].some((p) =>
+    location.pathname.startsWith(p),
+  );
 
-  useEffect(() => {
-    // Apply dyslexic font setting on mount
-    if (settings.dyslexicFont) {
-      document.body.classList.add('dyslexic-font');
-    }
-  }, [settings.dyslexicFont]);
+  if (!onboarded && location.pathname !== '/onboarding') {
+    return <Navigate to="/onboarding" replace />;
+  }
 
   return (
-    <Router basename="/geramanfication">
-      <Layout>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/learn" element={<LearnPage />} />
-          <Route path="/vocabulary" element={lazyRoute(<VocabularyPage />)} />
-          <Route path="/classes" element={<ClassesPage />} />
-          <Route path="/deck/:deckId" element={<DeckPage />} />
-          <Route path="/review" element={<ReviewPage />} />
-          <Route path="/grammar" element={lazyRoute(<GrammarPage />)} />
-          <Route path="/sentences" element={lazyRoute(<SentencesPage />)} />
-          <Route path="/analyzer" element={lazyRoute(<AnalyzerPage />)} />
-          <Route path="/daily" element={lazyRoute(<DailySprintPage />)} />
-          <Route path="/reflex" element={lazyRoute(<ReflexPage />)} />
-          <Route path="/speak" element={lazyRoute(<SpeakPage />)} />
-          <Route path="/cloze" element={lazyRoute(<ClozePage />)} />
-          <Route path="/weak" element={lazyRoute(<WeakSpotsPage />)} />
-          <Route path="/today" element={lazyRoute(<TodayPage />)} />
-          <Route path="/mcq-testing" element={<MCQTestingPage />} />
-          <Route path="/progress" element={<ProgressPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-        </Routes>
-      </Layout>
-    </Router>
+    <div className="aurora relative mx-auto min-h-screen w-full max-w-app">
+      <div className="relative z-10 px-5 pt-[max(18px,env(safe-area-inset-top))] pb-32">
+        {!fullscreen && <BrandHeader />}
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={wrap(<Today />)} />
+            <Route path="/practice" element={wrap(<Practice />)} />
+            <Route path="/library" element={wrap(<Library />)} />
+            <Route path="/you" element={wrap(<You />)} />
+            <Route path="/onboarding" element={wrap(<Onboarding />)} />
+            <Route path="/session" element={wrap(<Session mode="daily" />)} />
+            <Route path="/review" element={wrap(<Session mode="review" />)} />
+            <Route path="/results" element={wrap(<Results />)} />
+            <Route path="/quiz/mcq" element={wrap(<Quiz mode="mcq" title="Multiple choice" />)} />
+            <Route path="/quiz/grammar" element={wrap(<Quiz mode="grammar" title="Grammar Gym" />)} />
+            <Route path="/quiz/cloze" element={wrap(<Quiz mode="cloze" title="Cloze" />)} />
+            <Route path="/quiz/hard" element={wrap(<Quiz mode="hard" title="Hard MCQ" />)} />
+            <Route path="/quiz/classes" element={wrap(<Quiz mode="classes" title="Classes" />)} />
+            <Route path="/quiz/type" element={wrap(<TypeQuiz />)} />
+            <Route path="/fluency" element={wrap(<Fluency />)} />
+            <Route path="/sentence" element={wrap(<Sentence />)} />
+            <Route path="/weak" element={wrap(<WeakSpots />)} />
+            <Route path="/speak" element={wrap(<Speak />)} />
+            <Route path="/reflex" element={wrap(<Reflex />)} />
+            <Route path="/puzzle" element={wrap(<Puzzle />)} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </AnimatePresence>
+      </div>
+      {!fullscreen && <TabBar />}
+    </div>
   );
 }
 
-export default App;
+export default function App() {
+  const theme = useApp((s) => s.settings.theme);
+  const reminderEnabled = useApp((s) => s.settings.reminderEnabled);
+  const reminderTime = useApp((s) => s.settings.reminderTime);
+  useEffect(() => {
+    document.documentElement.classList.toggle('light', theme === 'light');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'light' ? '#f7f4f1' : '#0c0a10');
+  }, [theme]);
 
+  // Daily reminder: fire while open, catch up on open, and (where supported)
+  // schedule an OS-level trigger that can fire when the app is closed.
+  useEffect(() => {
+    const fire = () => {
+      const st = useApp.getState();
+      if (st.lastReminded === getTodayKey()) return;
+      showReminder(st.progress.streak);
+      st.markReminded();
+    };
+
+    scheduleWhileOpen(reminderTime, reminderEnabled, fire);
+
+    if (reminderEnabled && notificationPermission() === 'granted') {
+      const st = useApp.getState();
+      // Catch-up: past the time today, goal not met, and not already reminded.
+      const goalMet = st.progress.lastReviewDate === getTodayKey();
+      if (passedToday(reminderTime) && !goalMet && st.lastReminded !== getTodayKey()) {
+        fire();
+      }
+      scheduleTrigger(reminderTime, st.progress.streak);
+    }
+
+    return () => scheduleWhileOpen('', false, () => {});
+  }, [reminderEnabled, reminderTime]);
+
+  // Unlock speech synthesis on the first user gesture (needed by iOS/Safari).
+  useEffect(() => {
+    const prime = () => primeSpeech();
+    window.addEventListener('pointerdown', prime, { once: true });
+    window.addEventListener('keydown', prime, { once: true });
+    return () => {
+      window.removeEventListener('pointerdown', prime);
+      window.removeEventListener('keydown', prime);
+    };
+  }, []);
+
+  return (
+    <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
+      <Shell />
+    </BrowserRouter>
+  );
+}

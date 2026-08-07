@@ -60,23 +60,6 @@ jobs:
           mkdir -p ../dist/v3
           cp -r dist/. ../dist/v3/
 
-      # ---- v4-premium preview at /v4/ (non-blocking) ----
-      - name: Checkout v4-premium (preview)
-        uses: actions/checkout@v4
-        continue-on-error: true
-        with:
-          ref: v4-premium
-          path: v4-src
-
-      - name: Build v4-premium preview
-        continue-on-error: true
-        working-directory: v4-src
-        run: |
-          npm ci
-          npm run build -- --base=/geramanfication/v4/
-          mkdir -p ../dist/v4
-          cp -r dist/. ../dist/v4/
-
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
