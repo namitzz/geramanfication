@@ -12,6 +12,7 @@ import {
   BellOff,
   Download,
   Upload,
+  Cloud,
 } from 'lucide-react';
 import { useApp } from '../store/app';
 import { isCardDue } from '../utils/srs';
@@ -21,6 +22,7 @@ import {
   requestNotificationPermission,
 } from '../utils/notifications';
 import { exportData, importData } from '../utils/backup';
+import { syncEnabled } from '../lib/supabase';
 import Counter from '../motion/Counter';
 import Pressable from '../motion/Pressable';
 import Avatar from '../ui/Avatar';
@@ -120,6 +122,24 @@ export default function You() {
           <ArrowRight size={18} className="text-faint" />
         </Pressable>
       </Item>
+
+      {syncEnabled() && (
+        <Item>
+          <Pressable
+            onClick={() => navigate('/account')}
+            className="card flex w-full items-center gap-4 px-5 py-4"
+          >
+            <span
+              className="flex h-11 w-11 items-center justify-center rounded-2xl"
+              style={{ background: 'var(--accent-soft)', color: 'var(--accent)' }}
+            >
+              <Cloud size={20} />
+            </span>
+            <span className="flex-1 text-left font-semibold">Account &amp; sync</span>
+            <ArrowRight size={18} className="text-faint" />
+          </Pressable>
+        </Item>
+      )}
 
       <Item>
         <p className="eyebrow text-faint mb-3">settings</p>

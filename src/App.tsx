@@ -30,7 +30,10 @@ import Speak from './screens/Speak';
 import Reflex from './screens/Reflex';
 import Puzzle from './screens/Puzzle';
 import Privacy from './screens/Privacy';
+import Account from './screens/Account';
 import { trackPageview } from './utils/analytics';
+import { supabase } from './lib/supabase';
+import { syncNow, startAutoSync, stopAutoSync } from './lib/sync';
 
 const wrap = (node: React.ReactNode) => <PageTransition>{node}</PageTransition>;
 
@@ -78,6 +81,7 @@ function Shell() {
             <Route path="/reflex" element={wrap(<Reflex />)} />
             <Route path="/puzzle" element={wrap(<Puzzle />)} />
             <Route path="/privacy" element={wrap(<Privacy />)} />
+            <Route path="/account" element={wrap(<Account />)} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </AnimatePresence>
@@ -121,6 +125,27 @@ export default function App() {
 
     return () => scheduleWhileOpen('', false, () => {});
   }, [reminderEnabled, reminderTime]);
+
+  // Cloud sync (optional): when signed in, reconcile once then auto-push
+  // local changes. No-op unless Supabase is configured.
+  useEffect(() => {
+    if (!supabase) return;
+    let activeUser: string | null = null;
+    const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+      const uid = session?.user.id ?? null;
+      if (uid === activeUser) return;
+      activeUser = uid;
+      if (uid) {
+        void syncNow(uid).then(() => startAutoSync(uid));
+      } else {
+        stopAutoSync();
+      }
+    });
+    return () => {
+      data.subscription.unsubscribe();
+      stopAutoSync();
+    };
+  }, []);
 
   // Unlock speech synthesis on the first user gesture (needed by iOS/Safari).
   useEffect(() => {

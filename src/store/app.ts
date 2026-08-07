@@ -31,6 +31,16 @@ export interface Mistake {
   ts: number;
 }
 
+/** The slices that are synced to the cloud (settings, progress, learning data). */
+export interface SyncableState {
+  onboarded: boolean;
+  settings: Settings;
+  progress: Progress;
+  srsRecords: Record<string, SrsRecord>;
+  mistakes: Record<string, Mistake>;
+  daily: DailyReview;
+}
+
 interface AppState {
   onboarded: boolean;
   completeOnboarding: () => void;
@@ -59,6 +69,9 @@ interface AppState {
   rolloverDaily: () => void;
   advanceDailyCursor: () => void;
   jumpDailyTo: (cursor: number) => void;
+
+  /** Replace synced slices in-memory (used by cloud sync after a merge). */
+  hydrate: (s: SyncableState) => void;
 
   reset: () => void;
 }
@@ -159,6 +172,16 @@ export const useApp = create<AppState>()(
       advanceDailyCursor: () =>
         set((st) => ({ daily: { ...st.daily, cursor: st.daily.cursor + 1 } })),
       jumpDailyTo: (cursor) => set({ daily: { date: getTodayKey(), dayStart: cursor, cursor } }),
+
+      hydrate: (s) =>
+        set({
+          onboarded: s.onboarded,
+          settings: { ...defaultSettings, ...s.settings },
+          progress: { ...defaultProgress, ...s.progress },
+          srsRecords: s.srsRecords ?? {},
+          mistakes: s.mistakes ?? {},
+          daily: { ...defaultDaily, ...s.daily },
+        }),
 
       reset: () =>
         set({

@@ -3,6 +3,7 @@ import { ArrowLeft } from 'lucide-react';
 import { Stagger, Item } from '../motion/Reveal';
 import { analyticsEnabled } from '../utils/analytics';
 import { monitoringEnabled } from '../utils/monitoring';
+import { syncEnabled } from '../lib/supabase';
 import { APP_NAME } from '../brand';
 
 // Where people can reach you. Swap for a dedicated support address if you set
@@ -54,6 +55,22 @@ export default function Privacy() {
           restore one, or reset everything permanently.
         </p>
       </Section>
+
+      {syncEnabled() ? (
+        <Section title="Optional account &amp; cloud sync">
+          <p>
+            You can optionally sign in with your email to back up your progress and continue on
+            another device. We use a passwordless magic link — {APP_NAME} never sees or stores a
+            password.
+          </p>
+          <p>
+            If you sign in, the same learning data described above is stored in our database and tied
+            to your account, so it can sync across your devices. We use it only to provide sync — we
+            don’t sell it or use it for advertising. Signing out keeps your data on the device; you
+            can request deletion at any time via the contact below.
+          </p>
+        </Section>
+      ) : null}
 
       {analyticsEnabled() ? (
         <Section title="Anonymous usage analytics">
